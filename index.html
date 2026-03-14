@@ -812,36 +812,6 @@ body::before {
 
     <!-- === INÍCIO === -->
     <div class="section active" id="sec-inicio">
-      <div class="profile-card glass-card" id="profileCard">
-        <div class="avatar" id="avatarInitial">?</div>
-        <div>
-          <div class="profile-name" id="profileName">—</div>
-          <div class="profile-meta">
-            <span><i class="fas fa-id-card"></i> <span id="profileCpf">—</span></span>
-            <span><i class="fas fa-envelope"></i> <span id="profileEmail">—</span></span>
-            <span class="badge-active"><i class="fas fa-circle" style="font-size:6px;"></i> <span id="profileStatus">Ativo</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-grid" id="statsGrid">
-        <div class="stat-card">
-          <div class="stat-label">Projetos Ativos</div>
-          <div class="stat-val" id="statProjects">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Prazos Pendentes</div>
-          <div class="stat-val" id="statDeadlines">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Alertas</div>
-          <div class="stat-val" id="statAlerts">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Links Úteis</div>
-          <div class="stat-val" id="statLinks">0</div>
-        </div>
-      </div>
 
       <!-- Redes Sociais -->
       <div class="social-grid">
@@ -882,13 +852,6 @@ body::before {
         </a>
       </div>
 
-      <!-- Timeline recente -->
-      <div class="glass-card">
-        <h3 style="font-family:var(--font-head); font-size:16px; margin-bottom:20px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-size:12px;">Atividade Recente</h3>
-        <div class="timeline" id="timelineEl">
-          <div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>
-        </div>
-      </div>
     </div>
 
     <!-- === PROJETOS === -->
@@ -1109,17 +1072,19 @@ async function loadAllData() {
 // ==================== PROFILE ====================
 function renderProfile() {
   const c = currentClient;
-  document.getElementById('profileName').textContent = c.nome || '—';
-  document.getElementById('profileCpf').textContent = fmtCPF(c.cpf||'');
-  document.getElementById('profileEmail').textContent = c.email || '—';
-  document.getElementById('profileStatus').textContent = c.status === 'active' ? 'Ativo' : 'Inativo';
-  document.getElementById('avatarInitial').textContent = (c.nome||'?')[0].toUpperCase();
+  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setEl('profileName',   c.nome || '—');
+  setEl('profileCpf',    fmtCPF(c.cpf||''));
+  setEl('profileEmail',  c.email || '—');
+  setEl('profileStatus', c.status === 'active' ? 'Ativo' : 'Inativo');
+  setEl('avatarInitial', (c.nome||'?')[0].toUpperCase());
 }
 function renderStats() {
-  document.getElementById('statProjects').textContent  = userData.projects.length;
-  document.getElementById('statDeadlines').textContent = userData.deadlines.filter(d=>d.status!=='concluido').length;
-  document.getElementById('statAlerts').textContent    = userData.alerts.length;
-  document.getElementById('statLinks').textContent     = userData.links.length;
+  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setEl('statProjects',  userData.projects.length);
+  setEl('statDeadlines', userData.deadlines.filter(d=>d.status!=='concluido').length);
+  setEl('statAlerts',    userData.alerts.length);
+  setEl('statLinks',     userData.links.length);
 }
 
 // ==================== TIMELINE ====================
@@ -1133,6 +1098,7 @@ function renderTimeline() {
   });
   items.sort((a,b) => b.date - a.date);
   const el = document.getElementById('timelineEl');
+  if(!el) return;
   if(!items.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>'; return; }
   el.innerHTML = items.slice(0,8).map(i => `
     <div class="timeline-item">
