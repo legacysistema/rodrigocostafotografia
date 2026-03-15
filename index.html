@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rodrigo Costa Fotografia — Portal do Cliente</title>
+<title>Rodrigo Costa — Portal do Cliente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -437,6 +437,10 @@ body::before {
   animation: fadeUp .4s ease both;
   backdrop-filter: blur(20px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+  -webkit-tap-highlight-color: rgba(0,229,255,0.15);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .prod-card:hover {
   transform: translateY(-6px);
@@ -812,36 +816,6 @@ body::before {
 
     <!-- === INÍCIO === -->
     <div class="section active" id="sec-inicio">
-      <div class="profile-card glass-card" id="profileCard">
-        <div class="avatar" id="avatarInitial">?</div>
-        <div>
-          <div class="profile-name" id="profileName">—</div>
-          <div class="profile-meta">
-            <span><i class="fas fa-id-card"></i> <span id="profileCpf">—</span></span>
-            <span><i class="fas fa-envelope"></i> <span id="profileEmail">—</span></span>
-            <span class="badge-active"><i class="fas fa-circle" style="font-size:6px;"></i> <span id="profileStatus">Ativo</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-grid" id="statsGrid">
-        <div class="stat-card">
-          <div class="stat-label">Projetos Ativos</div>
-          <div class="stat-val" id="statProjects">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Prazos Pendentes</div>
-          <div class="stat-val" id="statDeadlines">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Alertas</div>
-          <div class="stat-val" id="statAlerts">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Links Úteis</div>
-          <div class="stat-val" id="statLinks">0</div>
-        </div>
-      </div>
 
       <!-- Redes Sociais -->
       <div class="social-grid">
@@ -882,13 +856,6 @@ body::before {
         </a>
       </div>
 
-      <!-- Timeline recente -->
-      <div class="glass-card">
-        <h3 style="font-family:var(--font-head); font-size:16px; margin-bottom:20px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-size:12px;">Atividade Recente</h3>
-        <div class="timeline" id="timelineEl">
-          <div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>
-        </div>
-      </div>
     </div>
 
     <!-- === PROJETOS === -->
@@ -1109,17 +1076,19 @@ async function loadAllData() {
 // ==================== PROFILE ====================
 function renderProfile() {
   const c = currentClient;
-  document.getElementById('profileName').textContent = c.nome || '—';
-  document.getElementById('profileCpf').textContent = fmtCPF(c.cpf||'');
-  document.getElementById('profileEmail').textContent = c.email || '—';
-  document.getElementById('profileStatus').textContent = c.status === 'active' ? 'Ativo' : 'Inativo';
-  document.getElementById('avatarInitial').textContent = (c.nome||'?')[0].toUpperCase();
+  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setEl('profileName',   c.nome || '—');
+  setEl('profileCpf',    fmtCPF(c.cpf||''));
+  setEl('profileEmail',  c.email || '—');
+  setEl('profileStatus', c.status === 'active' ? 'Ativo' : 'Inativo');
+  setEl('avatarInitial', (c.nome||'?')[0].toUpperCase());
 }
 function renderStats() {
-  document.getElementById('statProjects').textContent  = userData.projects.length;
-  document.getElementById('statDeadlines').textContent = userData.deadlines.filter(d=>d.status!=='concluido').length;
-  document.getElementById('statAlerts').textContent    = userData.alerts.length;
-  document.getElementById('statLinks').textContent     = userData.links.length;
+  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setEl('statProjects',  userData.projects.length);
+  setEl('statDeadlines', userData.deadlines.filter(d=>d.status!=='concluido').length);
+  setEl('statAlerts',    userData.alerts.length);
+  setEl('statLinks',     userData.links.length);
 }
 
 // ==================== TIMELINE ====================
@@ -1133,6 +1102,7 @@ function renderTimeline() {
   });
   items.sort((a,b) => b.date - a.date);
   const el = document.getElementById('timelineEl');
+  if(!el) return;
   if(!items.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>'; return; }
   el.innerHTML = items.slice(0,8).map(i => `
     <div class="timeline-item">
@@ -1353,22 +1323,39 @@ function cardCarouselGo(id, idx) {
   document.querySelectorAll(`#cc-dots-${id} .prod-carousel-dot`).forEach((d,i)=>d.classList.toggle('active',i===idx));
 }
 
-// Touch swipe on cards
+// Touch swipe on cards — fixed for mobile tap + swipe
 let cardTouchStart = null;
 document.addEventListener('touchstart', e=>{
+  const card = e.target.closest('.prod-card');
+  if(!card) return;
   const wrap = e.target.closest('.prod-carousel');
-  if(wrap) cardTouchStart = {x:e.touches[0].clientX, id:wrap.id.replace('cc-wrap-','')};
+  const onclickAttr = card.getAttribute('onclick') || '';
+  const m = onclickAttr.match(/openModal\('([^']+)'\)/);
+  cardTouchStart = {
+    x: e.touches[0].clientX,
+    y: e.touches[0].clientY,
+    carouselId: wrap ? wrap.id.replace('cc-wrap-','') : null,
+    modalId: m ? m[1] : null
+  };
 }, {passive:true});
 document.addEventListener('touchend', e=>{
   if(!cardTouchStart) return;
   const dx = e.changedTouches[0].clientX - cardTouchStart.x;
-  const id = cardTouchStart.id;
-  const track = document.getElementById('cc-track-'+id);
-  if(track && Math.abs(dx) > 40) {
-    let idx = parseInt(track.dataset.idx||0);
-    const count = parseInt(track.dataset.count||1);
-    idx = dx < 0 ? Math.min(idx+1,count-1) : Math.max(idx-1,0);
-    cardCarouselGo(id, idx);
+  const dy = e.changedTouches[0].clientY - cardTouchStart.y;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+
+  if(cardTouchStart.carouselId && Math.abs(dx) > 40) {
+    // swipe no carousel — troca imagem
+    const track = document.getElementById('cc-track-'+cardTouchStart.carouselId);
+    if(track) {
+      let idx = parseInt(track.dataset.idx||0);
+      const count = parseInt(track.dataset.count||1);
+      idx = dx < 0 ? Math.min(idx+1,count-1) : Math.max(idx-1,0);
+      cardCarouselGo(cardTouchStart.carouselId, idx);
+    }
+  } else if(dist < 12 && cardTouchStart.modalId) {
+    // tap simples — abre modal
+    openModal(cardTouchStart.modalId);
   }
   cardTouchStart = null;
 }, {passive:true});
