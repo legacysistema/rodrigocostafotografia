@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LG Plataforma — Portal do Cliente</title>
+<title>Rodrigo Costa Fotografia — Portal do Cliente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -151,102 +151,31 @@ body::before {
 
 /* ===== DASHBOARD ===== */
 #dashboardPage { display:none; }
+.main-wrap { max-width:1200px; margin:0 auto; padding:32px 24px 120px; position:relative; z-index:1; }
 
-/* ===== SIDEBAR LAYOUT ===== */
-.dashboard-layout {
-  display: flex;
-  min-height: calc(100vh - 66px);
-  position: relative; z-index: 1;
-}
-
-/* ── Sidebar (desktop) ── */
-.sidebar {
-  width: 220px;
-  flex-shrink: 0;
-  background: rgba(8,8,14,0.88);
-  border-right: 1px solid rgba(255,255,255,0.07);
-  backdrop-filter: blur(24px) saturate(160%);
-  padding: 28px 12px;
-  position: sticky;
-  top: 66px;
-  height: calc(100vh - 66px);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: 2px 0 24px rgba(0,0,0,0.3);
-  z-index: 100;
-}
-.sidebar-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0 12px;
-  margin-bottom: 8px;
-  margin-top: 4px;
-  font-family: var(--font-body);
-}
-
-/* ── Main content ── */
-.main-wrap {
-  flex: 1;
-  min-width: 0;
-  padding: 32px 28px 120px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Sidebar nav tabs ── */
+/* ===== NAV TABS ===== */
 .nav-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  width: 100%;
+  display:flex; gap:4px; margin-bottom:36px;
+  background: rgba(10,10,18,0.7);
+  border-radius:14px; padding:5px;
+  border: 1px solid rgba(255,255,255,0.07);
+  width:fit-content;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
 .nav-tab {
-  padding: 11px 14px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--muted);
-  font-size: 13.5px;
-  font-family: var(--font-body);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all .2s;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  letter-spacing: 0.01em;
-  width: 100%;
-  text-align: left;
+  padding: 10px 20px; border-radius:10px; border:none;
+  background:transparent; color:var(--muted); font-size:13.5px;
+  font-family:var(--font-body); font-weight:500; cursor:pointer;
+  transition: all .2s; white-space:nowrap;
+  display:flex; align-items:center; gap:8px; letter-spacing:0.01em;
 }
-.nav-tab i {
-  width: 18px;
-  text-align: center;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-tab:hover { color:var(--text); background: rgba(255,255,255,0.04); }
 .nav-tab.active {
-  background: rgba(0,229,255,0.1);
-  color: var(--primary);
-  border-color: rgba(0,229,255,0.18);
-  box-shadow: var(--glow-cyan), inset 0 1px 0 rgba(0,229,255,0.08);
+  background: rgba(0,229,255,0.1); color:var(--primary);
+  border: 1px solid rgba(0,229,255,0.2);
+  box-shadow: var(--glow-cyan), inset 0 1px 0 rgba(0,229,255,0.1);
 }
-
-/* ── Overlay (mobile) ── */
-.sidebar-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1050;
-  backdrop-filter: blur(3px);
-}
-.sidebar-overlay.open { display: block; }
 
 /* ===== SECTION ===== */
 .section { display:none; }
@@ -508,10 +437,6 @@ body::before {
   animation: fadeUp .4s ease both;
   backdrop-filter: blur(20px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
-  -webkit-tap-highlight-color: rgba(0,229,255,0.15);
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
 }
 .prod-card:hover {
   transform: translateY(-6px);
@@ -734,94 +659,16 @@ body::before {
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:3px; }
 
 /* ===== RESPONSIVE ===== */
-
-/* ── Tablet: sidebar estreita com só ícones ── */
-@media(max-width:900px) and (min-width:601px) {
-  .sidebar { width: 64px; padding: 28px 8px; }
-  .sidebar-label { display: none; }
-  .nav-tab { padding: 12px; justify-content: center; gap: 0; }
-  .nav-tab span { display: none; }
-  .nav-tab i { width: auto; font-size: 18px; }
-  .main-wrap { padding: 28px 20px 120px; }
-}
-
-/* ── Mobile: sidebar vira drawer lateral + bottom bar ── */
 @media(max-width:600px) {
-  /* Esconde sidebar desktop */
-  .sidebar {
-    position: fixed;
-    top: 66px; left: 0;
-    height: calc(100vh - 66px);
-    width: 230px;
-    z-index: 1060;
-    transform: translateX(-100%);
-    transition: transform .28s cubic-bezier(.4,0,.2,1);
-    box-shadow: none;
-  }
-  .sidebar.open {
-    transform: translateX(0);
-    box-shadow: 6px 0 40px rgba(0,0,0,0.7);
-  }
-
-  /* Bottom navigation bar */
-  .bottom-nav {
-    display: flex !important;
-  }
-
-  .main-wrap { padding: 20px 14px 90px; }
-  .mkp-grid { grid-template-columns: 1fr; }
-  .cta-buttons { grid-template-columns: 1fr; }
-  .profile-card { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .fixed-bar-inner { flex-wrap: wrap; }
-  .fixed-actions { width: 100%; }
-  .fixed-btn-wa, .fixed-btn-pix { flex: 1; justify-content: center; }
-}
-
-/* ── Bottom nav bar (só mobile) ── */
-.bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 950;
-  background: rgba(8,8,14,0.96);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(24px) saturate(180%);
-  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
-}
-.bottom-nav-inner {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.bottom-nav-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 6px 4px;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 10px;
-  font-family: var(--font-body);
-  font-weight: 500;
-  cursor: pointer;
-  transition: color .2s;
-  -webkit-tap-highlight-color: transparent;
-}
-.bottom-nav-btn i {
-  font-size: 18px;
-  transition: color .2s, transform .15s;
-}
-.bottom-nav-btn.active {
-  color: var(--primary);
-}
-.bottom-nav-btn.active i {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 0 6px rgba(0,229,255,0.6));
+  .main-wrap { padding:24px 16px 100px; }
+  .nav-tabs { overflow-x:auto; width:100%; }
+  .mkp-grid { grid-template-columns:1fr; }
+  .cta-buttons { grid-template-columns:1fr; }
+  .profile-card { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .fixed-bar-inner { flex-wrap:wrap; }
+  .fixed-actions { width:100%; }
+  .fixed-btn-wa, .fixed-btn-pix { flex:1; justify-content:center; }
 }
 
 /* ===== SOCIAL CARDS ===== */
@@ -922,7 +769,7 @@ body::before {
 
 <!-- ===== HEADER ===== -->
 <header class="header" id="mainHeader" style="display:none;">
-  <div class="logo">LG Plataforma</div>
+  <div class="logo">Rodrigo Costa Fotografia</div>
   <div class="header-right">
     <div class="header-user">
       Olá, <strong id="headerName">—</strong>
@@ -949,54 +796,52 @@ body::before {
   </div>
 </div>
 
-<!-- Sidebar overlay for mobile -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-<!-- Bottom nav bar (mobile only) -->
-<nav class="bottom-nav" id="bottomNav">
-  <div class="bottom-nav-inner">
-    <button class="bottom-nav-btn active" onclick="showTab('inicio')" data-tab="inicio">
-      <i class="fas fa-home"></i><span>Início</span>
-    </button>
-    <button class="bottom-nav-btn" onclick="showTab('projetos')" data-tab="projetos">
-      <i class="fas fa-folder"></i><span>Projetos</span>
-    </button>
-    <button class="bottom-nav-btn" onclick="showTab('prazos')" data-tab="prazos">
-      <i class="fas fa-calendar"></i><span>Prazos</span>
-    </button>
-    <button class="bottom-nav-btn" onclick="showTab('alertas')" data-tab="alertas">
-      <i class="fas fa-bell"></i><span>Alertas</span>
-    </button>
-    <button class="bottom-nav-btn" onclick="showTab('links')" data-tab="links">
-      <i class="fas fa-link"></i><span>Links</span>
-    </button>
-    <button class="bottom-nav-btn" onclick="showTab('marketplace')" data-tab="marketplace">
-      <i class="fas fa-store"></i><span>Vitrine</span>
-    </button>
-  </div>
-</nav>
-
 <!-- ===== DASHBOARD ===== -->
 <div id="dashboardPage">
-  <div class="dashboard-layout">
-
-    <!-- Sidebar -->
-    <nav class="sidebar" id="sidebar">
-      <div class="sidebar-label">Menu</div>
-      <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showTab('inicio');closeSidebar()"><i class="fas fa-home"></i> Início</button>
-        <button class="nav-tab" onclick="showTab('projetos');closeSidebar()"><i class="fas fa-folder"></i> Projetos</button>
-        <button class="nav-tab" onclick="showTab('prazos');closeSidebar()"><i class="fas fa-calendar"></i> Prazos</button>
-        <button class="nav-tab" onclick="showTab('alertas');closeSidebar()"><i class="fas fa-bell"></i> Alertas</button>
-        <button class="nav-tab" onclick="showTab('links');closeSidebar()"><i class="fas fa-link"></i> Links</button>
-        <button class="nav-tab" onclick="showTab('marketplace');closeSidebar()"><i class="fas fa-store"></i> Vitrine</button>
-      </div>
-    </nav>
-
   <div class="main-wrap">
+
+    <!-- Nav tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('inicio')"><i class="fas fa-home"></i> Início</button>
+      <button class="nav-tab" onclick="showTab('projetos')"><i class="fas fa-folder"></i> Projetos</button>
+      <button class="nav-tab" onclick="showTab('prazos')"><i class="fas fa-calendar"></i> Prazos</button>
+      <button class="nav-tab" onclick="showTab('alertas')"><i class="fas fa-bell"></i> Alertas</button>
+      <button class="nav-tab" onclick="showTab('links')"><i class="fas fa-link"></i> Links</button>
+      <button class="nav-tab" onclick="showTab('marketplace')"><i class="fas fa-store"></i> Vitrine</button>
+    </div>
 
     <!-- === INÍCIO === -->
     <div class="section active" id="sec-inicio">
+      <div class="profile-card glass-card" id="profileCard">
+        <div class="avatar" id="avatarInitial">?</div>
+        <div>
+          <div class="profile-name" id="profileName">—</div>
+          <div class="profile-meta">
+            <span><i class="fas fa-id-card"></i> <span id="profileCpf">—</span></span>
+            <span><i class="fas fa-envelope"></i> <span id="profileEmail">—</span></span>
+            <span class="badge-active"><i class="fas fa-circle" style="font-size:6px;"></i> <span id="profileStatus">Ativo</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-label">Projetos Ativos</div>
+          <div class="stat-val" id="statProjects">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Prazos Pendentes</div>
+          <div class="stat-val" id="statDeadlines">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Alertas</div>
+          <div class="stat-val" id="statAlerts">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Links Úteis</div>
+          <div class="stat-val" id="statLinks">0</div>
+        </div>
+      </div>
 
       <!-- Redes Sociais -->
       <div class="social-grid">
@@ -1037,6 +882,13 @@ body::before {
         </a>
       </div>
 
+      <!-- Timeline recente -->
+      <div class="glass-card">
+        <h3 style="font-family:var(--font-head); font-size:16px; margin-bottom:20px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; font-size:12px;">Atividade Recente</h3>
+        <div class="timeline" id="timelineEl">
+          <div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>
+        </div>
+      </div>
     </div>
 
     <!-- === PROJETOS === -->
@@ -1089,9 +941,8 @@ body::before {
       </div>
     </div>
 
-  </div><!-- /main-wrap -->
-  </div><!-- /dashboard-layout -->
-</div><!-- /dashboardPage -->
+  </div>
+</div>
 
 <!-- ===== MODAL PRODUTO ===== -->
 <div class="modal-overlay" id="prodModal" onclick="modalOutside(event)">
@@ -1258,19 +1109,17 @@ async function loadAllData() {
 // ==================== PROFILE ====================
 function renderProfile() {
   const c = currentClient;
-  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  setEl('profileName',   c.nome || '—');
-  setEl('profileCpf',    fmtCPF(c.cpf||''));
-  setEl('profileEmail',  c.email || '—');
-  setEl('profileStatus', c.status === 'active' ? 'Ativo' : 'Inativo');
-  setEl('avatarInitial', (c.nome||'?')[0].toUpperCase());
+  document.getElementById('profileName').textContent = c.nome || '—';
+  document.getElementById('profileCpf').textContent = fmtCPF(c.cpf||'');
+  document.getElementById('profileEmail').textContent = c.email || '—';
+  document.getElementById('profileStatus').textContent = c.status === 'active' ? 'Ativo' : 'Inativo';
+  document.getElementById('avatarInitial').textContent = (c.nome||'?')[0].toUpperCase();
 }
 function renderStats() {
-  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  setEl('statProjects',  userData.projects.length);
-  setEl('statDeadlines', userData.deadlines.filter(d=>d.status!=='concluido').length);
-  setEl('statAlerts',    userData.alerts.length);
-  setEl('statLinks',     userData.links.length);
+  document.getElementById('statProjects').textContent  = userData.projects.length;
+  document.getElementById('statDeadlines').textContent = userData.deadlines.filter(d=>d.status!=='concluido').length;
+  document.getElementById('statAlerts').textContent    = userData.alerts.length;
+  document.getElementById('statLinks').textContent     = userData.links.length;
 }
 
 // ==================== TIMELINE ====================
@@ -1284,7 +1133,6 @@ function renderTimeline() {
   });
   items.sort((a,b) => b.date - a.date);
   const el = document.getElementById('timelineEl');
-  if(!el) return;
   if(!items.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>'; return; }
   el.innerHTML = items.slice(0,8).map(i => `
     <div class="timeline-item">
@@ -1404,23 +1252,8 @@ function showTab(name) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('sec-'+name).classList.add('active');
-  // sync sidebar tabs
-  document.querySelectorAll('.nav-tab').forEach(b=>{
-    if((b.getAttribute('onclick')||'').includes("'"+name+"'")) b.classList.add('active');
-  });
-  // sync bottom nav
-  document.querySelectorAll('.bottom-nav-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.tab === name);
-  });
+  event.currentTarget.classList.add('active');
   if(name==='marketplace' && mkpAllProducts.length===0) mkpLoad();
-}
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open');
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
 }
 
 // ==================== MARKETPLACE LOAD ====================
@@ -1520,39 +1353,22 @@ function cardCarouselGo(id, idx) {
   document.querySelectorAll(`#cc-dots-${id} .prod-carousel-dot`).forEach((d,i)=>d.classList.toggle('active',i===idx));
 }
 
-// Touch swipe on cards — fixed for mobile tap + swipe
+// Touch swipe on cards
 let cardTouchStart = null;
 document.addEventListener('touchstart', e=>{
-  const card = e.target.closest('.prod-card');
-  if(!card) return;
   const wrap = e.target.closest('.prod-carousel');
-  const onclickAttr = card.getAttribute('onclick') || '';
-  const m = onclickAttr.match(/openModal\('([^']+)'\)/);
-  cardTouchStart = {
-    x: e.touches[0].clientX,
-    y: e.touches[0].clientY,
-    carouselId: wrap ? wrap.id.replace('cc-wrap-','') : null,
-    modalId: m ? m[1] : null
-  };
+  if(wrap) cardTouchStart = {x:e.touches[0].clientX, id:wrap.id.replace('cc-wrap-','')};
 }, {passive:true});
 document.addEventListener('touchend', e=>{
   if(!cardTouchStart) return;
   const dx = e.changedTouches[0].clientX - cardTouchStart.x;
-  const dy = e.changedTouches[0].clientY - cardTouchStart.y;
-  const dist = Math.sqrt(dx*dx + dy*dy);
-
-  if(cardTouchStart.carouselId && Math.abs(dx) > 40) {
-    // swipe no carousel — troca imagem
-    const track = document.getElementById('cc-track-'+cardTouchStart.carouselId);
-    if(track) {
-      let idx = parseInt(track.dataset.idx||0);
-      const count = parseInt(track.dataset.count||1);
-      idx = dx < 0 ? Math.min(idx+1,count-1) : Math.max(idx-1,0);
-      cardCarouselGo(cardTouchStart.carouselId, idx);
-    }
-  } else if(dist < 12 && cardTouchStart.modalId) {
-    // tap simples — abre modal
-    openModal(cardTouchStart.modalId);
+  const id = cardTouchStart.id;
+  const track = document.getElementById('cc-track-'+id);
+  if(track && Math.abs(dx) > 40) {
+    let idx = parseInt(track.dataset.idx||0);
+    const count = parseInt(track.dataset.count||1);
+    idx = dx < 0 ? Math.min(idx+1,count-1) : Math.max(idx-1,0);
+    cardCarouselGo(id, idx);
   }
   cardTouchStart = null;
 }, {passive:true});
