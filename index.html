@@ -956,7 +956,7 @@ body::before {
     <div class="header-user">
       Olá, <strong id="headerName">—</strong>
     </div>
-    <button class="btn-logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    <button class="btn-logout" onclick="window._P.lo()"><i class="fas fa-sign-out-alt"></i> Sair</button>
   </div>
 </header>
 
@@ -1016,12 +1016,12 @@ body::before {
 
     <!-- Nav tabs -->
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="showTab('inicio')"><i class="fas fa-home"></i> Início</button>
-      <button class="nav-tab" onclick="showTab('projetos')"><i class="fas fa-folder"></i> Projetos</button>
-      <button class="nav-tab" onclick="showTab('prazos')"><i class="fas fa-calendar"></i> Prazos</button>
-      <button class="nav-tab" onclick="showTab('alertas')"><i class="fas fa-bell"></i> Alertas</button>
-      <button class="nav-tab" onclick="showTab('links')"><i class="fas fa-link"></i> Links</button>
-      <button class="nav-tab" onclick="showTab('marketplace')"><i class="fas fa-store"></i> Vitrine</button>
+      <button class="nav-tab active" onclick="window._P.st('inicio')"><i class="fas fa-home"></i> Início</button>
+      <button class="nav-tab" onclick="window._P.st('projetos')"><i class="fas fa-folder"></i> Projetos</button>
+      <button class="nav-tab" onclick="window._P.st('prazos')"><i class="fas fa-calendar"></i> Prazos</button>
+      <button class="nav-tab" onclick="window._P.st('alertas')"><i class="fas fa-bell"></i> Alertas</button>
+      <button class="nav-tab" onclick="window._P.st('links')"><i class="fas fa-link"></i> Links</button>
+      <button class="nav-tab" onclick="window._P.st('marketplace')"><i class="fas fa-store"></i> Vitrine</button>
     </div>
 
     <!-- === INÍCIO === -->
@@ -1102,8 +1102,8 @@ body::before {
       <p class="section-sub">Explore e reserve pacotes de fotografia</p>
 
       <div class="mkp-search-bar">
-        <input type="text" id="mkpSearch" placeholder="Buscar pacotes..." oninput="mkpFiltrar()">
-        <select id="mkpSort" onchange="mkpFiltrar()">
+        <input type="text" id="mkpSearch" placeholder="Buscar pacotes..." oninput="window._P.mf()">
+        <select id="mkpSort" onchange="window._P.mf()">
           <option value="recente">Mais recentes</option>
           <option value="menor">Menor preço</option>
           <option value="maior">Maior preço</option>
@@ -1122,15 +1122,15 @@ body::before {
 </div>
 
 <!-- ===== MODAL PRODUTO ===== -->
-<div class="modal-overlay" id="prodModal" onclick="modalOutside(event)">
+<div class="modal-overlay" id="prodModal" onclick="window._P.mo(event)">
   <div class="modal-box" id="prodModalBox">
-    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <button class="modal-close" onclick="window._P.cm()"><i class="fas fa-times"></i></button>
 
     <!-- Carousel -->
     <div class="modal-carousel" id="modalCarouselWrap">
       <div class="modal-carousel-track" id="modalCarouselTrack"></div>
-      <button class="modal-carousel-nav prev" id="modalPrev" onclick="modalCarouselMove(-1)" style="display:none;"><i class="fas fa-chevron-left"></i></button>
-      <button class="modal-carousel-nav next" id="modalNext" onclick="modalCarouselMove(1)" style="display:none;"><i class="fas fa-chevron-right"></i></button>
+      <button class="modal-carousel-nav prev" id="modalPrev" onclick="window._P.mm(-1)" style="display:none;"><i class="fas fa-chevron-left"></i></button>
+      <button class="modal-carousel-nav next" id="modalNext" onclick="window._P.mm(1)" style="display:none;"><i class="fas fa-chevron-right"></i></button>
       <div class="modal-carousel-dots" id="modalDots"></div>
     </div>
 
@@ -1162,8 +1162,8 @@ body::before {
 
       <!-- CTAs -->
       <div class="cta-buttons">
-        <button class="btn-wa" id="modalBtnWA" onclick="openWA()"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</button>
-        <button class="btn-pix" id="modalBtnPix" onclick="copyPix()"><i class="fas fa-bolt"></i> Reservar com Pix</button>
+        <button class="btn-wa" id="modalBtnWA" onclick="window._P.wa()"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</button>
+        <button class="btn-pix" id="modalBtnPix" onclick="window._P.px()"><i class="fas fa-bolt"></i> Reservar com Pix</button>
         <div class="pix-status" id="pixStatus"><i class="fas fa-check-circle"></i> Chave Pix copiada!</div>
       </div>
     </div>
@@ -1178,630 +1178,352 @@ body::before {
       <div class="fixed-price-val" id="fixedTotal">R$ 0,00</div>
     </div>
     <div class="fixed-actions">
-      <button class="fixed-btn-wa" onclick="openWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-      <button class="fixed-btn-pix" onclick="copyPix()"><i class="fas fa-bolt"></i> Pix</button>
+      <button class="fixed-btn-wa" onclick="window._P.wa()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      <button class="fixed-btn-pix" onclick="window._P.px()"><i class="fas fa-bolt"></i> Pix</button>
     </div>
   </div>
 </div>
 
+
 <script>
-// ==================== CONFIG ====================
-const SUPABASE_URL = 'https://ledpqcynvqbdbccebhbo.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlZHBxY3ludnFiZGJjY2ViaGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzODc3MjgsImV4cCI6MjA4NTk2MzcyOH0.s8GOzp4woujGuDc4vK9QXIf3cWLMENUnJfE4lt_YhLg';
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+(function(_0x4a1b,_0x2c3f){
 
-const TABLES = { clients:'clientes', projects:'projetos', deadlines:'prazos', alerts:'alertas', links:'links' };
+var _su = atob('aHR0cHM6Ly9sZWRwcWN5bnZxYmRiY2NlYmhiby5zdXBhYmFzZS5jbw==');
+var _sk = atob('ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW14bFpIQnhZM2x1ZG5GaVpHSmpZMlZpYUdKdklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzTnpBek9EYzNNamdzSW1WNGNDSTZNakE0TlRrMk16Y3lPSDAuczhHT3pwNHdvdWpHdURjNHZLOVFYSWYzY1dMTUVOVW5KZkU0bHRfWWhMZw==');
+var _db = window.supabase.createClient(_su, _sk);
 
-let currentClient = null;
-let userData = { projects:[], deadlines:[], alerts:[], links:[] };
-let mkpAllProducts = [];
-let mkpCatAtiva = '';
-let currentProduct = null;
-let currentBasePrice = 0;
-let modalCarouselIdx = 0;
-let modalImages = [];
+var _T = {
+  c: 'clientes',
+  p: 'projetos',
+  d: 'prazos',
+  a: 'alertas',
+  l: 'links'
+};
 
-// ==================== HELPERS ====================
-function fmtCPF(v) {
-  v = v.replace(/\D/g,'');
+var _cc = null;
+var _ud = {p:[],d:[],a:[],l:[]};
+var _mp = [];
+var _mca = '';
+var _cp = null;
+var _cbp = 0;
+var _mci = 0;
+var _mi = [];
+
+function _fCPF(v){
+  v=v.replace(/\D/g,'');
   if(v.length<=11) return v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
   return v;
 }
-function fmtDate(d) {
-  if(!d) return '—';
+function _fDate(d){
+  if(!d) return '\u2014';
   return new Date(d).toLocaleDateString('pt-BR');
 }
-function fmtMoney(v) {
-  let num = v;
-  if(typeof num === 'string') {
-    let s = num.trim();
-    if(s.includes(',')) { s = s.replace(/\./g,'').replace(',','.'); }
-    num = parseFloat(s);
-  }
-  return 'R$ ' + parseFloat(num||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+function _fMoney(v){
+  var n=v;
+  if(typeof n==='string'){var s=n.trim();if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');n=parseFloat(s);}
+  return 'R$ '+parseFloat(n||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
-function esc(s) {
+function _esc(s){
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-function showLoginMsg(msg, type) {
-  const el = document.getElementById('loginMsg');
-  el.textContent = msg; el.className = 'msg-toast ' + type; el.style.display = 'block';
+function _msg(m,t){
+  var e=document.getElementById('loginMsg');
+  e.textContent=m;e.className='msg-toast '+t;e.style.display='block';
 }
+function _ge(id){return document.getElementById(id);}
 
-// ==================== LOGIN ====================
-document.getElementById('loginForm').addEventListener('submit', async function(e) {
+_ge('loginForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const cpf = document.getElementById('cpfInput').value.replace(/\D/g,'');
-  const btn = document.getElementById('loginBtn');
-  btn.innerHTML = '<span class="btn-line"></span> Verificando... <i class="fas fa-spinner fa-spin" style="font-size:11px;opacity:.6;"></i>';
-  btn.disabled = true;
-
-  const { data, error } = await db.from(TABLES.clients).select('*').eq('cpf', cpf).maybeSingle();
-  btn.innerHTML = '<span class="btn-line"></span> Acessar Portal <i class="fas fa-arrow-right" style="font-size:11px;opacity:.6;"></i>';
-  btn.disabled = false;
-
-  if(error) { showLoginMsg('Erro: '+error.message,'error'); return; }
-  if(!data) { showLoginMsg('Acesso não encontrado. Fale com seu fotógrafo.','error'); return; }
-
-  currentClient = data;
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('mainHeader').style.display = 'flex';
-  document.getElementById('dashboardPage').style.display = 'block';
-  document.getElementById('headerName').textContent = data.nome.split(' ')[0];
-  pushDashboardHistory();
-  await loadAllData();
+  var cpf=_ge('cpfInput').value.replace(/\D/g,'');
+  var btn=_ge('loginBtn');
+  btn.innerHTML='<span class="btn-line"></span> Verificando... <i class="fas fa-spinner fa-spin" style="font-size:11px;opacity:.6;"></i>';
+  btn.disabled=true;
+  var r=await _db.from(_T.c).select('*').eq('cpf',cpf).maybeSingle();
+  btn.innerHTML='<span class="btn-line"></span> Acessar Portal <i class="fas fa-arrow-right" style="font-size:11px;opacity:.6;"></i>';
+  btn.disabled=false;
+  if(r.error){_msg('Erro: '+r.error.message,'error');return;}
+  if(!r.data){_msg('Acesso n\u00e3o encontrado. Fale com seu fot\u00f3grafo.','error');return;}
+  _cc=r.data;
+  _ge('loginPage').style.display='none';
+  _ge('mainHeader').style.display='flex';
+  _ge('dashboardPage').style.display='block';
+  _ge('headerName').textContent=r.data.nome.split(' ')[0];
+  _pDash();
+  await _loadAll();
 });
 
-// ==================== LOGOUT ====================
-function handleLogout() {
-  currentClient = null; userData = {projects:[],deadlines:[],alerts:[],links:[]};
-  document.getElementById('loginPage').style.display = 'flex';
-  document.getElementById('mainHeader').style.display = 'none';
-  document.getElementById('dashboardPage').style.display = 'none';
-  document.getElementById('loginMsg').style.display = 'none';
+function _logout(){
+  _cc=null;_ud={p:[],d:[],a:[],l:[]};
+  _ge('loginPage').style.display='flex';
+  _ge('mainHeader').style.display='none';
+  _ge('dashboardPage').style.display='none';
+  _ge('loginMsg').style.display='none';
 }
 
-// ==================== LOAD DATA ====================
-async function loadAllData() {
-  const cid = currentClient.id;
-  const [p, d, a, l] = await Promise.all([
-    db.from(TABLES.projects).select('*').eq('cliente_id',cid),
-    db.from(TABLES.deadlines).select('*').eq('cliente_id',cid),
-    db.from(TABLES.alerts).select('*').eq('cliente_id',cid),
-    db.from(TABLES.links).select('*').eq('cliente_id',cid),
+async function _loadAll(){
+  var id=_cc.id;
+  var rs=await Promise.all([
+    _db.from(_T.p).select('*').eq('cliente_id',id),
+    _db.from(_T.d).select('*').eq('cliente_id',id),
+    _db.from(_T.a).select('*').eq('cliente_id',id),
+    _db.from(_T.l).select('*').eq('cliente_id',id),
   ]);
-  userData.projects  = p.data || [];
-  userData.deadlines = d.data || [];
-  userData.alerts    = a.data || [];
-  userData.links     = l.data || [];
-  renderProfile();
-  renderStats();
-  renderTimeline();
-  renderProjects();
-  renderDeadlines();
-  renderAlerts();
-  renderLinks();
-  await mkpLoad();
+  _ud.p=rs[0].data||[];_ud.d=rs[1].data||[];_ud.a=rs[2].data||[];_ud.l=rs[3].data||[];
+  _rProfile();_rStats();_rTimeline();_rProjects();_rDeadlines();_rAlerts();_rLinks();
+  await _mkpLoad();
 }
 
-// ==================== PROFILE ====================
-function renderProfile() {
-  const c = currentClient;
-  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  setEl('profileName',   c.nome || '—');
-  setEl('profileCpf',    fmtCPF(c.cpf||''));
-  setEl('profileEmail',  c.email || '—');
-  setEl('profileStatus', c.status === 'active' ? 'Ativo' : 'Inativo');
-  setEl('avatarInitial', (c.nome||'?')[0].toUpperCase());
+function _rProfile(){
+  var c=_cc;
+  var s=function(id,v){var e=_ge(id);if(e)e.textContent=v;};
+  s('profileName',c.nome||'\u2014');s('profileCpf',_fCPF(c.cpf||''));
+  s('profileEmail',c.email||'\u2014');
+  s('profileStatus',c.status==='active'?'Ativo':'Inativo');
+  s('avatarInitial',(c.nome||'?')[0].toUpperCase());
 }
-function renderStats() {
-  const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
-  setEl('statProjects',  userData.projects.length);
-  setEl('statDeadlines', userData.deadlines.filter(d=>d.status!=='concluido').length);
-  setEl('statAlerts',    userData.alerts.length);
-  setEl('statLinks',     userData.links.length);
+function _rStats(){
+  var s=function(id,v){var e=_ge(id);if(e)e.textContent=v;};
+  s('statProjects',_ud.p.length);
+  s('statDeadlines',_ud.d.filter(function(x){return x.status!=='concluido';}).length);
+  s('statAlerts',_ud.a.length);s('statLinks',_ud.l.length);
 }
 
-// ==================== TIMELINE ====================
-function renderTimeline() {
-  const items = [];
-  userData.projects.forEach(p => {
-    if(p.data_inicio) items.push({ date: new Date(p.data_inicio), label: p.nome, sub:'Projeto', icon:'fa-folder', color:'var(--primary)' });
-  });
-  userData.deadlines.forEach(d => {
-    if(d.data) items.push({ date: new Date(d.data), label: d.titulo, sub:'Prazo', icon:'fa-calendar-check', color:'#ffaa00' });
-  });
-  items.sort((a,b) => b.date - a.date);
-  const el = document.getElementById('timelineEl');
-  if(!el) return;
-  if(!items.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>'; return; }
-  el.innerHTML = items.slice(0,8).map(i => `
-    <div class="timeline-item">
-      <div class="timeline-date"><i class="fas fa-calendar" style="color:${i.color};margin-right:5px;"></i>${fmtDate(i.date)}</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <i class="fas ${i.icon}" style="color:${i.color};font-size:13px;"></i>
-        <span style="font-size:14px;font-weight:500;">${esc(i.label)}</span>
-        <span class="badge badge-info" style="font-size:10px;">${i.sub}</span>
-      </div>
-    </div>
-  `).join('');
+function _rTimeline(){
+  var items=[];
+  _ud.p.forEach(function(p){if(p.data_inicio)items.push({date:new Date(p.data_inicio),label:p.nome,sub:'Projeto',icon:'fa-folder',color:'var(--primary)'});});
+  _ud.d.forEach(function(d){if(d.data)items.push({date:new Date(d.data),label:d.titulo,sub:'Prazo',icon:'fa-calendar-check',color:'#ffaa00'});});
+  items.sort(function(a,b){return b.date-a.date;});
+  var el=_ge('timelineEl');if(!el)return;
+  if(!items.length){el.innerHTML='<div class="empty-state"><i class="fas fa-clock"></i><p>Nenhuma atividade ainda</p></div>';return;}
+  el.innerHTML=items.slice(0,8).map(function(i){return '<div class="timeline-item"><div class="timeline-date"><i class="fas fa-calendar" style="color:'+i.color+';margin-right:5px;"></i>'+_fDate(i.date)+'</div><div style="display:flex;align-items:center;gap:8px;"><i class="fas '+i.icon+'" style="color:'+i.color+';font-size:13px;"></i><span style="font-size:14px;font-weight:500;">'+_esc(i.label)+'</span><span class="badge badge-info" style="font-size:10px;">'+i.sub+'</span></div></div>';}).join('');
 }
 
-// ==================== PROJECTS ====================
-function renderProjects() {
-  const el = document.getElementById('projList');
-  if(!userData.projects.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-folder-open"></i><p>Nenhum projeto cadastrado</p></div>'; return; }
-  const statusMap = { planning:['badge-info','Planejamento'], in_progress:['badge-warning','Em Andamento'], completed:['badge-success','Concluído'] };
-  el.innerHTML = userData.projects.map(p => {
-    const [bc, bl] = statusMap[p.status] || ['badge-info', p.status || '—'];
-    const prog = Math.min(100, Math.max(0, p.progresso || 0));
-    return `
-    <div class="item-card">
-      <div class="item-card-header">
-        <div>
-          <div class="item-title">${esc(p.nome)}</div>
-          ${p.descricao ? `<div class="item-desc" style="margin-top:4px;">${esc(p.descricao)}</div>` : ''}
-        </div>
-        <span class="badge ${bc}">${bl}</span>
-      </div>
-      <div class="item-meta">
-        ${p.data_inicio ? `<span class="item-meta-i"><i class="fas fa-play-circle"></i> Início: ${fmtDate(p.data_inicio)}</span>` : ''}
-        <span class="item-meta-i"><i class="fas fa-chart-line"></i> ${prog}% concluído</span>
-      </div>
-      <div class="progress-bar-wrap"><div class="progress-bar" style="width:${prog}%"></div></div>
-    </div>`;
+function _rProjects(){
+  var el=_ge('projList');
+  if(!_ud.p.length){el.innerHTML='<div class="empty-state"><i class="fas fa-folder-open"></i><p>Nenhum projeto cadastrado</p></div>';return;}
+  var sm={planning:['badge-info','Planejamento'],in_progress:['badge-warning','Em Andamento'],completed:['badge-success','Conclu\u00eddo']};
+  el.innerHTML=_ud.p.map(function(p){
+    var bc=sm[p.status]?sm[p.status][0]:'badge-info',bl=sm[p.status]?sm[p.status][1]:(p.status||'\u2014');
+    var prog=Math.min(100,Math.max(0,p.progresso||0));
+    return '<div class="item-card"><div class="item-card-header"><div><div class="item-title">'+_esc(p.nome)+'</div>'+(p.descricao?'<div class="item-desc" style="margin-top:4px;">'+_esc(p.descricao)+'</div>':'')+'</div><span class="badge '+bc+'">'+bl+'</span></div><div class="item-meta">'+(p.data_inicio?'<span class="item-meta-i"><i class="fas fa-play-circle"></i> In\u00edcio: '+_fDate(p.data_inicio)+'</span>':'')+'<span class="item-meta-i"><i class="fas fa-chart-line"></i> '+prog+'% conclu\u00eddo</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:'+prog+'%"></div></div></div>';
   }).join('');
 }
 
-// ==================== DEADLINES ====================
-function renderDeadlines() {
-  const el = document.getElementById('prazoList');
-  if(!userData.deadlines.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-times"></i><p>Nenhum prazo cadastrado</p></div>'; return; }
-  const statusMap = { pendente:['badge-warning','Pendente'], em_andamento:['badge-info','Em Andamento'], concluido:['badge-success','Concluído'] };
-  el.innerHTML = userData.deadlines.map(d => {
-    const [bc,bl] = statusMap[d.status] || ['badge-info', d.status || '—'];
-    const now = new Date();
-    const dt = d.data ? new Date(d.data) : null;
-    let daysInfo = '';
-    if(dt) {
-      const diff = Math.ceil((dt - now)/(1000*60*60*24));
-      if(diff < 0) daysInfo = `<span class="badge badge-danger">${Math.abs(diff)} dias atrasado</span>`;
-      else if(diff === 0) daysInfo = `<span class="badge badge-warning">Hoje!</span>`;
-      else daysInfo = `<span class="item-meta-i"><i class="fas fa-hourglass-half"></i> ${diff} dias restantes</span>`;
-    }
-    return `
-    <div class="item-card">
-      <div class="item-card-header">
-        <div>
-          <div class="item-title">${esc(d.titulo)}</div>
-          ${d.descricao ? `<div class="item-desc" style="margin-top:4px;">${esc(d.descricao)}</div>` : ''}
-        </div>
-        <span class="badge ${bc}">${bl}</span>
-      </div>
-      <div class="item-meta">
-        ${dt ? `<span class="item-meta-i"><i class="fas fa-calendar"></i> Data: ${fmtDate(dt)}</span>` : ''}
-        ${daysInfo}
-      </div>
-    </div>`;
+function _rDeadlines(){
+  var el=_ge('prazoList');
+  if(!_ud.d.length){el.innerHTML='<div class="empty-state"><i class="fas fa-calendar-times"></i><p>Nenhum prazo cadastrado</p></div>';return;}
+  var sm={pendente:['badge-warning','Pendente'],em_andamento:['badge-info','Em Andamento'],concluido:['badge-success','Conclu\u00eddo']};
+  el.innerHTML=_ud.d.map(function(d){
+    var bc=sm[d.status]?sm[d.status][0]:'badge-info',bl=sm[d.status]?sm[d.status][1]:(d.status||'\u2014');
+    var now=new Date(),dt=d.data?new Date(d.data):null,di='';
+    if(dt){var diff=Math.ceil((dt-now)/(864e5));di=diff<0?'<span class="badge badge-danger">'+Math.abs(diff)+' dias atrasado</span>':diff===0?'<span class="badge badge-warning">Hoje!</span>':'<span class="item-meta-i"><i class="fas fa-hourglass-half"></i> '+diff+' dias restantes</span>';}
+    return '<div class="item-card"><div class="item-card-header"><div><div class="item-title">'+_esc(d.titulo)+'</div>'+(d.descricao?'<div class="item-desc" style="margin-top:4px;">'+_esc(d.descricao)+'</div>':'')+'</div><span class="badge '+bc+'">'+bl+'</span></div><div class="item-meta">'+(dt?'<span class="item-meta-i"><i class="fas fa-calendar"></i> Data: '+_fDate(dt)+'</span>':'')+di+'</div></div>';
   }).join('');
 }
 
-// ==================== ALERTS ====================
-function renderAlerts() {
-  const el = document.getElementById('alertList');
-  if(!userData.alerts.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-bell-slash"></i><p>Nenhum alerta no momento</p></div>'; return; }
-  const typeMap = { info:['badge-info','fa-info-circle','var(--primary)'], warning:['badge-warning','fa-exclamation-triangle','#ffaa00'], error:['badge-danger','fa-times-circle','var(--danger)'], success:['badge-success','fa-check-circle','var(--green)'] };
-  el.innerHTML = userData.alerts.map(a => {
-    const [bc,icon,col] = typeMap[a.tipo] || typeMap.info;
-    const alertClass = 'alert-' + (a.tipo || 'info');
-    return `
-    <div class="item-card ${alertClass}">
-      <div class="item-card-header">
-        <div style="display:flex;gap:14px;align-items:flex-start;">
-          <i class="fas ${icon}" style="color:${col};font-size:24px;margin-top:3px;flex-shrink:0;"></i>
-          <div>
-            <div class="item-title">${esc(a.titulo)}</div>
-            <div class="item-desc" style="margin-top:4px;">${esc(a.descricao||a.mensagem||'')}</div>
-          </div>
-        </div>
-        <span class="badge ${bc}">${(a.tipo||'info').toUpperCase()}</span>
-      </div>
-      ${a.criado_em ? `<div class="item-meta"><span class="item-meta-i"><i class="fas fa-clock"></i> ${fmtDate(a.criado_em)}</span></div>` : ''}
-    </div>`;
+function _rAlerts(){
+  var el=_ge('alertList');
+  if(!_ud.a.length){el.innerHTML='<div class="empty-state"><i class="fas fa-bell-slash"></i><p>Nenhum alerta no momento</p></div>';return;}
+  var tm={info:['badge-info','fa-info-circle','var(--primary)'],warning:['badge-warning','fa-exclamation-triangle','#ffaa00'],error:['badge-danger','fa-times-circle','var(--danger)'],success:['badge-success','fa-check-circle','var(--green)']};
+  el.innerHTML=_ud.a.map(function(a){
+    var t=tm[a.tipo]||tm.info,bc=t[0],icon=t[1],col=t[2];
+    return '<div class="item-card alert-'+(a.tipo||'info')+'"><div class="item-card-header"><div style="display:flex;gap:14px;align-items:flex-start;"><i class="fas '+icon+'" style="color:'+col+';font-size:24px;margin-top:3px;flex-shrink:0;"></i><div><div class="item-title">'+_esc(a.titulo)+'</div><div class="item-desc" style="margin-top:4px;">'+_esc(a.descricao||a.mensagem||'')+'</div></div></div><span class="badge '+bc+'">'+(a.tipo||'info').toUpperCase()+'</span></div>'+(a.criado_em?'<div class="item-meta"><span class="item-meta-i"><i class="fas fa-clock"></i> '+_fDate(a.criado_em)+'</span></div>':'')+'</div>';
   }).join('');
 }
 
-// ==================== LINKS ====================
-function renderLinks() {
-  const el = document.getElementById('linkList');
-  if(!userData.links.length) { el.innerHTML = '<div class="empty-state"><i class="fas fa-link"></i><p>Nenhum link cadastrado</p></div>'; return; }
-  el.innerHTML = userData.links.map(l => `
-    <a href="${esc(l.url)}" target="_blank" rel="noopener" class="link-card">
-      <div class="link-icon"><i class="fas fa-external-link-alt"></i></div>
-      <div class="link-info">
-        <div class="link-title">${esc(l.titulo)}</div>
-        <div class="link-url">${esc(l.url)}</div>
-        ${l.descricao ? `<div style="font-size:12px;color:var(--muted);margin-top:3px;">${esc(l.descricao)}</div>` : ''}
-      </div>
-      <i class="fas fa-arrow-right" style="color:var(--muted);font-size:14px;"></i>
-    </a>
-  `).join('');
+function _rLinks(){
+  var el=_ge('linkList');
+  if(!_ud.l.length){el.innerHTML='<div class="empty-state"><i class="fas fa-link"></i><p>Nenhum link cadastrado</p></div>';return;}
+  el.innerHTML=_ud.l.map(function(l){return '<a href="'+_esc(l.url)+'" target="_blank" rel="noopener" class="link-card"><div class="link-icon"><i class="fas fa-external-link-alt"></i></div><div class="link-info"><div class="link-title">'+_esc(l.titulo)+'</div><div class="link-url">'+_esc(l.url)+'</div>'+(l.descricao?'<div style="font-size:12px;color:var(--muted);margin-top:3px;">'+_esc(l.descricao)+'</div>':'')+'</div><i class="fas fa-arrow-right" style="color:var(--muted);font-size:14px;"></i></a>';}).join('');
 }
 
-// ==================== TABS ====================
-function showTab(name) {
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('sec-'+name).classList.add('active');
+function _showTab(name){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(b){b.classList.remove('active');});
+  _ge('sec-'+name).classList.add('active');
   event.currentTarget.classList.add('active');
-  if(name==='marketplace' && mkpAllProducts.length===0) mkpLoad();
+  if(name==='marketplace'&&_mp.length===0)_mkpLoad();
 }
 
-// ==================== MARKETPLACE LOAD ====================
-async function mkpLoad() {
-  const { data, error } = await db
-    .from('marketplace_produtos')
-    .select('id, nome, descricao, preco, imagem_url, imagem2_url, imagem3_url, categoria, vendedor_nome, vendedor_id, status, data_criacao, whatsapp, pix_key, incluso, extras')
-    .eq('status','ativo')
-    .order('data_criacao',{ascending:false});
-  if(error) {
-    document.getElementById('mkpGrid').innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-exclamation-circle"></i><p>Erro ao carregar: ${esc(error.message)}</p></div>`;
-    return;
-  }
-  mkpAllProducts = data || [];
-  mkpBuildCatPills();
-  mkpFiltrar();
+async function _mkpLoad(){
+  var r=await _db.from('marketplace_produtos').select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,categoria,vendedor_nome,vendedor_id,status,data_criacao,whatsapp,pix_key,incluso,extras').eq('status','ativo').order('data_criacao',{ascending:false});
+  if(r.error){_ge('mkpGrid').innerHTML='<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-exclamation-circle"></i><p>Erro ao carregar: '+_esc(r.error.message)+'</p></div>';return;}
+  _mp=r.data||[];
+  _mkpCats();_mkpFilter();
 }
-
-function mkpBuildCatPills() {
-  const cats = [...new Set(mkpAllProducts.map(p=>p.categoria).filter(Boolean))];
-  const el = document.getElementById('mkpCatPills');
-  el.innerHTML = `<button class="mkp-pill active" onclick="mkpSetCat('',this)">Todos</button>` +
-    cats.map(c=>`<button class="mkp-pill" onclick="mkpSetCat('${esc(c)}',this)">${esc(c)}</button>`).join('');
+function _mkpCats(){
+  var cats=[...new Set(_mp.map(function(p){return p.categoria;}).filter(Boolean))];
+  var el=_ge('mkpCatPills');
+  el.innerHTML='<button class="mkp-pill active" onclick="window._P.sc(\'\',this)">Todos</button>'+cats.map(function(c){return '<button class="mkp-pill" onclick="window._P.sc(\''+_esc(c)+'\',this)">'+_esc(c)+'</button>';}).join('');
 }
-
-function mkpSetCat(cat, btn) {
-  mkpCatAtiva = cat;
-  document.querySelectorAll('.mkp-pill').forEach(b=>b.classList.remove('active'));
+function _mkpSetCat(cat,btn){
+  _mca=cat;
+  document.querySelectorAll('.mkp-pill').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
-  mkpFiltrar();
+  _mkpFilter();
 }
-
-function mkpFiltrar() {
-  const q = (document.getElementById('mkpSearch')?.value||'').toLowerCase();
-  const sort = document.getElementById('mkpSort')?.value || 'recente';
-  let list = mkpAllProducts.filter(p => {
-    const matchQ = !q || (p.nome||'').toLowerCase().includes(q) || (p.descricao||'').toLowerCase().includes(q) || (p.vendedor_nome||'').toLowerCase().includes(q);
-    const matchCat = !mkpCatAtiva || (p.categoria||'') === mkpCatAtiva;
-    return matchQ && matchCat;
+function _mkpFilter(){
+  var q=(_ge('mkpSearch')?.value||'').toLowerCase();
+  var sort=_ge('mkpSort')?.value||'recente';
+  var list=_mp.filter(function(p){
+    return (!q||(p.nome||'').toLowerCase().includes(q)||(p.descricao||'').toLowerCase().includes(q)||(p.vendedor_nome||'').toLowerCase().includes(q))&&(!_mca||(p.categoria||'')===_mca);
   });
-  if(sort==='menor') list.sort((a,b)=>parseFloat(a.preco||0)-parseFloat(b.preco||0));
-  else if(sort==='maior') list.sort((a,b)=>parseFloat(b.preco||0)-parseFloat(a.preco||0));
-  else if(sort==='az') list.sort((a,b)=>(a.nome||'').localeCompare(b.nome||''));
-  document.getElementById('mkpCount').textContent = `${list.length} pacote${list.length!==1?'s':''} encontrado${list.length!==1?'s':''}`;
-  renderMkpGrid(list);
+  if(sort==='menor')list.sort(function(a,b){return parseFloat(a.preco||0)-parseFloat(b.preco||0);});
+  else if(sort==='maior')list.sort(function(a,b){return parseFloat(b.preco||0)-parseFloat(a.preco||0);});
+  else if(sort==='az')list.sort(function(a,b){return(a.nome||'').localeCompare(b.nome||'');});
+  _ge('mkpCount').textContent=list.length+' pacote'+(list.length!==1?'s':'')+' encontrado'+(list.length!==1?'s':'');
+  _rGrid(list);
 }
-
-// ==================== RENDER GRID ====================
-function renderMkpGrid(list) {
-  const el = document.getElementById('mkpGrid');
-  if(!list.length) {
-    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-search"></i><p>Nenhum pacote encontrado</p></div>';
-    return;
-  }
-  el.innerHTML = list.map((p, idx) => {
-    const imgs = buildImgList(p);
-    const carouselHtml = buildCardCarousel(p.id, imgs);
-    return `
-    <div class="prod-card" style="animation-delay:${idx*0.04}s" onclick="openModal('${p.id}')">
-      <div class="prod-carousel" id="cc-wrap-${p.id}">
-        ${carouselHtml}
-        ${p.categoria ? `<div class="prod-cat-badge">${esc(p.categoria)}</div>` : ''}
-      </div>
-      <div class="prod-body">
-        <div class="prod-title">${esc(p.nome)}</div>
-        ${p.descricao ? `<div class="prod-desc">${esc(p.descricao)}</div>` : ''}
-        <div class="prod-vendor"><i class="fas fa-user-tie"></i> ${esc(p.vendedor_nome||'—')}</div>
-        <div class="prod-footer">
-          <div class="prod-price">${fmtMoney(p.preco)}</div>
-          <button class="btn-ver" onclick="event.stopPropagation();openModal('${p.id}')">Ver mais <i class="fas fa-arrow-right"></i></button>
-        </div>
-      </div>
-    </div>`;
+function _rGrid(list){
+  var el=_ge('mkpGrid');
+  if(!list.length){el.innerHTML='<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-search"></i><p>Nenhum pacote encontrado</p></div>';return;}
+  el.innerHTML=list.map(function(p,idx){
+    var imgs=_bImgs(p),ch=_bCarousel(p.id,imgs);
+    return '<div class="prod-card" style="animation-delay:'+idx*0.04+'s" onclick="window._P.om(\''+p.id+'\')"><div class="prod-carousel" id="cc-wrap-'+p.id+'">'+ch+(p.categoria?'<div class="prod-cat-badge">'+_esc(p.categoria)+'</div>':'')+'</div><div class="prod-body"><div class="prod-title">'+_esc(p.nome)+'</div>'+(p.descricao?'<div class="prod-desc">'+_esc(p.descricao)+'</div>':'')+'<div class="prod-vendor"><i class="fas fa-user-tie"></i> '+_esc(p.vendedor_nome||'\u2014')+'</div><div class="prod-footer"><div class="prod-price">'+_fMoney(p.preco)+'</div><button class="btn-ver" onclick="event.stopPropagation();window._P.om(\''+p.id+'\')">Ver mais <i class="fas fa-arrow-right"></i></button></div></div></div>';
   }).join('');
 }
-
-function buildImgList(p) {
-  const imgs = [];
-  if(p.imagem_url) imgs.push(p.imagem_url);
-  if(p.imagem2_url) imgs.push(p.imagem2_url);
-  if(p.imagem3_url) imgs.push(p.imagem3_url);
-  return imgs;
+function _bImgs(p){var i=[];if(p.imagem_url)i.push(p.imagem_url);if(p.imagem2_url)i.push(p.imagem2_url);if(p.imagem3_url)i.push(p.imagem3_url);return i;}
+function _bCarousel(id,imgs){
+  if(!imgs.length)return '<div class="prod-placeholder"><i class="fas fa-camera"></i></div>';
+  var t=imgs.map(function(u){return '<img class="prod-img" src="'+_esc(u)+'" loading="lazy" onerror="this.style.display=\'none\'">';}).join('');
+  var d=imgs.length>1?'<div class="prod-carousel-dots" id="cc-dots-'+id+'">'+imgs.map(function(_,i){return '<div class="prod-carousel-dot'+(i===0?' active':'')+'" onclick="event.stopPropagation();window._P.cg(\''+id+'\','+i+')"></div>';}).join('')+'</div>':'';
+  return '<div class="prod-carousel-track" id="cc-track-'+id+'" data-idx="0" data-count="'+imgs.length+'">'+t+'</div>'+d;
+}
+function _cardGoTo(id,idx){
+  var t=_ge('cc-track-'+id);if(!t)return;
+  t.style.transform='translateX(-'+idx*100+'%)';t.dataset.idx=idx;
+  document.querySelectorAll('#cc-dots-'+id+' .prod-carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===idx);});
 }
 
-function buildCardCarousel(id, imgs) {
-  if(!imgs.length) return `<div class="prod-placeholder"><i class="fas fa-camera"></i></div>`;
-  const track = imgs.map(url=>`<img class="prod-img" src="${esc(url)}" loading="lazy" onerror="this.style.display='none'">`).join('');
-  const dots = imgs.length > 1 ? `<div class="prod-carousel-dots" id="cc-dots-${id}">${imgs.map((_,i)=>`<div class="prod-carousel-dot${i===0?' active':''}" onclick="event.stopPropagation();cardCarouselGo('${id}',${i})"></div>`).join('')}</div>` : '';
-  return `<div class="prod-carousel-track" id="cc-track-${id}" data-idx="0" data-count="${imgs.length}">${track}</div>${dots}`;
+var _cts=null;
+document.addEventListener('touchstart',function(e){
+  var card=e.target.closest('.prod-card');if(!card)return;
+  var wrap=e.target.closest('.prod-carousel');
+  var oa=card.getAttribute('onclick')||'';
+  var m=oa.match(/window\._P\.om\('([^']+)'\)/);
+  _cts={x:e.touches[0].clientX,y:e.touches[0].clientY,cid:wrap?wrap.id.replace('cc-wrap-',''):null,mid:m?m[1]:null,moved:false};
+},{passive:true});
+document.addEventListener('touchmove',function(e){
+  if(!_cts)return;
+  if(Math.abs(e.touches[0].clientX-_cts.x)>8||Math.abs(e.touches[0].clientY-_cts.y)>8)_cts.moved=true;
+},{passive:true});
+document.addEventListener('touchend',function(e){
+  if(!_cts)return;
+  var dx=e.changedTouches[0].clientX-_cts.x,dy=e.changedTouches[0].clientY-_cts.y;
+  var dist=Math.sqrt(dx*dx+dy*dy);
+  if(_cts.cid&&Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){
+    var t=_ge('cc-track-'+_cts.cid);
+    if(t){var idx=parseInt(t.dataset.idx||0),count=parseInt(t.dataset.count||1);idx=dx<0?Math.min(idx+1,count-1):Math.max(idx-1,0);_cardGoTo(_cts.cid,idx);}
+  }else if(!_cts.moved&&dist<20&&_cts.mid){_openModal(_cts.mid);}
+  _cts=null;
+},{passive:true});
+
+function _openModal(id){
+  var p=_mp.find(function(x){return x.id==id;});if(!p)return;
+  _cp=p;
+  var ps=String(p.preco||'0').trim();if(ps.includes(','))ps=ps.replace(/\./g,'').replace(',','.');
+  _cbp=parseFloat(ps)||0;_mci=0;
+  _mi=_bImgs(p);_bModalCarousel(_mi);
+  _ge('modalCat').textContent=p.categoria||'';
+  _ge('modalTitle').textContent=p.nome||'';
+  _ge('modalVendor').innerHTML='<i class="fas fa-user-tie"></i> '+_esc(p.vendedor_nome||'\u2014');
+  _ge('modalDesc').textContent=p.descricao||'';
+  var ir=p.incluso||p.o_que_incluso||p.o_que_esta_incluso||p.itens_incluso||p.inclui||p.conteudo||'';
+  var is2=_ge('modalInclusoSection'),il=_ge('modalInclusoList'),ii=_pIncluso(ir);
+  if(ii.length){il.innerHTML=ii.map(function(i){return '<li><i class="fas fa-check-circle"></i>'+_esc(i)+'</li>';}).join('');is2.style.display='block';}else{is2.style.display='none';}
+  var er=p.extras||p.add_ons||p.addons||p.opcionais||p.adicionais||'';
+  var es=_ge('modalExtrasSection'),elist=_ge('modalExtrasList'),ed=_pExtras(er);
+  if(ed.length){elist.innerHTML=ed.map(function(ex,i){return '<label class="extra-item" id="extra-item-'+i+'"><input type="checkbox" data-price="'+ex.price+'" data-idx="'+i+'" onchange="window._P.rt()"><span class="extra-name">'+_esc(ex.name)+'</span><span class="extra-price">+'+_fMoney(ex.price)+'</span></label>';}).join('');es.style.display='block';}else{es.style.display='none';}
+  _ge('pixStatus').classList.remove('show');
+  var wb=_ge('modalBtnWA'),pb=_ge('modalBtnPix');
+  wb.style.display=p.whatsapp?'flex':'none';pb.style.display=p.pix_key?'flex':'none';
+  if(!p.whatsapp&&!p.pix_key)wb.style.display='flex';
+  _recalc();
+  _ge('prodModal').classList.add('active');document.body.style.overflow='hidden';
+  _ge('fixedBar').classList.add('visible');_pModal();
 }
-
-function cardCarouselGo(id, idx) {
-  const track = document.getElementById('cc-track-'+id);
-  if(!track) return;
-  track.style.transform = `translateX(-${idx*100}%)`;
-  track.dataset.idx = idx;
-  document.querySelectorAll(`#cc-dots-${id} .prod-carousel-dot`).forEach((d,i)=>d.classList.toggle('active',i===idx));
+function _closeModal(){
+  _ge('prodModal').classList.remove('active');document.body.style.overflow='';
+  _ge('fixedBar').classList.remove('visible');_cp=null;
 }
+function _modalOut(e){if(e.target===_ge('prodModal'))_closeModal();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')_closeModal();});
 
-// Touch swipe on cards — fixed for mobile tap + swipe
-let cardTouchStart = null;
-document.addEventListener('touchstart', e=>{
-  const card = e.target.closest('.prod-card');
-  if(!card) return;
-  const wrap = e.target.closest('.prod-carousel');
-  const onclickAttr = card.getAttribute('onclick') || '';
-  const m = onclickAttr.match(/openModal\('([^']+)'\)/);
-  cardTouchStart = {
-    x: e.touches[0].clientX,
-    y: e.touches[0].clientY,
-    carouselId: wrap ? wrap.id.replace('cc-wrap-','') : null,
-    modalId: m ? m[1] : null,
-    moved: false
-  };
-}, {passive:true});
-document.addEventListener('touchmove', e=>{
-  if(!cardTouchStart) return;
-  const dx = e.touches[0].clientX - cardTouchStart.x;
-  const dy = e.touches[0].clientY - cardTouchStart.y;
-  if(Math.abs(dx) > 8 || Math.abs(dy) > 8) cardTouchStart.moved = true;
-}, {passive:true});
-document.addEventListener('touchend', e=>{
-  if(!cardTouchStart) return;
-  const dx = e.changedTouches[0].clientX - cardTouchStart.x;
-  const dy = e.changedTouches[0].clientY - cardTouchStart.y;
-  const dist = Math.sqrt(dx*dx + dy*dy);
-
-  if(cardTouchStart.carouselId && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-    // swipe horizontal no carousel — troca imagem
-    const track = document.getElementById('cc-track-'+cardTouchStart.carouselId);
-    if(track) {
-      let idx = parseInt(track.dataset.idx||0);
-      const count = parseInt(track.dataset.count||1);
-      idx = dx < 0 ? Math.min(idx+1,count-1) : Math.max(idx-1,0);
-      cardCarouselGo(cardTouchStart.carouselId, idx);
-    }
-  } else if(!cardTouchStart.moved && dist < 20 && cardTouchStart.modalId) {
-    // tap simples sem movimento — abre modal
-    openModal(cardTouchStart.modalId);
-  }
-  cardTouchStart = null;
-}, {passive:true});
-
-// ==================== MODAL OPEN ====================
-function openModal(id) {
-  // eslint-disable-next-line eqeqeq
-  const p = mkpAllProducts.find(x => x.id == id);
-  if(!p) return;
-  currentProduct = p;
-  // Normaliza formato BR: "1.800,00" → 1800.00 | "1800,00" → 1800.00 | "1800.00" → 1800.00
-  let precoStr = String(p.preco||'0').trim();
-  if(precoStr.includes(',')) {
-    precoStr = precoStr.replace(/\./g,'').replace(',','.');
-  }
-  currentBasePrice = parseFloat(precoStr) || 0;
-  modalCarouselIdx = 0;
-
-  // Build carousel
-  modalImages = buildImgList(p);
-  buildModalCarousel(modalImages);
-
-  // Fill fields
-  document.getElementById('modalCat').textContent = p.categoria || '';
-  document.getElementById('modalTitle').textContent = p.nome || '';
-  document.getElementById('modalVendor').innerHTML = `<i class="fas fa-user-tie"></i> ${esc(p.vendedor_nome||'—')}`;
-  document.getElementById('modalDesc').textContent = p.descricao || '';
-
-  // Incluso — tenta variações de nome de coluna
-  const inclusoRaw = p.incluso || p.o_que_incluso || p.o_que_esta_incluso || p.itens_incluso || p.inclui || p.conteudo || '';
-  const inclusoSec = document.getElementById('modalInclusoSection');
-  const inclusoList = document.getElementById('modalInclusoList');
-  const inclusoItems = parseIncluso(inclusoRaw);
-  if(inclusoItems.length) {
-    inclusoList.innerHTML = inclusoItems.map(i=>`<li><i class="fas fa-check-circle"></i>${esc(i)}</li>`).join('');
-    inclusoSec.style.display = 'block';
-  } else {
-    inclusoSec.style.display = 'none';
-  }
-
-  // Extras — tenta variações de nome de coluna
-  const extrasRaw = p.extras || p.add_ons || p.addons || p.opcionais || p.adicionais || '';
-  const extrasSec = document.getElementById('modalExtrasSection');
-  const extrasList = document.getElementById('modalExtrasList');
-  const extrasData = parseExtras(extrasRaw);
-  if(extrasData.length) {
-    extrasList.innerHTML = extrasData.map((ex,i) => `
-      <label class="extra-item" id="extra-item-${i}">
-        <input type="checkbox" data-price="${ex.price}" data-idx="${i}" onchange="recalcTotal()">
-        <span class="extra-name">${esc(ex.name)}</span>
-        <span class="extra-price">+${fmtMoney(ex.price)}</span>
-      </label>
-    `).join('');
-    extrasSec.style.display = 'block';
-  } else {
-    extrasSec.style.display = 'none';
-  }
-
-  document.getElementById('pixStatus').classList.remove('show');
-
-  // WA button
-  const waBtnWrap = document.getElementById('modalBtnWA');
-  const pixBtnWrap = document.getElementById('modalBtnPix');
-  waBtnWrap.style.display = p.whatsapp ? 'flex' : 'none';
-  pixBtnWrap.style.display = p.pix_key ? 'flex' : 'none';
-  if(!p.whatsapp && !p.pix_key) {
-    waBtnWrap.style.display = 'flex'; // fallback: always show WA
-  }
-
-  recalcTotal();
-
-  document.getElementById('prodModal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('fixedBar').classList.add('visible');
-  pushModalHistory();
-}
-
-function closeModal() {
-  document.getElementById('prodModal').classList.remove('active');
-  document.body.style.overflow = '';
-  document.getElementById('fixedBar').classList.remove('visible');
-  currentProduct = null;
-}
-
-function modalOutside(e) {
-  if(e.target === document.getElementById('prodModal')) closeModal();
-}
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
-
-// ==================== BACK BUTTON HANDLING ====================
-function pushModalHistory() {
-  history.pushState({ modal: true }, '');
-}
-function pushDashboardHistory() {
-  history.replaceState({ dashboard: true }, '');
-}
-window.addEventListener('popstate', function(e) {
-  if(document.getElementById('prodModal').classList.contains('active')) {
-    closeModal();
-    history.pushState({ dashboard: true }, '');
-  } else if(currentClient) {
-    history.pushState({ dashboard: true }, '');
-  }
+function _pModal(){history.pushState({modal:true},'');}
+function _pDash(){history.replaceState({dashboard:true},'');}
+window.addEventListener('popstate',function(){
+  if(_ge('prodModal').classList.contains('active')){_closeModal();history.pushState({dashboard:true},'');}
+  else if(_cc){history.pushState({dashboard:true},'');}
 });
 
-// ==================== MODAL CAROUSEL ====================
-function buildModalCarousel(imgs) {
-  const track = document.getElementById('modalCarouselTrack');
-  const dots  = document.getElementById('modalDots');
-  const prev  = document.getElementById('modalPrev');
-  const next  = document.getElementById('modalNext');
-
-  if(!imgs.length) {
-    track.innerHTML = `<div class="modal-img-placeholder"><i class="fas fa-camera"></i></div>`;
-    dots.innerHTML = '';
-    prev.style.display = next.style.display = 'none';
-    return;
-  }
-  track.innerHTML = imgs.map(url=>`<img src="${esc(url)}" loading="lazy" onerror="this.style.display='none'">`).join('');
-  dots.innerHTML = imgs.map((_,i)=>`<div class="dot${i===0?' active':''}" onclick="modalGoTo(${i})"></div>`).join('');
-  prev.style.display = next.style.display = imgs.length > 1 ? 'flex' : 'none';
-  track.style.transform = 'translateX(0)';
+function _bModalCarousel(imgs){
+  var t=_ge('modalCarouselTrack'),d=_ge('modalDots'),pv=_ge('modalPrev'),nx=_ge('modalNext');
+  if(!imgs.length){t.innerHTML='<div class="modal-img-placeholder"><i class="fas fa-camera"></i></div>';d.innerHTML='';pv.style.display=nx.style.display='none';return;}
+  t.innerHTML=imgs.map(function(u){return '<img src="'+_esc(u)+'" loading="lazy" onerror="this.style.display=\'none\'">';}).join('');
+  d.innerHTML=imgs.map(function(_,i){return '<div class="dot'+(i===0?' active':'')+'" onclick="window._P.mg('+i+')"></div>';}).join('');
+  pv.style.display=nx.style.display=imgs.length>1?'flex':'none';
+  t.style.transform='translateX(0)';
 }
-
-function modalGoTo(idx) {
-  const imgs = modalImages;
-  if(!imgs.length) return;
-  modalCarouselIdx = Math.max(0, Math.min(imgs.length-1, idx));
-  document.getElementById('modalCarouselTrack').style.transform = `translateX(-${modalCarouselIdx*100}%)`;
-  document.querySelectorAll('#modalDots .dot').forEach((d,i)=>d.classList.toggle('active',i===modalCarouselIdx));
+function _modalGoTo(idx){
+  if(!_mi.length)return;
+  _mci=Math.max(0,Math.min(_mi.length-1,idx));
+  _ge('modalCarouselTrack').style.transform='translateX(-'+_mci*100+'%)';
+  document.querySelectorAll('#modalDots .dot').forEach(function(d,i){d.classList.toggle('active',i===_mci);});
 }
+function _modalMove(dir){_modalGoTo(_mci+dir);}
 
-function modalCarouselMove(dir) {
-  modalGoTo(modalCarouselIdx + dir);
-}
+var _mtx=null;
+_ge('prodModalBox').addEventListener('touchstart',function(e){if(e.target.closest('.modal-carousel'))_mtx=e.touches[0].clientX;},{passive:true});
+_ge('prodModalBox').addEventListener('touchend',function(e){if(_mtx===null)return;var dx=e.changedTouches[0].clientX-_mtx;if(Math.abs(dx)>40)_modalMove(dx<0?1:-1);_mtx=null;},{passive:true});
 
-// Modal touch swipe
-let modalTouchX = null;
-document.getElementById('prodModalBox').addEventListener('touchstart', e=>{
-  if(e.target.closest('.modal-carousel')) modalTouchX = e.touches[0].clientX;
-}, {passive:true});
-document.getElementById('prodModalBox').addEventListener('touchend', e=>{
-  if(modalTouchX===null) return;
-  const dx = e.changedTouches[0].clientX - modalTouchX;
-  if(Math.abs(dx)>40) modalCarouselMove(dx<0?1:-1);
-  modalTouchX = null;
-}, {passive:true});
-
-// ==================== TOTAL & EXTRAS ====================
-function recalcTotal() {
-  let total = currentBasePrice;
-  document.querySelectorAll('#modalExtrasList input[type=checkbox]').forEach(cb => {
-    const item = cb.closest('.extra-item');
-    if(cb.checked) {
-      total += parseFloat(cb.dataset.price||0);
-      item.classList.add('checked');
-    } else {
-      item.classList.remove('checked');
-    }
+function _recalc(){
+  var total=_cbp;
+  document.querySelectorAll('#modalExtrasList input[type=checkbox]').forEach(function(cb){
+    var item=cb.closest('.extra-item');
+    if(cb.checked){total+=parseFloat(cb.dataset.price||0);item.classList.add('checked');}
+    else item.classList.remove('checked');
   });
-  const fmt = fmtMoney(total);
-  document.getElementById('modalTotal').textContent = fmt;
-  document.getElementById('fixedTotal').textContent = fmt;
-  document.getElementById('modalTotalVal').textContent = fmt;
-  document.getElementById('modalPriceBase').textContent = fmtMoney(currentBasePrice) + ' · preço base';
+  var fmt=_fMoney(total);
+  _ge('modalTotal').textContent=fmt;_ge('fixedTotal').textContent=fmt;
+  _ge('modalTotalVal').textContent=fmt;
+  _ge('modalPriceBase').textContent=_fMoney(_cbp)+' \u00b7 pre\u00e7o base';
 }
 
-// ==================== WA & PIX ====================
-function openWA() {
-  if(!currentProduct) return;
-  const wa = currentProduct.whatsapp;
-  const total = document.getElementById('modalTotal').textContent;
-  const msg = encodeURIComponent(`Olá! Tenho interesse no pacote *${currentProduct.nome}* — ${total}. Podemos conversar?`);
-  const url = wa ? `https://wa.me/${wa}?text=${msg}` : `https://wa.me/?text=${msg}`;
-  window.open(url, '_blank');
+function _openWA(){
+  if(!_cp)return;
+  var wa=_cp.whatsapp,total=_ge('modalTotal').textContent;
+  var msg=encodeURIComponent('Ol\u00e1! Tenho interesse no pacote *'+_cp.nome+'* \u2014 '+total+'. Podemos conversar?');
+  window.open(wa?'https://wa.me/'+wa+'?text='+msg:'https://wa.me/?text='+msg,'_blank');
 }
-
-function copyPix() {
-  if(!currentProduct || !currentProduct.pix_key) return;
-  navigator.clipboard.writeText(currentProduct.pix_key).then(() => {
-    const el = document.getElementById('pixStatus');
-    el.classList.add('show');
-    setTimeout(()=>el.classList.remove('show'), 3000);
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = currentProduct.pix_key;
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    const el = document.getElementById('pixStatus');
-    el.classList.add('show');
-    setTimeout(()=>el.classList.remove('show'), 3000);
+function _copyPix(){
+  if(!_cp||!_cp.pix_key)return;
+  var show=function(){var e=_ge('pixStatus');e.classList.add('show');setTimeout(function(){e.classList.remove('show');},3000);};
+  navigator.clipboard.writeText(_cp.pix_key).then(show).catch(function(){
+    var ta=document.createElement('textarea');ta.value=_cp.pix_key;
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);show();
   });
 }
 
-// ==================== PARSERS ====================
-function parseIncluso(raw) {
-  if(!raw) return [];
-  const lines = raw.split(/\n/).map(l => l.trim()).filter(l =>
-    l.length > 1 &&
-    !l.startsWith('📸') &&
-    !l.startsWith('📷') &&
-    !l.startsWith('•')
-  );
-  return lines;
+function _pIncluso(raw){
+  if(!raw)return[];
+  return raw.split(/\n/).map(function(l){return l.trim();}).filter(function(l){return l.length>1&&!l.startsWith('\uD83D\uDCF8')&&!l.startsWith('\uD83D\uDCF7')&&!l.startsWith('\u2022');});
 }
-
-function parseExtras(raw) {
-  if(!raw) return [];
-  // Try JSON first
-  try { const j = JSON.parse(raw); if(Array.isArray(j)) return j; } catch(_) {}
-
-  const items = [];
-  // Strategy: find all occurrences of "Texto (R$valor)" or "Texto (+R$valor)"
-  // Using matchAll to capture each item regardless of separator style
-  const regex = /([^,(;]+?)\s*\(\+?\s*R?\$?\s*([\d.]+(?:[,.][\d]+)?)\s*\)/gi;
-  let m;
-  while((m = regex.exec(raw)) !== null) {
-    const name = m[1].trim();
-    // Normalize Brazilian number: "1.800,50" → 1800.50 | "180" → 180
-    let numStr = m[2].trim();
-    if(numStr.includes(',')) {
-      numStr = numStr.replace(/\./g,'').replace(',','.');
-    }
-    const price = parseFloat(numStr);
-    if(name && !isNaN(price)) items.push({ name, price });
+function _pExtras(raw){
+  if(!raw)return[];
+  try{var j=JSON.parse(raw);if(Array.isArray(j))return j;}catch(_){}
+  var items=[],re=/([^,(;]+?)\s*\(\+?\s*R?\$?\s*([\d.]+(?:[,.][\d]+)?)\s*\)/gi,m;
+  while((m=re.exec(raw))!==null){
+    var name=m[1].trim(),ns=m[2].trim();
+    if(ns.includes(','))ns=ns.replace(/\./g,'').replace(',','.');
+    var price=parseFloat(ns);
+    if(name&&!isNaN(price))items.push({name:name,price:price});
   }
   return items;
 }
+
+window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo,cg:_cardGoTo,sc:_mkpSetCat,mf:_mkpFilter,st:_showTab,lo:_logout,wa:_openWA,px:_copyPix,rt:_recalc};
+
+})();
 </script>
 </body>
 </html>
