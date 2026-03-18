@@ -1140,54 +1140,79 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 
 /* ══════════════════════════════════════
-   PROVA SOCIAL & PROMOÇÕES — MARQUEE
+   PROVA SOCIAL & PROMOÇÕES — CARROSSEL
 ══════════════════════════════════════ */
+
+/* Label de seção */
 .ps-row-label {
   font-family: var(--font-body);
   font-size: 11px; font-weight: 700;
   letter-spacing: 1.3px; text-transform: uppercase;
-  color: var(--muted); margin: 28px 0 12px;
+  color: var(--muted); margin: 28px 0 14px;
   display: flex; align-items: center; gap: 8px;
 }
 
-/* Wrapper com fade nas bordas */
-.ps-marquee-wrap {
+/* Wrapper do carrossel */
+.ps-carousel-outer {
   position: relative;
-  overflow: hidden;
-  width: 100%;
-  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
-
-/* Track animado — duplicamos os cards dentro para loop seamless */
-.ps-track {
+.ps-carousel-viewport {
+  overflow: hidden;
+  border-radius: 14px;
+}
+.ps-carousel-track {
   display: flex;
   gap: 12px;
-  width: max-content;
-  animation: ps-scroll-left 28s linear infinite;
-}
-.ps-track--promo {
-  animation-duration: 22s;
-  animation-direction: normal;
-}
-.ps-marquee-wrap:hover .ps-track {
-  animation-play-state: paused;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-@keyframes ps-scroll-left {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Setas */
+.ps-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px;
+  background: rgba(10,10,18,0.85);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px;
+  cursor: pointer; z-index: 2;
+  transition: background .2s, border-color .2s, opacity .2s;
+  backdrop-filter: blur(6px);
+}
+.ps-arrow:hover { background: rgba(0,229,255,0.15); border-color: rgba(0,229,255,0.4); }
+.ps-arrow--prev { left: -16px; }
+.ps-arrow--next { right: -16px; }
+.ps-arrow.hidden { opacity: 0; pointer-events: none; }
+
+/* Dots */
+.ps-dots {
+  display: flex; justify-content: center; gap: 6px;
+  margin-top: 14px;
+}
+.ps-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+}
+.ps-dot.active {
+  background: var(--primary);
+  transform: scale(1.3);
 }
 
 /* Card fechamento */
 .ps-card {
-  flex: 0 0 200px;
+  flex: 0 0 calc((100% - 24px) / 3);
+  min-width: 0;
   background: rgba(0,229,255,0.04);
   border: 1px solid rgba(0,229,255,0.10);
   border-radius: 14px; padding: 14px;
   display: flex; flex-direction: column; gap: 9px;
-  transition: border-color .25s, transform .2s;
+  transition: border-color .25s, transform .2s, background .25s;
   cursor: default;
+  box-sizing: border-box;
 }
 .ps-card:hover {
   border-color: rgba(0,229,255,0.35);
@@ -1222,30 +1247,45 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 /* Card promoção */
 .promo-card {
-  flex: 0 0 190px;
+  flex: 0 0 calc((100% - 24px) / 3);
+  min-width: 0;
   background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.14);
   border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
-  transition: border-color .25s, transform .2s;
+  transition: border-color .25s, transform .2s, background .25s;
   cursor: default;
+  box-sizing: border-box;
 }
 .promo-card:hover {
   border-color: rgba(124,58,237,0.4);
   background: rgba(124,58,237,0.09);
   transform: translateY(-2px);
 }
-.promo-img { width: 100%; height: 100px; object-fit: cover; }
+.promo-img { width: 100%; height: 90px; object-fit: cover; }
 .promo-img-placeholder {
-  width: 100%; height: 100px; background: rgba(124,58,237,0.09);
+  width: 100%; height: 90px; background: rgba(124,58,237,0.09);
   display: flex; align-items: center; justify-content: center;
-  font-size: 26px; color: rgba(124,58,237,0.4);
+  font-size: 24px; color: rgba(124,58,237,0.4);
 }
-.promo-body { padding: 11px 13px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.promo-body { padding: 10px 13px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .promo-titulo { font-family: var(--font-head); font-size: 13px; font-weight: 700; color: #fff; }
 .promo-desc { font-size: 11px; color: var(--muted); font-family: var(--font-body); line-height: 1.4; }
 .promo-validade {
   font-size: 11px; color: #ff9944; font-family: var(--font-body);
   display: flex; align-items: center; gap: 4px;
   margin-top: auto; padding-top: 6px; font-weight: 600;
+}
+
+/* Tipo badge no card misto */
+.ps-type-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 20px; margin-bottom: 4px; align-self: flex-start;
+}
+.ps-type-badge--fechamento {
+  background: rgba(0,229,255,0.1); color: var(--primary);
+}
+.ps-type-badge--promo {
+  background: rgba(255,153,68,0.12); color: #ff9944;
 }
 </style>
 </head>
@@ -1371,20 +1411,25 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
         </a>
       </div>
 
-      <!-- ══ FECHAMENTOS RECENTES ══ -->
-      <p class="ps-row-label"><i class="fas fa-handshake" style="color:var(--primary);"></i> Clientes que fecharam recentemente</p>
-      <div class="ps-marquee-wrap" id="ps-fechamentos-wrap">
-        <div class="ps-track" id="ps-fechamentos-scroll">
-          <div style="color:var(--muted);font-size:12px;padding:16px 0;">Carregando...</div>
-        </div>
-      </div>
 
-      <!-- ══ PROMOÇÕES ══ -->
-      <p class="ps-row-label"><i class="fas fa-fire" style="color:#ff9944;"></i> Promoções &amp; Oportunidades</p>
-      <div class="ps-marquee-wrap" id="ps-promos-wrap">
-        <div class="ps-track ps-track--promo" id="ps-promos-scroll">
-          <div style="color:var(--muted);font-size:12px;padding:16px 0;">Carregando...</div>
+      <!-- ══ CARROSSEL UNIFICADO ══ -->
+      <p class="ps-row-label">
+        <i class="fas fa-star" style="color:var(--primary);"></i>
+        Clientes &amp; Oportunidades
+      </p>
+      <div class="ps-carousel-outer" id="ps-carousel-outer">
+        <button class="ps-arrow ps-arrow--prev hidden" id="ps-prev" onclick="psCarousel.prev()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="ps-carousel-viewport">
+          <div class="ps-carousel-track" id="ps-carousel-track">
+            <div style="color:var(--muted);font-size:12px;padding:16px 0;">Carregando...</div>
+          </div>
         </div>
+        <button class="ps-arrow ps-arrow--next hidden" id="ps-next" onclick="psCarousel.next()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="ps-dots" id="ps-dots"></div>
       </div>
 
     </div>
@@ -2004,11 +2049,14 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 })();
 </script>
 
-<!-- ══ PROVA SOCIAL & PROMOÇÕES ══ -->
+<!-- ══ PROVA SOCIAL & PROMOÇÕES — CARROSSEL ══ -->
 <script>
 (function() {
   var MAX_WAIT = 8000, INTERVAL = 200, elapsed = 0;
+  var PER_PAGE = 3;     // cards visíveis por vez
+  var AUTO_MS  = 4500;  // intervalo auto-avanço
 
+  /* ── Builders de card ── */
   function _cardFechamento(r) {
     var avatar = r.foto_url
       ? '<img class="ps-avatar" src="' + r.foto_url + '" alt="' + r.cliente + '">'
@@ -2017,8 +2065,8 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       ? new Date(r.data_evento + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'})
       : '';
     return '<div class="ps-card">'
-      + '<div class="ps-card-top">' + avatar
-      + '<div class="ps-name">' + r.cliente + '</div></div>'
+      + '<span class="ps-type-badge ps-type-badge--fechamento"><i class="fas fa-handshake"></i> Fechamento</span>'
+      + '<div class="ps-card-top">' + avatar + '<div class="ps-name">' + r.cliente + '</div></div>'
       + '<span class="ps-badge">\u2714 ' + r.pacote + '</span>'
       + '<div class="ps-meta">'
       + (r.local ? '<span><i class="fas fa-map-marker-alt"></i> ' + r.local + '</span>' : '')
@@ -2034,62 +2082,151 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       ? '<div class="promo-validade"><i class="fas fa-clock"></i> At\u00e9 '
         + new Date(r.validade + 'T12:00:00').toLocaleDateString('pt-BR') + '</div>'
       : '';
-    return '<div class="promo-card">' + img
+    return '<div class="promo-card">'
+      + img
       + '<div class="promo-body">'
+      + '<span class="ps-type-badge ps-type-badge--promo"><i class="fas fa-fire"></i> Promo\u00e7\u00e3o</span>'
       + '<div class="promo-titulo">' + r.titulo + '</div>'
       + (r.descricao ? '<div class="promo-desc">' + r.descricao + '</div>' : '')
       + val + '</div></div>';
   }
 
-  function _setupMarquee(trackId, html, minClones) {
-    var track = document.getElementById(trackId);
-    if (!track) return;
-    // Garante cards suficientes para loop seamless (mínimo 2 conjuntos)
-    var repeated = '';
-    for (var i = 0; i < Math.max(2, minClones); i++) repeated += html;
-    track.innerHTML = repeated;
-    // Pausa se só há 1 card (não precisa rolar)
-    if (minClones <= 1) track.style.animationPlayState = 'paused';
-  }
+  /* ── Carrossel ── */
+  window.psCarousel = (function() {
+    var cards = [], page = 0, total = 0, timer = null;
 
-  function _renderFechamentos(data) {
-    var wrap = document.getElementById('ps-fechamentos-wrap');
-    var track = document.getElementById('ps-fechamentos-scroll');
-    if (!track) return;
-    if (!data || !data.length) {
-      track.style.animation = 'none';
-      track.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:12px 0;">Nenhum fechamento dispon\u00edvel.</p>';
-      return;
+    function _pages() { return Math.max(1, Math.ceil(cards.length / PER_PAGE)); }
+
+    function _render() {
+      var track = document.getElementById('ps-carousel-track');
+      var dots  = document.getElementById('ps-dots');
+      var prev  = document.getElementById('ps-prev');
+      var next  = document.getElementById('ps-next');
+      if (!track) return;
+
+      // Desloca pelo número de slides × largura real do viewport (px, não %)
+      var vpW = track.parentElement ? track.parentElement.offsetWidth : 0;
+      track.style.transform = 'translateX(-' + (page * vpW) + 'px)';
+
+      // Dots
+      var p = _pages();
+      dots.innerHTML = '';
+      for (var i = 0; i < p; i++) {
+        dots.innerHTML += '<div class="ps-dot' + (i === page ? ' active' : '') + '" onclick="psCarousel.go(' + i + ')"></div>';
+      }
+
+      // Setas
+      prev.classList.toggle('hidden', page === 0);
+      next.classList.toggle('hidden', page >= p - 1);
     }
-    var html = data.map(_cardFechamento).join('');
-    // Duplica para loop infinito suave
-    _setupMarquee('ps-fechamentos-scroll', html, data.length < 4 ? 4 : 2);
-  }
 
-  function _renderPromos(data) {
-    var track = document.getElementById('ps-promos-scroll');
-    if (!track) return;
-    if (!data || !data.length) {
-      track.style.animation = 'none';
-      track.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:12px 0;">Nenhuma promo\u00e7\u00e3o ativa.</p>';
-      return;
+    function _build() {
+      var track = document.getElementById('ps-carousel-track');
+      if (!track) return;
+
+      // Se o viewport ainda está oculto (offsetWidth = 0), aguarda até estar visível
+      var viewport = track.parentElement;
+      var vpW = viewport ? viewport.offsetWidth : 0;
+      if (vpW < 10) {
+        // Tenta de novo em 200ms até o layout ser calculado
+        setTimeout(_build, 200);
+        return;
+      }
+
+      var gap   = 12;
+      var cardW = Math.floor((vpW - gap * (PER_PAGE - 1)) / PER_PAGE);
+
+      // Agrupa em páginas
+      var pages = [];
+      for (var i = 0; i < cards.length; i += PER_PAGE) {
+        pages.push(cards.slice(i, i + PER_PAGE));
+      }
+
+      // Cada slide tem largura fixa em px = viewport real
+      track.innerHTML = pages.map(function(group) {
+        var html = group.join('');
+        var clone = group.slice();
+        while (clone.length < PER_PAGE) {
+          html += '<div class="ps-card" style="visibility:hidden;flex:0 0 ' + cardW + 'px;min-width:' + cardW + 'px;max-width:' + cardW + 'px;"></div>';
+          clone.push('');
+        }
+        return '<div style="display:flex;gap:' + gap + 'px;flex:0 0 ' + vpW + 'px;min-width:' + vpW + 'px;box-sizing:border-box;">' + html + '</div>';
+      }).join('');
+
+      // Força largura calculada nos cards reais
+      var allCards = track.querySelectorAll('.ps-card:not([style*="visibility"]), .promo-card');
+      for (var c = 0; c < allCards.length; c++) {
+        allCards[c].style.flex     = '0 0 ' + cardW + 'px';
+        allCards[c].style.minWidth = cardW + 'px';
+        allCards[c].style.maxWidth = cardW + 'px';
+      }
+
+      page = 0;
+      _render();
+      _startAuto();
     }
-    var html = data.map(_cardPromo).join('');
-    _setupMarquee('ps-promos-scroll', html, data.length < 4 ? 4 : 2);
-  }
 
+    function _startAuto() {
+      _stopAuto();
+      if (_pages() <= 1) return;
+      timer = setInterval(function() {
+        page = (page + 1) % _pages();
+        _render();
+      }, AUTO_MS);
+    }
+    function _stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+    // Pause no hover
+    var outer = document.getElementById('ps-carousel-outer');
+    if (outer) {
+      outer.addEventListener('mouseenter', _stopAuto);
+      outer.addEventListener('mouseleave', _startAuto);
+    }
+
+    return {
+      load: function(allCards) {
+        cards = allCards;
+        if (!cards.length) {
+          var t = document.getElementById('ps-carousel-track');
+          if (t) t.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:16px 0;">Nenhum conte\u00fado dispon\u00edvel.</p>';
+          return;
+        }
+        _build();
+      },
+      prev: function() { if (page > 0) { page--; _render(); _startAuto(); } },
+      next: function() { if (page < _pages()-1) { page++; _render(); _startAuto(); } },
+      go:   function(i) { page = i; _render(); _startAuto(); }
+    };
+  })();
+
+  /* ── Load do Supabase ── */
   async function _loadAll(db) {
     var hoje = new Date().toISOString().split('T')[0];
 
     var r1 = await db.from('prova_social').select('*')
       .eq('ativo', true).order('criado_em', {ascending: false}).limit(12);
-    _renderFechamentos(r1.data);
 
+    // Busca todas as promos ativas e filtra validade no cliente
+    // (evita o .or() que pode falhar silenciosamente com .eq() encadeado)
     var r2 = await db.from('promocoes').select('*')
-      .eq('ativo', true)
-      .or('validade.is.null,validade.gte.' + hoje)
-      .order('criado_em', {ascending: false}).limit(8);
-    _renderPromos(r2.data);
+      .eq('ativo', true).order('criado_em', {ascending: false}).limit(20);
+
+    var promosFiltradas = (r2.data || []).filter(function(r) {
+      return !r.validade || r.validade >= hoje;
+    }).slice(0, 8);
+
+    var fechamentos = (r1.data || []).map(_cardFechamento);
+    var promos      = promosFiltradas.map(_cardPromo);
+
+    // Intercala: 2 fechamentos, 1 promo, 2 fechamentos, 1 promo...
+    var mixed = [], fi = 0, pi = 0;
+    while (fi < fechamentos.length || pi < promos.length) {
+      if (fi < fechamentos.length) { mixed.push(fechamentos[fi++]); }
+      if (fi < fechamentos.length) { mixed.push(fechamentos[fi++]); }
+      if (pi < promos.length)      { mixed.push(promos[pi++]); }
+    }
+
+    psCarousel.load(mixed);
   }
 
   function _psInit() {
