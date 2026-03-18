@@ -2053,8 +2053,15 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 <script>
 (function() {
   var MAX_WAIT = 8000, INTERVAL = 200, elapsed = 0;
-  var PER_PAGE = 3;     // cards visíveis por vez
-  var AUTO_MS  = 4500;  // intervalo auto-avanço
+  var AUTO_MS  = 4500;
+
+  // Responsivo: 1 card mobile, 2 tablet, 3 desktop
+  function _perPage() {
+    var w = window.innerWidth;
+    if (w < 540)  return 1;
+    if (w < 860)  return 2;
+    return 3;
+  }
 
   /* ── Builders de card ── */
   function _cardFechamento(r) {
@@ -2093,9 +2100,10 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
   /* ── Carrossel ── */
   window.psCarousel = (function() {
-    var cards = [], page = 0, total = 0, timer = null;
+    var allCards = [], page = 0, timer = null, built = false;
 
-    function _pages() { return Math.max(1, Math.ceil(cards.length / PER_PAGE)); }
+    function _pp() { return _perPage(); }
+    function _pages() { return Math.max(1, Math.ceil(allCards.length / _pp())); }
 
     function _render() {
       var track = document.getElementById('ps-carousel-track');
@@ -2103,19 +2111,13 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       var prev  = document.getElementById('ps-prev');
       var next  = document.getElementById('ps-next');
       if (!track) return;
-
-      // Desloca pelo número de slides × largura real do viewport (px, não %)
       var vpW = track.parentElement ? track.parentElement.offsetWidth : 0;
       track.style.transform = 'translateX(-' + (page * vpW) + 'px)';
-
-      // Dots
       var p = _pages();
       dots.innerHTML = '';
       for (var i = 0; i < p; i++) {
         dots.innerHTML += '<div class="ps-dot' + (i === page ? ' active' : '') + '" onclick="psCarousel.go(' + i + ')"></div>';
       }
-
-      // Setas
       prev.classList.toggle('hidden', page === 0);
       next.classList.toggle('hidden', page >= p - 1);
     }
@@ -2123,45 +2125,39 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     function _build() {
       var track = document.getElementById('ps-carousel-track');
       if (!track) return;
-
-      // Se o viewport ainda está oculto (offsetWidth = 0), aguarda até estar visível
       var viewport = track.parentElement;
       var vpW = viewport ? viewport.offsetWidth : 0;
-      if (vpW < 10) {
-        // Tenta de novo em 200ms até o layout ser calculado
-        setTimeout(_build, 200);
-        return;
-      }
+      if (vpW < 10) { setTimeout(_build, 200); return; }
 
+      var pp    = _pp();
       var gap   = 12;
-      var cardW = Math.floor((vpW - gap * (PER_PAGE - 1)) / PER_PAGE);
+      var cardW = Math.floor((vpW - gap * (pp - 1)) / pp);
 
-      // Agrupa em páginas
       var pages = [];
-      for (var i = 0; i < cards.length; i += PER_PAGE) {
-        pages.push(cards.slice(i, i + PER_PAGE));
+      for (var i = 0; i < allCards.length; i += pp) {
+        pages.push(allCards.slice(i, i + pp));
       }
 
-      // Cada slide tem largura fixa em px = viewport real
       track.innerHTML = pages.map(function(group) {
         var html = group.join('');
         var clone = group.slice();
-        while (clone.length < PER_PAGE) {
+        while (clone.length < pp) {
           html += '<div class="ps-card" style="visibility:hidden;flex:0 0 ' + cardW + 'px;min-width:' + cardW + 'px;max-width:' + cardW + 'px;"></div>';
           clone.push('');
         }
         return '<div style="display:flex;gap:' + gap + 'px;flex:0 0 ' + vpW + 'px;min-width:' + vpW + 'px;box-sizing:border-box;">' + html + '</div>';
       }).join('');
 
-      // Força largura calculada nos cards reais
-      var allCards = track.querySelectorAll('.ps-card:not([style*="visibility"]), .promo-card');
-      for (var c = 0; c < allCards.length; c++) {
-        allCards[c].style.flex     = '0 0 ' + cardW + 'px';
-        allCards[c].style.minWidth = cardW + 'px';
-        allCards[c].style.maxWidth = cardW + 'px';
+      var nodes = track.querySelectorAll('.ps-card:not([style*="visibility"]), .promo-card');
+      for (var c = 0; c < nodes.length; c++) {
+        nodes[c].style.flex     = '0 0 ' + cardW + 'px';
+        nodes[c].style.minWidth = cardW + 'px';
+        nodes[c].style.maxWidth = cardW + 'px';
       }
 
-      page = 0;
+      // Mantém página atual dentro dos limites após resize
+      if (page >= _pages()) page = _pages() - 1;
+      built = true;
       _render();
       _startAuto();
     }
@@ -2176,17 +2172,26 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     }
     function _stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
 
-    // Pause no hover
+    // Pause no hover/touch
     var outer = document.getElementById('ps-carousel-outer');
     if (outer) {
       outer.addEventListener('mouseenter', _stopAuto);
-      outer.addEventListener('mouseleave', _startAuto);
+      outer.addEventListener('mouseleave', function() { if (built) _startAuto(); });
     }
 
+    // Rebuild responsivo ao girar tela / redimensionar
+    var _resizeTimer = null;
+    window.addEventListener('resize', function() {
+      clearTimeout(_resizeTimer);
+      _resizeTimer = setTimeout(function() {
+        if (built) { page = 0; _build(); }
+      }, 250);
+    });
+
     return {
-      load: function(allCards) {
-        cards = allCards;
-        if (!cards.length) {
+      load: function(cards) {
+        allCards = cards;
+        if (!allCards.length) {
           var t = document.getElementById('ps-carousel-track');
           if (t) t.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:16px 0;">Nenhum conte\u00fado dispon\u00edvel.</p>';
           return;
@@ -2205,9 +2210,6 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
     var r1 = await db.from('prova_social').select('*')
       .eq('ativo', true).order('criado_em', {ascending: false}).limit(12);
-
-    // Busca todas as promos ativas e filtra validade no cliente
-    // (evita o .or() que pode falhar silenciosamente com .eq() encadeado)
     var r2 = await db.from('promocoes').select('*')
       .eq('ativo', true).order('criado_em', {ascending: false}).limit(20);
 
@@ -2218,7 +2220,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     var fechamentos = (r1.data || []).map(_cardFechamento);
     var promos      = promosFiltradas.map(_cardPromo);
 
-    // Intercala: 2 fechamentos, 1 promo, 2 fechamentos, 1 promo...
+    // Intercala: 2 fechamentos, 1 promo
     var mixed = [], fi = 0, pi = 0;
     while (fi < fechamentos.length || pi < promos.length) {
       if (fi < fechamentos.length) { mixed.push(fechamentos[fi++]); }
