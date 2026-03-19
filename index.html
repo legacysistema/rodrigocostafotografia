@@ -1731,41 +1731,25 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 (function() {
   var WA = '5522992497662';
   var MAX_WAIT = 12000, INTERVAL = 400, elapsed = 0;
-
   function _injetar() {
-    var cards = document.querySelectorAll('.ps-card');
-    var novos = 0;
-    cards.forEach(function(card) {
-      if (card.querySelector('.ps-interesse-btn')) return; // já tem
+    document.querySelectorAll('.ps-card').forEach(function(card) {
+      if (card.querySelector('.ps-interesse-btn')) return;
       var left = card.querySelector('.ps-card-left');
       if (!left) return;
-
-      /* Pega o nome do pacote do badge */
       var badge = card.querySelector('.ps-badge');
       var pacote = badge ? badge.textContent.replace(/✔\s*/,'').trim() : 'este pacote';
-
-      /* Monta mensagem */
       var msg = encodeURIComponent('Olá Rodrigo! Vi no portal que ' + pacote + ' foi contratado recentemente e fiquei interessado(a). Pode me passar mais informações?');
-      var href = 'https://wa.me/' + WA + '?text=' + msg;
-
       var btn = document.createElement('a');
       btn.className = 'ps-interesse-btn';
-      btn.href = href;
-      btn.target = '_blank';
-      btn.rel = 'noopener';
+      btn.href = 'https://wa.me/5522992497662?text=' + msg;
+      btn.target = '_blank'; btn.rel = 'noopener';
       btn.innerHTML = '<i class="fab fa-whatsapp"></i> Quero um pacote igual';
       left.appendChild(btn);
-      novos++;
     });
-    return novos;
   }
-
   function _tentar() {
-    /* Aguarda os cards do carrossel existirem no DOM */
-    var cards = document.querySelectorAll('.ps-card');
-    if (cards.length > 0) {
+    if (document.querySelectorAll('.ps-card').length > 0) {
       _injetar();
-      /* Observa novos cards (troca de página do carrossel) */
       var observer = new MutationObserver(function() { _injetar(); });
       var track = document.getElementById('ps-fc-track');
       if (track) observer.observe(track, { childList: true, subtree: true });
@@ -1774,12 +1758,112 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     elapsed += INTERVAL;
     if (elapsed < MAX_WAIT) setTimeout(_tentar, INTERVAL);
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(_tentar, 800); });
-  } else {
-    setTimeout(_tentar, 800);
+  } else { setTimeout(_tentar, 800); }
+})();
+</script>
+
+<!-- ══ RASTREAMENTO DE COMPORTAMENTO (silencioso) ══ -->
+<script>
+(function() {
+  var SUPA_URL = 'https://ledpqcynvqbdbccebhbo.supabase.co';
+  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlZHBxY3ludnFiZGJjY2ViaGJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzODc3MjgsImV4cCI6MjA4NTk2MzcyOH0.s8GOzp4woujGuDc4vK9QXIf3cWLMENUnJfE4lt_YhLg';
+
+  /* Gera/recupera ID de sessão única */
+  var sessaoId = sessionStorage.getItem('_lid');
+  if (!sessaoId) {
+    sessaoId = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    sessionStorage.setItem('_lid', sessaoId);
   }
+
+  /* Envia evento para Supabase */
+  function _ev(evento, detalhe) {
+    try {
+      fetch(SUPA_URL + '/rest/v1/eventos_lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPA_KEY,
+          'Authorization': 'Bearer ' + SUPA_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          sessao_id: sessaoId,
+          evento: evento,
+          detalhe: detalhe || null
+        })
+      }).catch(function(){});
+    } catch(e) {}
+  }
+
+  /* 1. Sessão iniciada */
+  if (!sessionStorage.getItem('_lid_init')) {
+    sessionStorage.setItem('_lid_init', '1');
+    _ev('sessao_inicio');
+  }
+
+  /* 2. Rastreia cliques em categorias da vitrine */
+  document.addEventListener('click', function(e) {
+    /* Categorias do marketplace */
+    var cat = e.target.closest('[data-cat], .mkp-cat-btn, .cat-hub-card');
+    if (cat) {
+      var nome = cat.dataset.cat || cat.querySelector('.cat-hub-name, span')?.textContent?.trim() || 'categoria';
+      _ev('categoria_click', nome);
+    }
+
+    /* Abertura de pacote (modal ou card de detalhe) */
+    var pacCard = e.target.closest('.mkp-card, .product-card, [onclick*="mkpAbrirPacote"], [onclick*="verPacote"]');
+    if (pacCard) {
+      var titulo = pacCard.querySelector('.mkp-card-title, .product-title, h3, h4')?.textContent?.trim() || 'pacote';
+      _ev('pacote_aberto', titulo.slice(0, 80));
+    }
+
+    /* Navegação no carrossel de fechamentos */
+    if (e.target.closest('#ps-fc-prev, #ps-fc-next, #ps-fc-outer .ps-dot')) {
+      _ev('carrossel_nav');
+    }
+
+    /* Botão de interesse no WhatsApp — já tem o pacote na mensagem */
+    var waBtn = e.target.closest('.ps-interesse-btn');
+    if (waBtn) {
+      var pacote = waBtn.closest('.ps-card')?.querySelector('.ps-badge')?.textContent?.replace(/✔\s*/,'').trim() || 'pacote';
+      _ev('interesse_wa', pacote.slice(0, 80));
+    }
+  });
+
+  /* 3. Tempo em pacote — rastreia abertura de modal/detalhe */
+  var _pacoteAberto = null, _pacoteTs = null;
+  var _origAbrirPacote = window.mkpAbrirPacote;
+  function _hookAbrirPacote(fn) {
+    return function() {
+      if (_pacoteAberto && _pacoteTs) {
+        var seg = Math.round((Date.now() - _pacoteTs) / 1000);
+        if (seg > 3) _ev('tempo_pacote', seg);
+      }
+      _pacoteAberto = arguments[0] || 'pacote';
+      _pacoteTs = Date.now();
+      if (fn) return fn.apply(this, arguments);
+    };
+  }
+  /* Tenta hookar imediatamente e também após o DOM carregar */
+  function _tryHook() {
+    if (window.mkpAbrirPacote && !window.mkpAbrirPacote._tracked) {
+      window.mkpAbrirPacote = _hookAbrirPacote(window.mkpAbrirPacote);
+      window.mkpAbrirPacote._tracked = true;
+    }
+  }
+  setTimeout(_tryHook, 1000);
+  setTimeout(_tryHook, 3000);
+
+  /* Salva tempo ao fechar/sair da página */
+  window.addEventListener('beforeunload', function() {
+    if (_pacoteAberto && _pacoteTs) {
+      var seg = Math.round((Date.now() - _pacoteTs) / 1000);
+      if (seg > 3) _ev('tempo_pacote', seg);
+    }
+  });
+
 })();
 </script>
 
