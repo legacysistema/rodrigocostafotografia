@@ -1295,6 +1295,28 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   opacity: 0; pointer-events: none;
 }
 
+/* ── Botão "Quero um pacote igual" ── */
+.ps-interesse-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 8px;
+  background: rgba(37,211,102,0.08);
+  border: 1px solid rgba(37,211,102,0.22);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-family: var(--font-body); font-size: 11px; font-weight: 600;
+  color: #25D366;
+  cursor: pointer; text-decoration: none;
+  transition: background .2s, border-color .2s, transform .15s;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.ps-interesse-btn:hover {
+  background: rgba(37,211,102,0.16);
+  border-color: rgba(37,211,102,0.45);
+  transform: scale(1.03);
+}
+.ps-interesse-btn i { font-size: 12px; }
+
 /* ── Card Promoção ── */
 .promo-card {
   background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.14);
@@ -1700,6 +1722,63 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     document.addEventListener('DOMContentLoaded', function() { setTimeout(_init, 500); });
   } else {
     setTimeout(_init, 500);
+  }
+})();
+</script>
+
+<!-- ══ BOTÃO "QUERO UM PACOTE IGUAL" ══ -->
+<script>
+(function() {
+  var WA = '5522992497662';
+  var MAX_WAIT = 12000, INTERVAL = 400, elapsed = 0;
+
+  function _injetar() {
+    var cards = document.querySelectorAll('.ps-card');
+    var novos = 0;
+    cards.forEach(function(card) {
+      if (card.querySelector('.ps-interesse-btn')) return; // já tem
+      var left = card.querySelector('.ps-card-left');
+      if (!left) return;
+
+      /* Pega o nome do pacote do badge */
+      var badge = card.querySelector('.ps-badge');
+      var pacote = badge ? badge.textContent.replace(/✔\s*/,'').trim() : 'este pacote';
+
+      /* Monta mensagem */
+      var msg = encodeURIComponent('Olá Rodrigo! Vi no portal que ' + pacote + ' foi contratado recentemente e fiquei interessado(a). Pode me passar mais informações?');
+      var href = 'https://wa.me/' + WA + '?text=' + msg;
+
+      var btn = document.createElement('a');
+      btn.className = 'ps-interesse-btn';
+      btn.href = href;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      btn.innerHTML = '<i class="fab fa-whatsapp"></i> Quero um pacote igual';
+      left.appendChild(btn);
+      novos++;
+    });
+    return novos;
+  }
+
+  function _tentar() {
+    /* Aguarda os cards do carrossel existirem no DOM */
+    var cards = document.querySelectorAll('.ps-card');
+    if (cards.length > 0) {
+      _injetar();
+      /* Observa novos cards (troca de página do carrossel) */
+      var observer = new MutationObserver(function() { _injetar(); });
+      var track = document.getElementById('ps-fc-track');
+      if (track) observer.observe(track, { childList: true, subtree: true });
+      return;
+    }
+    elapsed += INTERVAL;
+    if (elapsed < MAX_WAIT) setTimeout(_tentar, INTERVAL);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(_tentar, 800); });
+  } else {
+    setTimeout(_tentar, 800);
   }
 })();
 </script>
