@@ -2324,6 +2324,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
   /* ── Builder: card promoção (banner carrossel + contador regressivo) ── */
   var _cdIds = [];    /* guarda ids para iniciar os timers após inserir no DOM */
+  var _cdRegistry = {}; /* id → validade — persiste entre rebuilds */
   var _bannerIds = []; /* guarda ids dos banners para iniciar carrossel interno */
 
   function _cardPromo(r) {
@@ -2364,6 +2365,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     if (r.validade) {
       var uid = 'pcd-' + Math.random().toString(36).slice(2, 8);
       _cdIds.push({ id: uid, validade: r.validade });
+      _cdRegistry[uid] = r.validade;
       cdBlock = '<div class="promo-cd-card" id="' + uid + '">'
         + '<div class="promo-cd-card-inner">'
         + '<i class="fas fa-hourglass-half promo-cd-card-icon"></i>'
@@ -2431,45 +2433,86 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
   }
 
   /* ── Inicia os contadores após o DOM ser montado ── */
+  /* Suporta rebuild (carrossel resize/mobile) via _cdRegistry persistente    */
   function _initCountdowns() {
-    _cdIds.forEach(function(item) {
+    /* Mescla _cdIds novos com entradas já salvas no registry (rebuild) */
+    var toInit = _cdIds.slice();
+    /* Também tenta reiniciar qualquer contador do registry que esteja no DOM */
+    Object.keys(_cdRegistry).forEach(function(id) {
+      if (!toInit.some(function(x){ return x.id === id; })) {
+        if (document.getElementById(id)) {
+          toInit.push({ id: id, validade: _cdRegistry[id] });
+        }
+      }
+    });
+    _cdIds = [];
+
+    function _pad(n) { return n < 10 ? '0' + n : String(n); }
+
+    toInit.forEach(function(item) {
       var wrap = document.getElementById(item.id);
       if (!wrap) return;
+      /* Evita duplicar intervalo se já estiver rodando */
+      if (wrap._cdRunning) return;
+      wrap._cdRunning = true;
+
       var endDate = new Date(item.validade + 'T23:59:59');
       var dEl = wrap.querySelector('[data-unit="d"]');
       var hEl = wrap.querySelector('[data-unit="h"]');
       var mEl = wrap.querySelector('[data-unit="m"]');
-      var pd = -1, ph = -1, pm = -1;
 
-      function _pad(n) { return n < 10 ? '0' + n : String(n); }
       function _tick(el, v) {
         if (!el) return;
-        el.textContent = _pad(v);
+        var s = _pad(v);
+        if (el.textContent === s) return;
+        el.textContent = s;
         el.parentElement.classList.add('bump');
         setTimeout(function() { el.parentElement.classList.remove('bump'); }, 180);
       }
       function _run() {
+        if (!document.getElementById(item.id)) { clearInterval(wrap._cdInterval); return; }
         var diff = endDate - new Date();
         if (diff <= 0) {
           wrap.classList.add('expired');
           if (dEl) dEl.textContent = '00';
           if (hEl) hEl.textContent = '00';
           if (mEl) mEl.textContent = '00';
+          clearInterval(wrap._cdInterval);
           return;
         }
         var total = Math.floor(diff / 1000);
-        var d = Math.floor(total / 86400);
-        var h = Math.floor((total % 86400) / 3600);
-        var m = Math.floor((total % 3600) / 60);
-        if (d !== pd) { _tick(dEl, d); pd = d; }
-        if (h !== ph) { _tick(hEl, h); ph = h; }
-        if (m !== pm) { _tick(mEl, m); pm = m; }
-        setTimeout(_run, 30000);
+        _tick(dEl, Math.floor(total / 86400));
+        _tick(hEl, Math.floor((total % 86400) / 3600));
+        _tick(mEl, Math.floor((total % 3600) / 60));
       }
       _run();
+      /* setInterval garante atualização contínua mesmo após sleep no mobile */
+      wrap._cdInterval = setInterval(_run, 30000);
     });
-    _cdIds = [];
   }
+
+  /* ── Retoma contadores após visibilidade (mobile: troca de aba / tela bloqueada) ── */
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState !== 'visible') return;
+    document.querySelectorAll('[id^="pcd-"]').forEach(function(wrap) {
+      if (!wrap._cdRunning) return;
+      /* Força atualização imediata dos valores */
+      var id = wrap.id;
+      var validade = _cdRegistry[id];
+      if (!validade) return;
+      var endDate = new Date(validade + 'T23:59:59');
+      var dEl = wrap.querySelector('[data-unit="d"]');
+      var hEl = wrap.querySelector('[data-unit="h"]');
+      var mEl = wrap.querySelector('[data-unit="m"]');
+      function _pad(n) { return n < 10 ? '0' + n : String(n); }
+      var diff = endDate - new Date();
+      if (diff <= 0) return;
+      var total = Math.floor(diff / 1000);
+      if (dEl) dEl.textContent = _pad(Math.floor(total / 86400));
+      if (hEl) hEl.textContent = _pad(Math.floor((total % 86400) / 3600));
+      if (mEl) mEl.textContent = _pad(Math.floor((total % 3600) / 60));
+    });
+  });
 
   /* ── Factory de carrossel (reutilizável) ── */
   function _makeCarousel(cfg) {
