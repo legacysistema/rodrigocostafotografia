@@ -1812,19 +1812,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       _ev('categoria_click', nome);
     }
 
-    /* Abertura de pacote (modal ou card de detalhe) */
-    var pacCard = e.target.closest('.mkp-card, .product-card, [onclick*="mkpAbrirPacote"], [onclick*="verPacote"]');
-    if (pacCard) {
-      var titulo = pacCard.querySelector('.mkp-card-title, .product-title, h3, h4')?.textContent?.trim() || 'pacote';
-      _ev('pacote_aberto', titulo.slice(0, 80));
-    }
-
     /* Navegação no carrossel de fechamentos */
     if (e.target.closest('#ps-fc-prev, #ps-fc-next, #ps-fc-outer .ps-dot')) {
       _ev('carrossel_nav');
     }
 
-    /* Botão de interesse no WhatsApp — já tem o pacote na mensagem */
+    /* Botão de interesse no WhatsApp */
     var waBtn = e.target.closest('.ps-interesse-btn');
     if (waBtn) {
       var pacote = waBtn.closest('.ps-card')?.querySelector('.ps-badge')?.textContent?.replace(/✔\s*/,'').trim() || 'pacote';
@@ -1832,37 +1825,37 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     }
   });
 
-  /* 3. Tempo em pacote — rastreia abertura de modal/detalhe */
+  /* 3. Rastreia abertura do modal — observa quando o título é preenchido */
   var _pacoteAberto = null, _pacoteTs = null;
-  var _origAbrirPacote = window.mkpAbrirPacote;
-  function _hookAbrirPacote(fn) {
-    return function() {
-      if (_pacoteAberto && _pacoteTs) {
-        var seg = Math.round((Date.now() - _pacoteTs) / 1000);
-        if (seg > 3) _ev('tempo_pacote', seg);
-      }
-      _pacoteAberto = arguments[0] || 'pacote';
-      _pacoteTs = Date.now();
-      if (fn) return fn.apply(this, arguments);
-    };
-  }
-  /* Tenta hookar imediatamente e também após o DOM carregar */
-  function _tryHook() {
-    if (window.mkpAbrirPacote && !window.mkpAbrirPacote._tracked) {
-      window.mkpAbrirPacote = _hookAbrirPacote(window.mkpAbrirPacote);
-      window.mkpAbrirPacote._tracked = true;
-    }
-  }
-  setTimeout(_tryHook, 1000);
-  setTimeout(_tryHook, 3000);
-
-  /* Salva tempo ao fechar/sair da página */
-  window.addEventListener('beforeunload', function() {
+  var _modalObserver = new MutationObserver(function() {
+    var modalOverlay = document.getElementById('prodModal');
+    if (!modalOverlay || !modalOverlay.classList.contains('active')) return;
+    var titulo = document.getElementById('modalTitle') ||
+                 document.querySelector('.modal-title') ||
+                 document.querySelector('#prodModalBox h2, #prodModalBox h3');
+    if (!titulo || !titulo.textContent.trim()) return;
+    var nome = titulo.textContent.trim();
+    if (nome === _pacoteAberto) return; /* mesmo pacote, não duplica */
+    /* Salva tempo do pacote anterior */
     if (_pacoteAberto && _pacoteTs) {
       var seg = Math.round((Date.now() - _pacoteTs) / 1000);
       if (seg > 3) _ev('tempo_pacote', seg);
     }
+    _pacoteAberto = nome;
+    _pacoteTs = Date.now();
+    _ev('pacote_aberto', nome.slice(0, 80));
   });
+
+  /* Começa a observar após o DOM carregar */
+  function _initModalObserver() {
+    var modalBox = document.getElementById('prodModalBox');
+    if (modalBox) {
+      _modalObserver.observe(modalBox, { childList: true, subtree: true, characterData: true });
+    } else {
+      setTimeout(_initModalObserver, 1000);
+    }
+  }
+  setTimeout(_initModalObserver, 1000);
 
 })();
 </script>
