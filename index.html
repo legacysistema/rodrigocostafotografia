@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-/* ===== RESET & BASE ===== */
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
@@ -54,7 +54,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== NOISE TEXTURE ===== */
+
 body::before {
   content:'';
   position:fixed; inset:0; pointer-events:none; z-index:0;
@@ -62,7 +62,7 @@ body::before {
   opacity: 0.4;
 }
 
-/* ===== HEADER ===== */
+
 .header {
   position: sticky; top:0; z-index:900;
   background: rgba(6,6,10,0.82);
@@ -110,7 +110,7 @@ body::before {
 }
 .btn-logout:hover { border-color:rgba(255,51,102,0.5); color:var(--danger); background:rgba(255,51,102,0.06); box-shadow: var(--glow-red); }
 
-/* ===== LOGIN PAGE ===== */
+
 #loginPage {
   display: flex; align-items: center; justify-content: center;
   min-height: 100vh; min-height: -webkit-fill-available;
@@ -119,7 +119,7 @@ body::before {
   background: #08080e;
 }
 
-/* Fundo: gradiente fotográfico com bokeh suave */
+
 #loginPage::before {
   content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
   background:
@@ -127,7 +127,7 @@ body::before {
     radial-gradient(ellipse 60% 50% at 80% 85%, rgba(120,90,180,0.06) 0%, transparent 55%),
     radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 65%);
 }
-/* Grade fotográfica sutil */
+
 #loginPage::after {
   content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
   background-image:
@@ -138,7 +138,7 @@ body::before {
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 10%, transparent 100%);
 }
 
-/* Círculos bokeh decorativos */
+
 .login-deco {
   position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
 }
@@ -157,7 +157,7 @@ body::before {
   background: radial-gradient(circle, rgba(100,80,180,0.04) 0%, transparent 70%);
 }
 
-/* Card principal — câmera como inspiração: moldura precisa */
+
 .login-box {
   background: rgba(10,10,16,0.92);
   border: 1px solid rgba(255,255,255,0.08);
@@ -174,7 +174,7 @@ body::before {
   overflow: hidden;
 }
 
-/* Barra dourada no topo — inspirada no anel de foco da lente */
+
 .login-top-bar {
   height: 3px;
   background: linear-gradient(90deg,
@@ -187,7 +187,7 @@ body::before {
     transparent 100%);
 }
 
-/* Cabeçalho do card */
+
 .login-header {
   padding: 44px 44px 32px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -195,7 +195,7 @@ body::before {
   text-align: center;
 }
 
-/* Ícone da câmera */
+
 .login-camera-icon {
   width: 64px; height: 64px;
   border: 1px solid rgba(220,180,90,0.25);
@@ -216,10 +216,10 @@ body::before {
   border-radius: 22px;
 }
 
-/* Monograma corporativo — mantido mas oculto pois usamos o ícone */
+
 .login-monogram { display: none; }
 
-/* Nome principal — Poppins */
+
 .login-logo {
   font-family: 'Poppins', sans-serif;
   font-size: 28px;
@@ -243,7 +243,7 @@ body::before {
   margin-top: 6px;
 }
 
-/* Subtítulo */
+
 .login-subtitle {
   font-family: 'Poppins', sans-serif;
   font-size: 10px; font-weight: 500;
@@ -253,12 +253,12 @@ body::before {
   margin-top: 4px;
 }
 
-/* Corpo do formulário */
+
 .login-body {
   padding: 32px 44px 40px;
 }
 
-/* Bloco de acesso fixo */
+
 .login-access-block {
   margin-bottom: 20px;
 }
@@ -303,10 +303,10 @@ body::before {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Input oculto (mantém lógica JS) */
+
 #cpfInput { display: none !important; }
 
-/* Botão de acesso — estético fotográfico */
+
 .btn-primary {
   width: 100%; padding: 17px 24px; border: none;
   background: linear-gradient(135deg, rgba(220,185,100,0.15) 0%, rgba(200,160,80,0.08) 100%);
@@ -351,7 +351,7 @@ body::before {
   background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
 }
 
-/* Rodapé do card */
+
 .login-footer {
   padding: 16px 44px 20px;
   border-top: 1px solid rgba(255,255,255,0.04);
@@ -368,11 +368,11 @@ body::before {
   background: rgba(220,185,100,0.2);
 }
 
-/* ===== DASHBOARD ===== */
+
 #dashboardPage { display:none; }
 .main-wrap { max-width:1200px; margin:0 auto; padding:32px 24px 120px; position:relative; z-index:1; }
 
-/* ===== NAV TABS ===== */
+
 .nav-tabs {
   display:flex; gap:4px; margin-bottom:36px;
   background: rgba(10,10,18,0.7);
@@ -396,7 +396,7 @@ body::before {
   box-shadow: var(--glow-cyan), inset 0 1px 0 rgba(0,229,255,0.1);
 }
 
-/* ===== SECTION ===== */
+
 .section { display:none; }
 .section.active { display:block; }
 .section-title {
@@ -405,7 +405,7 @@ body::before {
 }
 .section-sub { color:var(--muted); font-size:14px; margin-bottom:32px; font-family:var(--font-body); }
 
-/* ===== STATS CARDS ===== */
+
 .stats-grid {
   display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
   gap:16px; margin-bottom:36px;
@@ -437,7 +437,7 @@ body::before {
   line-height:1;
 }
 
-/* ===== GLASS CARDS ===== */
+
 .glass-card {
   background: rgba(12,12,20,0.7);
   border: 1px solid rgba(255,255,255,0.07);
@@ -451,7 +451,7 @@ body::before {
   box-shadow: 0 6px 32px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,229,255,0.04);
 }
 
-/* ===== PROFILE CARD ===== */
+
 .profile-card {
   display:grid; grid-template-columns:auto 1fr; gap:24px;
   align-items:center; margin-bottom:32px;
@@ -473,7 +473,7 @@ body::before {
   border:1px solid rgba(0,232,154,0.2); box-shadow: var(--glow-green);
 }
 
-/* ===== PROJECT / DEADLINE / ALERT CARDS ===== */
+
 .item-card {
   background: rgba(12,12,20,0.72);
   border: 1px solid rgba(255,255,255,0.07);
@@ -512,7 +512,7 @@ body::before {
   box-shadow: 0 0 8px rgba(0,229,255,0.5);
 }
 
-/* ===== ALERT CARDS — categoria colore o card ===== */
+
 .item-card.alert-info {
   border-color: rgba(0,229,255,0.18);
   background: rgba(0,229,255,0.04);
@@ -550,7 +550,7 @@ body::before {
   box-shadow: var(--glow-green), 0 8px 32px rgba(0,0,0,0.35);
 }
 
-/* ===== BADGE ===== */
+
 .badge {
   display:inline-flex; align-items:center; padding:3px 11px;
   border-radius:20px; font-size:11px; font-weight:600; white-space:nowrap;
@@ -561,7 +561,7 @@ body::before {
 .badge-warning { background:rgba(255,170,0,0.1); color:#ffaa00; border:1px solid rgba(255,170,0,0.2); }
 .badge-danger { background:rgba(255,51,102,0.1); color:var(--danger); border:1px solid rgba(255,51,102,0.2); }
 
-/* ===== EMPTY STATE ===== */
+
 .empty-state {
   text-align:center; padding:60px 20px;
   color:var(--muted);
@@ -569,7 +569,7 @@ body::before {
 .empty-state i { font-size:40px; margin-bottom:16px; opacity:.3; display:block; }
 .empty-state p { font-size:14px; }
 
-/* ===== LINK CARDS ===== */
+
 .link-card {
   background: rgba(12,12,20,0.72);
   border: 1px solid rgba(255,255,255,0.07);
@@ -595,7 +595,7 @@ body::before {
 .link-title { font-weight:600; font-size:15px; margin-bottom:2px; font-family:var(--font-head); }
 .link-url { font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:var(--font-body); }
 
-/* ===== TIMELINE ===== */
+
 .timeline { position:relative; padding-left:28px; }
 .timeline::before {
   content:''; position:absolute; left:7px; top:0; bottom:0;
@@ -609,7 +609,7 @@ body::before {
 }
 .timeline-date { font-size:11px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px; }
 
-/* ===== MARKETPLACE ===== */
+
 .mkp-search-bar {
   display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;
 }
@@ -647,7 +647,7 @@ body::before {
   gap:20px;
 }
 
-/* ===== PRODUCT CARD ===== */
+
 .prod-card {
   background: rgba(12,12,20,0.75);
   border: 1px solid rgba(255,255,255,0.08);
@@ -719,7 +719,7 @@ body::before {
 }
 .btn-ver:hover { background:rgba(0,229,255,0.22); }
 
-/* ===== MODAL ===== */
+
 .modal-overlay {
   position:fixed; inset:0; z-index:1000;
   background:rgba(0,0,0,.8); backdrop-filter:blur(8px);
@@ -749,7 +749,7 @@ body::before {
 }
 .modal-close:hover { background:rgba(255,255,255,.14); }
 
-/* Modal carousel */
+
 .modal-carousel { position:relative; width:100%; padding-top:56.25%; overflow:hidden; border-radius:16px 16px 0 0; background:var(--bg3); }
 .modal-carousel-track { position:absolute; inset:0; display:flex; transition:transform .35s ease; }
 .modal-carousel-track img { width:100%; height:100%; object-fit:cover; object-position:top center; flex-shrink:0; }
@@ -788,7 +788,7 @@ body::before {
 .modal-price-base { font-size:12px; color:var(--muted); margin-bottom:20px; }
 .modal-desc { color:var(--muted); font-size:14px; line-height:1.7; margin-bottom:24px; }
 
-/* Incluso list */
+
 .incluso-title {
   font-size:12px; text-transform:uppercase; letter-spacing:.7px; color:var(--muted);
   margin-bottom:10px; display:flex; align-items:center; gap:6px;
@@ -800,7 +800,7 @@ body::before {
 }
 .incluso-list li i { color:var(--green); font-size:13px; margin-top:2px; flex-shrink:0; }
 
-/* Extras */
+
 .extras-title { font-size:12px; text-transform:uppercase; letter-spacing:.7px; color:var(--muted); margin-bottom:10px; }
 .extras-list { margin-bottom:24px; }
 .extra-item {
@@ -815,7 +815,7 @@ body::before {
 .extra-name { flex:1; font-size:14px; }
 .extra-price { font-size:14px; font-weight:700; color:var(--green); white-space:nowrap; }
 
-/* Total */
+
 .modal-total-bar {
   background:rgba(0,232,154,0.08); border:1px solid rgba(0,232,154,0.25);
   border-radius:12px; padding:14px 18px; margin-bottom:20px;
@@ -824,7 +824,7 @@ body::before {
 .total-label { font-size:13px; color:var(--muted); }
 .total-val { font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--green); }
 
-/* CTA Buttons */
+
 .cta-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .btn-wa {
   padding:14px; border:none; border-radius:12px;
@@ -850,7 +850,7 @@ body::before {
 }
 .pix-status.show { display:block; background:rgba(0,232,154,.1); color:var(--green); }
 
-/* ===== FIXED BOTTOM BAR ===== */
+
 .fixed-bar {
   position:fixed; bottom:0; left:0; right:0; z-index:800;
   background: rgba(7,7,9,0.92); backdrop-filter:blur(16px);
@@ -876,7 +876,7 @@ body::before {
 .fixed-btn-pix { background: linear-gradient(135deg, var(--green), #009966); color:#fff; }
 .fixed-btn-wa:hover, .fixed-btn-pix:hover { opacity:.88; }
 
-/* ===== VITRINE TAB DESTAQUE ===== */
+
 .nav-tab--vitrine {
   background: linear-gradient(135deg, rgba(220,185,100,0.12) 0%, rgba(180,140,60,0.06) 100%);
   border: 1px solid rgba(220,185,100,0.25) !important;
@@ -905,32 +905,32 @@ body::before {
   box-shadow: 0 0 18px rgba(220,185,100,0.25), 0 0 40px rgba(220,185,100,0.08) !important;
 }
 
-/* ===== iOS / SAFARI FIXES ===== */
-/* Prevent iOS tap highlight */
-* { -webkit-tap-highlight-color: transparent; }
-/* Fix min-height on Safari iOS */
+
+
+ { -webkit-tap-highlight-color: transparent; }
+
 body { min-height: -webkit-fill-available; }
-/* Fix backdrop-filter on iOS */
+
 .login-box, .header, .nav-tabs, .glass-card, .item-card, .stat-card {
   -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
-/* Fix position:fixed bottom bar on iOS notch */
+
 .fixed-bar {
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
-/* Fix overflow scrolling on iOS */
+
 .nav-tabs { -webkit-overflow-scrolling: touch; }
-/* Prevent iOS font size adjustment */
+
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-/* Fix input zoom on iOS (font-size >= 16px prevents auto-zoom) */
+
 .mkp-search-bar input, .mkp-search-bar select { font-size: 16px; }
 
-/* ===== SCROLLBAR ===== */
+
 ::-webkit-scrollbar { width:6px; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:3px; }
 
-/* ===== RESPONSIVE ===== */
+
 @media(max-width:600px) {
   .main-wrap { padding:24px 16px 100px; }
   .nav-tabs { overflow-x:auto; width:100%; }
@@ -943,7 +943,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .fixed-btn-wa, .fixed-btn-pix { flex:1; justify-content:center; }
 }
 
-/* ===== CATEGORY HUB ===== */
+
 .cat-hub-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1023,7 +1023,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   background: rgba(0,229,255,0.3); transform: translateX(3px);
 }
 
-/* Breadcrumb nav */
+
 .mkp-breadcrumb {
   display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
   margin-bottom: 22px;
@@ -1061,7 +1061,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .cat-hub-name { font-size: 15px; }
 }
 
-/* ===== SOCIAL CARDS ===== */
+
 .social-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1153,9 +1153,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .social-arrow { display: none; }
 }
 
-/* ══════════════════════════════════════
-   PROVA SOCIAL & PROMOÇÕES — CARROSSEL
-══════════════════════════════════════ */
+
 
 .ps-row-label {
   font-family: var(--font-body);
@@ -1178,7 +1176,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   will-change: transform;
 }
 
-/* Setas */
+
 .ps-arrow {
   position: absolute;
   top: 50%; transform: translateY(-50%);
@@ -1198,7 +1196,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .ps-arrow--next { right: -16px; }
 .ps-arrow.hidden { opacity: 0; pointer-events: none; }
 
-/* Dots */
+
 .ps-dots {
   display: flex; justify-content: center; gap: 6px;
   margin-top: 14px;
@@ -1212,7 +1210,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .ps-dot.active { background: var(--primary); transform: scale(1.3); }
 .ps-dot.promo.active { background: #7c3aed; }
 
-/* ── Card Fechamento (layout horizontal) ── */
+
 .ps-card {
   background: rgba(0,229,255,0.04);
   border: 1px solid rgba(0,229,255,0.10);
@@ -1229,7 +1227,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   transform: translateY(-2px);
 }
 
-/* Lado esquerdo — info do cliente */
+
 .ps-card-left {
   flex: 1; min-width: 0;
   padding: 13px 12px;
@@ -1262,7 +1260,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .ps-meta span { display: flex; align-items: center; gap: 4px; }
 
-/* Lado direito — thumbnail "Ver Pacote" */
+
 .ps-card-right {
   flex: 0 0 80px;
   background: rgba(0,229,255,0.05);
@@ -1290,12 +1288,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   letter-spacing: .8px; text-transform: uppercase;
   color: var(--primary); text-align: center; line-height: 1.2;
 }
-/* sem link = lado direito desabilitado */
+
 .ps-card-right.no-link {
   opacity: 0; pointer-events: none;
 }
 
-/* ── Botão "Quero um pacote igual" ── */
+
 .ps-interesse-btn {
   display: inline-flex; align-items: center; gap: 6px;
   margin-top: 8px;
@@ -1317,7 +1315,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .ps-interesse-btn i { font-size: 12px; }
 
-/* ── Card Promoção ── */
+
 .promo-card {
   background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.14);
   border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
@@ -1333,7 +1331,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   box-shadow: var(--glow-violet), 0 12px 40px rgba(0,0,0,0.45);
 }
 
-/* Banner carrossel interno do card de promoção */
+
 .promo-banner {
   position: relative;
   width: 100%;
@@ -1357,7 +1355,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   display: flex; align-items: center; justify-content: center;
   font-size: 36px; color: rgba(124,58,237,0.35);
 }
-/* Setas do banner interno */
+
 .promo-banner-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 28px; height: 28px; border-radius: 50%; border: none;
@@ -1372,7 +1370,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .promo-banner-arrow:hover { background: rgba(124,58,237,0.75); }
 .promo-banner-arrow.prev { left: 8px; }
 .promo-banner-arrow.next { right: 8px; }
-/* Dots do banner interno */
+
 .promo-banner-dots {
   position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
   display: flex; gap: 5px; z-index: 4;
@@ -1384,7 +1382,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   transition: width .2s, background .2s;
 }
 .promo-banner-dot.active { width: 16px; background: #fff; }
-/* Badge de fotos */
+
 .promo-banner-count {
   position: absolute; top: 10px; right: 10px; z-index: 4;
   background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
@@ -1404,7 +1402,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   margin-top: auto; padding-top: 5px; font-weight: 600;
 }
 
-/* ===== CONTADOR DE ACESSOS ===== */
+
 .acesso-pill {
   display: inline-flex; align-items: center; gap: 7px;
   background: rgba(255,255,255,0.03);
@@ -1424,7 +1422,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .acesso-pill-num.loading { opacity: .25; }
 
-/* ── Pílula álbuns impressos ── */
+
 .album-pill {
   display: inline-flex; align-items: center; gap: 7px;
   background: rgba(220,185,100,0.06);
@@ -1448,7 +1446,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .album-pill:hover i { color: rgba(255,215,130,0.85); }
 .album-pill-arrow { font-size: 9px; opacity: .5; margin-left: 2px; }
 
-/* ===== CONTADOR REGRESSIVO NOS CARDS DE PROMOÇÃO ===== */
+
 .promo-cd-card {
   margin-top: auto; padding-top: 8px;
   border-top: 1px solid rgba(255,140,0,0.15);
@@ -1505,9 +1503,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   50%       { opacity: 0.15; }
 }
 
-/* ══════════════════════════════════════
-   PÍLULA & MODAL — TIRE SUAS DÚVIDAS
-══════════════════════════════════════ */
+
 .duvidas-pill {
   display: inline-flex; align-items: center; gap: 7px;
   background: rgba(0,232,154,0.05);
@@ -1530,7 +1526,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .duvidas-pill i { font-size: 11px; color: rgba(0,232,154,0.5); transition: color .2s; }
 .duvidas-pill:hover i { color: rgba(0,232,154,0.85); }
 
-/* Overlay do modal FAQ */
+
 .faq-overlay {
   position: fixed; inset: 0; z-index: 1100;
   background: rgba(0,0,0,0.72);
@@ -1544,7 +1540,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .faq-overlay.active { opacity: 1; pointer-events: all; }
 
-/* Box principal */
+
 .faq-box {
   background: #0d0d18;
   border: 1px solid rgba(255,255,255,0.08);
@@ -1562,7 +1558,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .faq-overlay.active .faq-box { transform: translateY(0) scale(1); }
 
-/* Cabeçalho do modal */
+
 .faq-header {
   padding: 20px 22px 0;
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
@@ -1586,7 +1582,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .faq-close:hover { background: rgba(255,51,102,0.1); border-color: rgba(255,51,102,0.3); color: var(--danger); }
 
-/* Tabs de categoria */
+
 .faq-tabs {
   display: flex; gap: 6px; padding: 16px 22px 12px;
   overflow-x: auto; flex-shrink: 0;
@@ -1608,7 +1604,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .faq-tab.active[data-cat="aniversarios"] { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.35); color: #b07dff; }
 .faq-tab.active[data-cat="albuns"]    { background: rgba(220,185,100,0.10); border-color: rgba(220,185,100,0.32); color: rgba(220,185,100,0.9); }
 
-/* Corpo com perguntas */
+
 .faq-body {
   overflow-y: auto; flex: 1;
   padding: 0 22px 28px;
@@ -1618,11 +1614,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .faq-body::-webkit-scrollbar-track { background: transparent; }
 .faq-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 
-/* Painel de categoria */
+
 .faq-panel { display: none; }
 .faq-panel.active { display: block; }
 
-/* Item acordeão */
+
 .faq-item {
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 13px; margin-bottom: 8px;
@@ -1632,7 +1628,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 .faq-item:hover { border-color: rgba(255,255,255,0.11); }
 
-/* Pergunta (botão) */
+
 .faq-q {
   width: 100%; padding: 14px 16px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -1654,7 +1650,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .faq-panel[data-cat="aniversarios"] .faq-item.open .faq-q-icon { background: rgba(124,58,237,0.12); color: #b07dff; }
 .faq-panel[data-cat="albuns"] .faq-item.open .faq-q-icon { background: rgba(220,185,100,0.1); color: rgba(220,185,100,0.9); }
 
-/* Resposta */
+
 .faq-a {
   max-height: 0; overflow: hidden;
   transition: max-height .3s cubic-bezier(.4,0,.2,1), padding .25s;
@@ -1669,13 +1665,13 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   line-height: 1.65; border-top: 1px solid rgba(255,255,255,0.05);
   padding-top: 12px;
 }
-/* destaque em negrito dentro das respostas */
+
 .faq-a-inner strong { color: var(--text); font-weight: 600; }
 </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
+
 <header class="header" id="mainHeader" style="display:none;">
   <div class="logo"><span class="logo-bold">Rodrigo Costa</span><span class="logo-light">Fotografia</span></div>
   <div class="header-right">
@@ -1686,15 +1682,15 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   </div>
 </header>
 
-<!-- ===== LOGIN PAGE ===== -->
+
 <div id="loginPage">
   <div class="login-deco"></div>
   <div class="login-box">
 
-    <!-- Linha decorativa no topo -->
+    
     <div class="login-top-bar"></div>
 
-    <!-- Cabeçalho -->
+    
     <div class="login-header">
       <div class="login-camera-icon"><i class="fas fa-camera"></i></div>
       <div class="login-logo">
@@ -1704,13 +1700,13 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <p class="login-subtitle">Portal do Cliente</p>
     </div>
 
-    <!-- Formulário -->
+    
     <div class="login-body">
       <form id="loginForm">
         <!-- Campo oculto com valor fixo -->
         <input type="text" id="cpfInput" value="12345678900" autocomplete="off" readonly>
 
-        <!-- Bloco visual de acesso -->
+        
         <div class="login-access-block">
           <div class="login-access-label">Código de acesso</div>
           <div class="login-access-display">
@@ -1729,7 +1725,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <div class="msg-toast" id="loginMsg"></div>
     </div>
 
-    <!-- Rodapé -->
+   
     <div class="login-footer">
       <span class="login-footer-text">Área Restrita</span>
       <div class="login-footer-dot"></div>
@@ -1739,11 +1735,11 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   </div>
 </div>
 
-<!-- ===== DASHBOARD ===== -->
+
 <div id="dashboardPage">
   <div class="main-wrap">
 
-    <!-- Nav tabs -->
+    
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="window._P.st('inicio')"><i class="fas fa-home"></i> Início</button>
       <button class="nav-tab nav-tab--vitrine" onclick="window._P.st('marketplace')"><i class="fas fa-camera-retro"></i> Vitrine</button>
@@ -1753,31 +1749,31 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <button class="nav-tab" onclick="window._P.st('links')"><i class="fas fa-link"></i> Links</button>
     </div>
 
-    <!-- === INÍCIO === -->
+    
     <div class="section active" id="sec-inicio">
 
-      <!-- ══ CONTADOR DE ACESSOS DIÁRIOS ══ -->
+      
       <div class="acesso-pill">
         <i class="fas fa-eye"></i>
         <span class="acesso-pill-num loading" id="acesso-hoje">—</span>
         <span>acessos hoje</span>
       </div>
 
-      <!-- ══ PÍLULA ÁLBUNS IMPRESSOS ══ -->
+      
       <a class="album-pill" href="https://youtu.be/8iL5DQ_4dvk?feature=shared" target="_blank" rel="noopener">
         <i class="fas fa-book-open"></i>
         <span>Conheça os álbuns impressos</span>
         <i class="fas fa-arrow-right album-pill-arrow"></i>
       </a>
 
-      <!-- ══ PÍLULA TIRE SUAS DÚVIDAS ══ -->
+      
       <button class="duvidas-pill" onclick="document.getElementById('faqOverlay').classList.add('active');document.body.style.overflow='hidden';">
         <i class="fas fa-circle-question"></i>
         <span>Tire suas dúvidas</span>
         <i class="fas fa-chevron-right" style="font-size:9px;opacity:.45;margin-left:2px;"></i>
       </button>
 
-      <!-- Redes Sociais -->
+      
       <div class="social-grid">
         <!-- Instagram -->
         <a href="https://instagram.com/rodrigocostafotografia" target="_blank" class="social-card social-card--instagram">
@@ -1791,7 +1787,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
           <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
         </a>
 
-        <!-- WhatsApp -->
+        
         <a href="https://wa.me/5522992497662" target="_blank" class="social-card social-card--whatsapp">
           <div class="social-icon-wrap">
             <i class="fab fa-whatsapp"></i>
@@ -1803,7 +1799,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
           <div class="social-arrow"><i class="fas fa-arrow-right"></i></div>
         </a>
 
-        <!-- Google Avaliações -->
+        
         <a href="https://share.google/0fyGFcT3PtqlCgfWH" target="_blank" class="social-card social-card--google">
           <div class="social-icon-wrap">
             <i class="fab fa-google"></i>
@@ -1817,7 +1813,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       </div>
 
 
-      <!-- ══ CARROSSEL: FECHAMENTOS ══ -->
+      
       <p class="ps-row-label">
         <i class="fas fa-calendar-check" style="color:var(--primary);"></i>
         Últimos Agendamentos
@@ -1837,7 +1833,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
         <div class="ps-dots" id="ps-fc-dots"></div>
       </div>
 
-      <!-- ══ CARROSSEL: PROMOÇÕES ══ -->
+      
       <p class="ps-row-label" style="margin-top:32px;">
         <i class="fas fa-fire" style="color:#ff9944;"></i>
         Promoções &amp; Oportunidades
@@ -1859,50 +1855,50 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
     </div>
 
-    <!-- === PROJETOS === -->
+   
     <div class="section" id="sec-projetos">
       <h2 class="section-title">Meus Projetos</h2>
       <p class="section-sub">Acompanhe o andamento de cada projeto</p>
       <div id="projList"><div class="empty-state"><i class="fas fa-folder-open"></i><p>Nenhum projeto cadastrado</p></div></div>
     </div>
 
-    <!-- === PRAZOS === -->
+    
     <div class="section" id="sec-prazos">
       <h2 class="section-title">Prazos</h2>
       <p class="section-sub">Fique por dentro das datas importantes</p>
       <div id="prazoList"><div class="empty-state"><i class="fas fa-calendar-times"></i><p>Nenhum prazo cadastrado</p></div></div>
     </div>
 
-    <!-- === ALERTAS === -->
+    
     <div class="section" id="sec-alertas">
       <h2 class="section-title">Alertas &amp; Avisos</h2>
       <p class="section-sub">Notificações e informações do seu fotógrafo</p>
       <div id="alertList"><div class="empty-state"><i class="fas fa-bell-slash"></i><p>Nenhum alerta no momento</p></div></div>
     </div>
 
-    <!-- === LINKS === -->
+    
     <div class="section" id="sec-links">
       <h2 class="section-title">Links Úteis</h2>
       <p class="section-sub">Acesse materiais e recursos compartilhados</p>
       <div id="linkList"><div class="empty-state"><i class="fas fa-link"></i><p>Nenhum link cadastrado</p></div></div>
     </div>
 
-    <!-- === MARKETPLACE === -->
+    
     <div class="section" id="sec-marketplace">
       <h2 class="section-title">Vitrine de Serviços</h2>
       <p class="section-sub">Explore e reserve pacotes de fotografia</p>
 
-      <!-- Breadcrumb (hidden at root) -->
+      
       <div class="mkp-breadcrumb" id="mkpBreadcrumb" style="display:none;"></div>
 
-      <!-- Hub View: root OR sub-group cards -->
+      
       <div id="mkpCatHubView">
         <div class="cat-hub-grid" id="mkpCatGrid">
           <div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-spinner fa-spin"></i><p>Carregando...</p></div>
         </div>
       </div>
 
-      <!-- Product Grid View -->
+      
       <div id="mkpProductView" style="display:none;">
         <div class="mkp-cat-header" id="mkpCatHeader"></div>
         <div class="mkp-search-bar">
@@ -1924,12 +1920,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   </div>
 </div>
 
-<!-- ===== MODAL PRODUTO ===== -->
+
 <div class="modal-overlay" id="prodModal" onclick="window._P.mo(event)">
   <div class="modal-box" id="prodModalBox">
     <button class="modal-close" onclick="window._P.cm()"><i class="fas fa-times"></i></button>
 
-    <!-- Carousel -->
+    
     <div class="modal-carousel" id="modalCarouselWrap">
       <div class="modal-carousel-track" id="modalCarouselTrack"></div>
       <button class="modal-carousel-nav prev" id="modalPrev" onclick="window._P.mm(-1)" style="display:none;"><i class="fas fa-chevron-left"></i></button>
@@ -1945,25 +1941,25 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       <div class="modal-price-base" id="modalPriceBase"></div>
       <p class="modal-desc" id="modalDesc"></p>
 
-      <!-- Incluso -->
+     
       <div id="modalInclusoSection" style="display:none;">
         <div class="incluso-title"><i class="fas fa-check-circle" style="color:var(--green);"></i> O que está incluso</div>
         <ul class="incluso-list" id="modalInclusoList"></ul>
       </div>
 
-      <!-- Extras -->
+      
       <div id="modalExtrasSection" style="display:none;">
         <div class="extras-title">Adicione ao pacote (opcional)</div>
         <div class="extras-list" id="modalExtrasList"></div>
       </div>
 
-      <!-- Total -->
+      
       <div class="modal-total-bar">
         <div><div class="total-label">Total do pedido</div></div>
         <div class="total-val" id="modalTotal">R$ 0,00</div>
       </div>
 
-      <!-- CTAs -->
+      
       <div class="cta-buttons">
         <button class="btn-wa" id="modalBtnWA" onclick="window._P.wa()"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</button>
         <button class="btn-pix" id="modalBtnPix" onclick="window._P.px()"><i class="fas fa-bolt"></i> Reservar com Pix</button>
@@ -1973,7 +1969,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   </div>
 </div>
 
-<!-- ===== FIXED BOTTOM BAR ===== -->
+
 <div class="fixed-bar" id="fixedBar">
   <div class="fixed-bar-inner">
     <div>
@@ -2267,7 +2263,7 @@ function _renderHub(nodes,parentNode){
   }).join('');
 }
 
-// Called when user clicks a hub card
+
 function _navClick(name){
   var node=_findNode(name);
   if(!node){
@@ -2530,18 +2526,18 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       + '\x3c\x2f\x64\x69\x76\x3e';
   }
 
-  /* ── Builder: card promoção (banner carrossel + contador regressivo) ── */
-  var _cdIds = [];    /* guarda ids para iniciar os timers após inserir no DOM */
-  var _cdRegistry = {}; /* id → validade — persiste entre rebuilds */
-  var _bannerIds = []; /* guarda ids dos banners para iniciar carrossel interno */
+  
+  var _cdIds = [];    
+  var _cdRegistry = {}; 
+  var _bannerIds = []; 
 
   function _cardPromo(r) {
-    /* Coleta todas as fotos da promoção */
+    
     var fotos = [];
     var fotoKeys = ['\x66\x6f\x74\x6f\x5f\x75\x72\x6c','\x66\x6f\x74\x6f\x32\x5f\x75\x72\x6c','\x66\x6f\x74\x6f\x33\x5f\x75\x72\x6c','\x66\x6f\x74\x6f\x34\x5f\x75\x72\x6c','\x66\x6f\x74\x6f\x35\x5f\x75\x72\x6c'];
     fotoKeys.forEach(function(k) { if (r[k] && r[k].trim()) fotos.push(r[k].trim()); });
 
-    /* Banner com carrossel interno */
+    
     var bid = '\x70\x62\x2d' + Math.random().toString(36).slice(2, 8);
     var bannerContent = '';
     if (fotos.length === 0) {
@@ -2568,7 +2564,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
     var bannerEl = '\x3c\x64\x69\x76\x20\x63\x6c\x61\x73\x73\x3d\x22\x70\x72\x6f\x6d\x6f\x2d\x62\x61\x6e\x6e\x65\x72\x22\x3e' + bannerContent + '\x3c\x2f\x64\x69\x76\x3e';
 
-    /* Contador regressivo */
+    
     var cdBlock = '';
     if (r.validade) {
       var uid = '\x70\x63\x64\x2d' + Math.random().toString(36).slice(2, 8);
@@ -2598,7 +2594,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       + '\x3c\x2f\x64\x69\x76\x3e\x3c\x2f\x64\x69\x76\x3e';
   }
 
-  /* ── Controle do carrossel interno do banner de promoção ── */
+  
   var _bannerState = {}; /* bid → { idx, total } */
 
   window._promoBannerGo = function(bid, idx) {
@@ -2609,13 +2605,13 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     _bannerState[bid] = state;
     var w = track.parentElement ? track.parentElement.offsetWidth : track.offsetParent ? track.offsetParent.offsetWidth : 0;
     track.style.transform = '\x74\x72\x61\x6e\x73\x6c\x61\x74\x65\x58\x28\x2d' + (idx * w) + '\x70\x78\x29';
-    /* atualiza dots */
+    
     var dots = document.getElementById(bid + '\x2d\x64\x6f\x74\x73');
     if (dots) {
       var dList = dots.querySelectorAll('\x2e\x70\x72\x6f\x6d\x6f\x2d\x62\x61\x6e\x6e\x65\x72\x2d\x64\x6f\x74');
       dList.forEach(function(d, i) { d.classList.toggle('\x61\x63\x74\x69\x76\x65', i === idx); });
     }
-    /* atualiza setas */
+   
     var prev = document.getElementById(bid + '\x2d\x70\x72\x65\x76');
     var next = document.getElementById(bid + '\x2d\x6e\x65\x78\x74');
     if (prev) prev.style.opacity = idx === 0 ? '\x30' : '';
@@ -2631,7 +2627,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     window._promoBannerGo(bid, newIdx);
   };
 
-  /* ── Inicia o estado dos banners após inserir no DOM ── */
+  
   function _initBanners() {
     _bannerIds.forEach(function(item) {
       _bannerState[item.id] = { idx: 0, total: item.total };
@@ -2640,12 +2636,12 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     _bannerIds = [];
   }
 
-  /* ── Inicia os contadores após o DOM ser montado ── */
-  /* Suporta rebuild (carrossel resize/mobile) via _cdRegistry persistente    */
+  
+  
   function _initCountdowns() {
-    /* Mescla _cdIds novos com entradas já salvas no registry (rebuild) */
+    
     var toInit = _cdIds.slice();
-    /* Também tenta reiniciar qualquer contador do registry que esteja no DOM */
+    
     Object.keys(_cdRegistry).forEach(function(id) {
       if (!toInit.some(function(x){ return x.id === id; })) {
         if (document.getElementById(id)) {
@@ -2694,12 +2690,12 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
         _tick(mEl, Math.floor((total % (0xe10)) / 60));
       }
       _run();
-      /* setInterval garante atualização contínua mesmo após sleep no mobile */
+      
       wrap._cdInterval = setInterval(_run, (0x7530));
     });
   }
 
-  /* ── Retoma contadores após visibilidade (mobile: troca de aba / tela bloqueada) ── */
+  
   document.addEventListener('\x76\x69\x73\x69\x62\x69\x6c\x69\x74\x79\x63\x68\x61\x6e\x67\x65', function() {
     if (document.visibilityState !== '\x76\x69\x73\x69\x62\x6c\x65') return;
     document.querySelectorAll('\x5b\x69\x64\x5e\x3d\x22\x70\x63\x64\x2d\x22\x5d').forEach(function(wrap) {
@@ -2722,7 +2718,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     });
   });
 
-  /* ── Factory de carrossel (reutilizável) ── */
+ 
   function _makeCarousel(cfg) {
     var allCards = [], page = 0, timer = null, built = false;
     var trackId = cfg.track, dotsId = cfg.dots, prevId = cfg.prev, nextId = cfg.next, outerId = cfg.outer;
@@ -2781,7 +2777,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       built = true;
       _render();
       _startAuto();
-      /* inicia contadores regressivos e banners dos cards de promoção — após paint do DOM */
+      
       setTimeout(function() {
         if (typeof _initCountdowns === '\x66\x75\x6e\x63\x74\x69\x6f\x6e') _initCountdowns();
         if (typeof _initBanners === '\x66\x75\x6e\x63\x74\x69\x6f\x6e') _initBanners();
@@ -2823,7 +2819,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     };
   }
 
-  /* ── Instâncias ── */
+  
   window.psCarouselFC = _makeCarousel({
     name: '\x70\x73\x43\x61\x72\x6f\x75\x73\x65\x6c\x46\x43', track: '\x70\x73\x2d\x66\x63\x2d\x74\x72\x61\x63\x6b', dots: '\x70\x73\x2d\x66\x63\x2d\x64\x6f\x74\x73',
     prev: '\x70\x73\x2d\x66\x63\x2d\x70\x72\x65\x76', next: '\x70\x73\x2d\x66\x63\x2d\x6e\x65\x78\x74', outer: '\x70\x73\x2d\x66\x63\x2d\x6f\x75\x74\x65\x72', dotClass: ''
@@ -2833,7 +2829,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     prev: '\x70\x73\x2d\x70\x72\x2d\x70\x72\x65\x76', next: '\x70\x73\x2d\x70\x72\x2d\x6e\x65\x78\x74', outer: '\x70\x73\x2d\x70\x72\x2d\x6f\x75\x74\x65\x72', dotClass: '\x70\x72\x6f\x6d\x6f'
   });
 
-  /* ── Load do Supabase ── */
+  
   async function _loadAll(db) {
     var hoje = new Date().toISOString().split('\x54')[0];
 
@@ -2864,7 +2860,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 })();
 
 </script>
-<!-- ══ CONTADOR DE ACESSOS DIÁRIOS ══ -->
+
 <script>
 
 (function() {
@@ -2921,7 +2917,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
 </script>
 
-<!-- ══ BOTÃO "QUERO UM PACOTE IGUAL" ══ -->
+
 <script>
 
 (function() {
@@ -2961,21 +2957,21 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
 </script>
 
-<!-- ══ RASTREAMENTO DE COMPORTAMENTO (silencioso) ══ -->
+
 <script>
 
 (function() {
   var SUPA_URL = '\x68\x74\x74\x70\x73\x3a\x2f\x2f\x6c\x65\x64\x70\x71\x63\x79\x6e\x76\x71\x62\x64\x62\x63\x63\x65\x62\x68\x62\x6f\x2e\x73\x75\x70\x61\x62\x61\x73\x65\x2e\x63\x6f';
   var SUPA_KEY = '\x65\x79\x4a\x68\x62\x47\x63\x69\x4f\x69\x4a\x49\x55\x7a\x49\x31\x4e\x69\x49\x73\x49\x6e\x52\x35\x63\x43\x49\x36\x49\x6b\x70\x58\x56\x43\x4a\x39\x2e\x65\x79\x4a\x70\x63\x33\x4d\x69\x4f\x69\x4a\x7a\x64\x58\x42\x68\x59\x6d\x46\x7a\x5a\x53\x49\x73\x49\x6e\x4a\x6c\x5a\x69\x49\x36\x49\x6d\x78\x6c\x5a\x48\x42\x78\x59\x33\x6c\x75\x64\x6e\x46\x69\x5a\x47\x4a\x6a\x59\x32\x56\x69\x61\x47\x4a\x76\x49\x69\x77\x69\x63\x6d\x39\x73\x5a\x53\x49\x36\x49\x6d\x46\x75\x62\x32\x34\x69\x4c\x43\x4a\x70\x59\x58\x51\x69\x4f\x6a\x45\x33\x4e\x7a\x41\x7a\x4f\x44\x63\x33\x4d\x6a\x67\x73\x49\x6d\x56\x34\x63\x43\x49\x36\x4d\x6a\x41\x34\x4e\x54\x6b\x32\x4d\x7a\x63\x79\x4f\x48\x30\x2e\x73\x38\x47\x4f\x7a\x70\x34\x77\x6f\x75\x6a\x47\x75\x44\x63\x34\x76\x4b\x39\x51\x58\x49\x66\x33\x63\x57\x4c\x4d\x45\x4e\x55\x6e\x4a\x66\x45\x34\x6c\x74\x5f\x59\x68\x4c\x67';
 
-  /* Gera/recupera ID de sessão única */
+  
   var sessaoId = sessionStorage.getItem('\x5f\x6c\x69\x64');
   if (!sessaoId) {
     sessaoId = Math.random().toString(36).slice(2) + Date.now().toString(36);
     sessionStorage.setItem('\x5f\x6c\x69\x64', sessaoId);
   }
 
-  /* Envia evento para Supabase */
+  
   function _ev(evento, detalhe) {
     try {
       fetch(SUPA_URL + '\x2f\x72\x65\x73\x74\x2f\x76\x31\x2f\x65\x76\x65\x6e\x74\x6f\x73\x5f\x6c\x65\x61\x64', {
@@ -2995,13 +2991,13 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     } catch(e) {}
   }
 
-  /* 1. Sessão iniciada */
+  
   if (!sessionStorage.getItem('\x5f\x6c\x69\x64\x5f\x69\x6e\x69\x74')) {
     sessionStorage.setItem('\x5f\x6c\x69\x64\x5f\x69\x6e\x69\x74', '\x31');
     _ev('\x73\x65\x73\x73\x61\x6f\x5f\x69\x6e\x69\x63\x69\x6f');
   }
 
-  /* 2. Rastreia cliques em categorias da vitrine */
+  
   document.addEventListener('\x63\x6c\x69\x63\x6b', function(e) {
     /* Categorias do marketplace */
     var cat = e.target.closest('\x5b\x64\x61\x74\x61\x2d\x63\x61\x74\x5d\x2c\x20\x2e\x6d\x6b\x70\x2d\x63\x61\x74\x2d\x62\x74\x6e\x2c\x20\x2e\x63\x61\x74\x2d\x68\x75\x62\x2d\x63\x61\x72\x64');
@@ -3010,12 +3006,12 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       _ev('\x63\x61\x74\x65\x67\x6f\x72\x69\x61\x5f\x63\x6c\x69\x63\x6b', nome);
     }
 
-    /* Navegação no carrossel de fechamentos */
+   
     if (e.target.closest('\x23\x70\x73\x2d\x66\x63\x2d\x70\x72\x65\x76\x2c\x20\x23\x70\x73\x2d\x66\x63\x2d\x6e\x65\x78\x74\x2c\x20\x23\x70\x73\x2d\x66\x63\x2d\x6f\x75\x74\x65\x72\x20\x2e\x70\x73\x2d\x64\x6f\x74')) {
       _ev('\x63\x61\x72\x72\x6f\x73\x73\x65\x6c\x5f\x6e\x61\x76');
     }
 
-    /* Botão de interesse no WhatsApp */
+    
     var waBtn = e.target.closest('\x2e\x70\x73\x2d\x69\x6e\x74\x65\x72\x65\x73\x73\x65\x2d\x62\x74\x6e');
     if (waBtn) {
       var pacote = waBtn.closest('\x2e\x70\x73\x2d\x63\x61\x72\x64')?.querySelector('\x2e\x70\x73\x2d\x62\x61\x64\x67\x65')?.textContent?.replace(/✔\s*/,'').trim() || '\x70\x61\x63\x6f\x74\x65';
@@ -3023,7 +3019,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     }
   });
 
-  /* 3. Rastreia abertura do modal — observa quando o título é preenchido */
+  
   var _pacoteAberto = null, _pacoteTs = null;
   var _modalObserver = new MutationObserver(function() {
     var modalOverlay = document.getElementById('\x70\x72\x6f\x64\x4d\x6f\x64\x61\x6c');
@@ -3044,7 +3040,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
     _ev('\x70\x61\x63\x6f\x74\x65\x5f\x61\x62\x65\x72\x74\x6f', nome.slice(0, 80));
   });
 
-  /* Começa a observar após o DOM carregar */
+  
   function _initModalObserver() {
     var modalBox = document.getElementById('\x70\x72\x6f\x64\x4d\x6f\x64\x61\x6c\x42\x6f\x78');
     if (modalBox) {
@@ -3059,7 +3055,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
 
 </script>
 
-<!-- ══ MODAL TIRE SUAS DÚVIDAS ══ -->
+
 <div class="faq-overlay" id="faqOverlay" onclick="if(event.target===this){this.classList.remove('active');document.body.style.overflow='';}">
   <div class="faq-box">
 
@@ -3074,7 +3070,7 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       </button>
     </div>
 
-    <!-- Tabs -->
+   
     <div class="faq-tabs">
       <button class="faq-tab active" data-cat="ensaios" onclick="faqSwitchTab('ensaios')">
         <i class="fas fa-camera"></i> Ensaios
@@ -3087,10 +3083,10 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
       </button>
     </div>
 
-    <!-- Body -->
+   
     <div class="faq-body">
 
-      <!-- ── ENSAIOS ── -->
+      
       <div class="faq-panel active" data-cat="ensaios">
 
         <div class="faq-item">
@@ -3138,9 +3134,9 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
           </div></div>
         </div>
 
-      </div><!-- /ensaios -->
+      </div>
 
-      <!-- ── ANIVERSÁRIOS ── -->
+      
       <div class="faq-panel" data-cat="aniversarios">
 
         <div class="faq-item">
@@ -3216,9 +3212,9 @@ window._P={om:_openModal,cm:_closeModal,mo:_modalOut,mm:_modalMove,mg:_modalGoTo
           <div class="faq-a"><div class="faq-a-inner"><strong>Sim!</strong> Todos os detalhes que você preparou com tanto zelo serão registrados com todo o carinho que merecem.</div></div>
         </div>
 
-      </div><!-- /aniversarios -->
+      </div>
 
-      <!-- ── ÁLBUNS IMPRESSOS ── -->
+     
       <div class="faq-panel" data-cat="albuns">
 
         <div class="faq-item">
