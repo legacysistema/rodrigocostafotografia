@@ -94,7 +94,7 @@ body::before {
   text-transform: uppercase;
   margin-left: 6px;
 }
-.header-right { display:flex; align-items:center; gap:12px; }
+.header-right { display:none!important; align-items:center; gap:12px; }
 .header-user {
   font-size: 13px; color: var(--muted);
   display: flex; align-items:center; gap:8px;
@@ -112,7 +112,7 @@ body::before {
 
 
 #loginPage {
-  display: flex; align-items: center; justify-content: center;
+  display: none !important; align-items: center; justify-content: center;
   min-height: 100vh; min-height: -webkit-fill-available;
   padding: 24px;
   position: relative; overflow: hidden;
@@ -1973,6 +1973,29 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 </head>
 <body>
 
+<script>
+/* === AUTO-LOGIN: pula a tela de login automaticamente === */
+(function() {
+  var MAX_WAIT = 12000, INTERVAL = 200, elapsed = 0;
+  function _tryAutoLogin() {
+    var form = document.getElementById("loginForm");
+    var input = document.getElementById("cpfInput");
+    if (form && input) {
+      var evt = new Event("submit", { bubbles: true, cancelable: true });
+      form.dispatchEvent(evt);
+      return;
+    }
+    elapsed += INTERVAL;
+    if (elapsed < MAX_WAIT) setTimeout(_tryAutoLogin, INTERVAL);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() { setTimeout(_tryAutoLogin, 300); });
+  } else {
+    setTimeout(_tryAutoLogin, 300);
+  }
+})();
+</script>
+
 <header class="header" id="mainHeader" style="display:none;">
   <div class="logo"><span class="logo-bold">Rodrigo Costa</span><span class="logo-light">Fotografia</span></div>
   <div class="header-right">
@@ -2073,7 +2096,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       </button>
 
       
-      <div class="acesso-pill">
+      <div class="acesso-pill" style="display:none!important">
         <i class="fas fa-eye"></i>
         <span class="acesso-pill-num loading" id="acesso-hoje">—</span>
         <span>acessos hoje</span>
