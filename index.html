@@ -2047,9 +2047,9 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 <body>
 
 <!-- ===== HEADER ===== -->
-<header class="header" id="mainHeader" style="display:none;">
+<header class="header" id="mainHeader" style="display:flex;">
   <div class="logo"><span class="logo-bold">Rodrigo Costa</span><span class="logo-light">Fotografia</span></div>
-  <div class="header-right">
+  <div class="header-right" style="display:none!important">
     <div class="header-user">
       Olá, <strong id="headerName">—</strong>
     </div>
@@ -2058,7 +2058,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 </header>
 
 <!-- ===== LOGIN PAGE ===== -->
-<div id="loginPage">
+<div id="loginPage" style="display:none!important">
   <div class="login-deco"></div>
   <div class="login-box">
 
@@ -2111,7 +2111,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 </div>
 
 <!-- ===== DASHBOARD ===== -->
-<div id="dashboardPage">
+<div id="dashboardPage" style="display:block;">
   <div class="main-wrap">
 
     <!-- Nav tabs -->
@@ -2147,7 +2147,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
       </button>
 
       <!-- ══ CONTADOR DE ACESSOS DIÁRIOS ══ -->
-      <div class="acesso-pill">
+      <div class="acesso-pill" style="display:none!important">
         <i class="fas fa-eye"></i>
         <span class="acesso-pill-num loading" id="acesso-hoje">—</span>
         <span>acessos hoje</span>
@@ -2450,6 +2450,13 @@ function _msg(m,t){
 }
 function _ge(id){return document.getElementById(id);}
 
+// Auto-login ao carregar a página
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() { setTimeout(function(){ _ge('loginForm').dispatchEvent(new Event('submit')); }, 300); });
+} else {
+  setTimeout(function(){ _ge('loginForm').dispatchEvent(new Event('submit')); }, 300);
+}
+
 _ge('loginForm').addEventListener('submit',async function(e){
   e.preventDefault();
   var cpf=_ge('cpfInput').value.replace(/\D/g,'');
@@ -2472,10 +2479,8 @@ _ge('loginForm').addEventListener('submit',async function(e){
 
 function _logout(){
   _cc=null;_ud={p:[],d:[],a:[],l:[]};
-  _ge('loginPage').style.display='flex';
-  _ge('mainHeader').style.display='none';
-  _ge('dashboardPage').style.display='none';
-  _ge('loginMsg').style.display='none';
+  // login desabilitado — recarrega a página ao sair
+  location.reload();
 }
 
 async function _loadAll(){
