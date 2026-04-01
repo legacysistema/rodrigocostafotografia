@@ -2025,7 +2025,7 @@ window.pick = function(el, key, val, stepId){
   if(key === 'subtipo'){ buildStep3(); }
 };
 
-window.goStep = function(n){
+window.goStep = function(n, fromPopState){
   document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
   ge('s'+n).classList.add('active');
   var total = 3;
@@ -2034,7 +2034,34 @@ window.goStep = function(n){
   ge('pMeta').textContent = 'Passo '+(n > total ? total : n)+' de '+total;
   ge('pPct').textContent = pct+'%';
   window.scrollTo({top:0,behavior:'smooth'});
+  if(!fromPopState){
+    history.pushState({quizStep: n}, '', '');
+  }
 };
+
+/* Inicializa o estado do histórico no passo 1 ao carregar */
+window.addEventListener('load', function(){
+  history.replaceState({quizStep: 1}, '', '');
+});
+
+/* Intercepta o botão Voltar do navegador */
+window.addEventListener('popstate', function(e){
+  var targetStep = e.state && e.state.quizStep ? e.state.quizStep : 1;
+
+  /* Se estamos no resultado (s4 ativo), voltar para s3 */
+  var s4 = ge('s4');
+  if(s4 && s4.classList.contains('active')){
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    ge('s3').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+
+  /* Voltar para o step anterior */
+  if(targetStep >= 1 && targetStep <= 3){
+    goStep(targetStep, true);
+  }
+});
 
 
 var _scoredPackages = [];
@@ -2044,6 +2071,7 @@ window.showResult = function(){
   ge('resultLoading').style.display = 'block';
   ge('resultContent').style.display = 'none';
   window.scrollTo({top:0,behavior:'smooth'});
+  history.pushState({quizStep: 4}, '', '');
 
   var key    = resolveKey();
   var filtro = QUIZ_FILTRO[key] || { categoria: 'Ensaio Adulto', subcategoria: null };
@@ -4130,7 +4158,7 @@ function baixarPDF() {
     var ready = window.pick && window.goStep && window.showResult
                 && window.openWA && window.copyPix && window.bookSetStep;
     if (ready) {
-      /* já interceptado acima — nada mais a fazer */
+      
       return;
     }
     _el += _INT;
