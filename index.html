@@ -2741,8 +2741,9 @@ function _disp_filterRegras(regras, categoria) {
   return regras;
 }
 
-function getDisponibilidade(periodo, categoria) {
-  periodo = periodo || 30;
+function getDisponibilidade(periodo, categoria, pacoteId) {
+  periodo  = periodo || 30;
+  pacoteId = (pacoteId != null) ? pacoteId : null; // null-safe
 
   var hoje    = new Date();
   var hojeStr = _disp_dateStr(hoje);
@@ -2750,7 +2751,10 @@ function getDisponibilidade(periodo, categoria) {
   fimDate.setDate(fimDate.getDate() + periodo);
   var fimStr  = _disp_dateStr(fimDate);
 
-  var cacheKey = 'disp_' + _disp_normStr(categoria || '') + '_' + hojeStr;
+  var cacheKey = 'disp_'
+    + _disp_normStr(categoria || '')
+    + '_' + (pacoteId != null ? String(pacoteId) : 'sem-pacote')
+    + '_' + hojeStr;
 
   var fetchRegras = _db.from('agenda_regras')
     .select('id,tipo,dias_semana,horarios,localizacao,localizacao_link,observacoes,ativo')
@@ -2767,7 +2771,7 @@ function getDisponibilidade(periodo, categoria) {
 
   // Bloqueios recorrentes cadastrados no ADM (por categoria/pacote/dia da semana)
   var fetchBloqRec = _db.from('agenda_bloqueios_recorrentes')
-    .select('dias_semana,horarios_bloqueados,data_inicio,data_fim,categoria,pacote_nome,ativo')
+    .select('dias_semana,horarios_bloqueados,data_inicio,data_fim,categoria,pacote_id,pacote_nome,ativo')
     .eq('ativo', true)
     .then(function (r) { return r.data || []; })
     .catch(function () { return []; });
@@ -2802,25 +2806,32 @@ function getDisponibilidade(periodo, categoria) {
       });
 
       // Verifica se um slot está coberto por algum bloqueio recorrente do ADM
+      // Prioridade: pacote_id específico > bloqueio geral da categoria
       function _isBloqRec(dataStr, horario) {
         var parts  = dataStr.split('-').map(Number);
         var dt     = new Date(parts[0], parts[1] - 1, parts[2]);
         var diaSem = dt.getDay(); // 0=Dom … 6=Sáb
 
+        // pacoteId resolvido do escopo externo (null-safe)
+        var cPacoteId = (pacoteId != null) ? String(pacoteId) : null;
+
         for (var bi = 0; bi < bloqRecs.length; bi++) {
           var b = bloqRecs[bi];
 
-          // Período de vigência do bloqueio
+          // [1] Dupla garantia: ignorar registros inativos
+          if (!b.ativo) continue;
+
+          // [2] Período de vigência do bloqueio
           if (b.data_inicio && dataStr < b.data_inicio) continue;
           if (b.data_fim    && dataStr > b.data_fim)    continue;
 
-          // Dia da semana
+          // [3] Dia da semana
           var dias;
           try { dias = Array.isArray(b.dias_semana) ? b.dias_semana : JSON.parse(b.dias_semana || '[]'); }
           catch (_) { continue; }
           if (!dias.map(Number).includes(diaSem)) continue;
 
-          // Horário bloqueado (lista vazia = bloqueia o dia inteiro)
+          // [4] Horário bloqueado (lista vazia = bloqueia o dia inteiro)
           var hbs;
           try { hbs = Array.isArray(b.horarios_bloqueados) ? b.horarios_bloqueados : JSON.parse(b.horarios_bloqueados || '[]'); }
           catch (_) { hbs = []; }
@@ -2828,14 +2839,23 @@ function getDisponibilidade(periodo, categoria) {
             hbs.some(function (h) { return String(h).substring(0, 5) === String(horario).substring(0, 5); });
           if (!horMatches) continue;
 
-          // Filtro de categoria: se o bloqueio não tem categoria, vale para todos
+          // [5] LÓGICA DE PRIORIDADE: pacote_id tem precedência sobre categoria
+          var bPacoteId = (b.pacote_id != null) ? String(b.pacote_id) : null;
+
+          if (bPacoteId !== null) {
+            // Bloqueio específico de pacote: só aplica se o pacote atual for exatamente o mesmo
+            if (cPacoteId === null || bPacoteId !== cPacoteId) continue;
+            return true; // pacote bate → bloqueia
+          }
+
+          // Bloqueio sem pacote_id → bloqueio geral da categoria
           if (b.categoria && categoria) {
             var bcat = _disp_normStr(b.categoria);
             var ccat = _disp_normStr(categoria);
             if (bcat && ccat && bcat !== ccat && !ccat.includes(bcat) && !bcat.includes(ccat)) continue;
           }
 
-          return true; // slot bloqueado por regra recorrente
+          return true; // slot bloqueado por regra recorrente da categoria
         }
         return false;
       }
@@ -2937,9 +2957,10 @@ function bookLoadDates() {
   ge('bookTimesPanel').classList.remove('show');
   ge('bookBtn1').classList.remove('ok');
 
-  var cat = (_cp && _cp.categoria) ? _cp.categoria : '';
+  var cat      = (_cp && _cp.categoria) ? _cp.categoria : '';
+  var pacoteId = (_cp && _cp.id != null) ? _cp.id : null;
 
-  getDisponibilidade(365, cat)
+  getDisponibilidade(365, cat, pacoteId)
     .then(function (slots) {
       ge('bookDatesLoader').style.display = 'none';
       _bk._slots = slots;
@@ -3285,7 +3306,8 @@ window.abrirConsultaDatas = function(){
   ge('cdataTimesPanel').classList.remove('show');
   _cdata.selDay = null;
 
-  var cat = (_cp && _cp.categoria) ? _cp.categoria : '';
+  var cat      = (_cp && _cp.categoria) ? _cp.categoria : '';
+  var pacoteId = (_cp && _cp.id != null) ? _cp.id : null;
 
  
   ge('cdataSub').textContent = _cp && _cp.nome
@@ -3296,7 +3318,7 @@ window.abrirConsultaDatas = function(){
   ge('cdataDatesGrid').innerHTML  = '';
 
   
-  getDisponibilidade(90, cat)
+  getDisponibilidade(90, cat, pacoteId)
     .then(function(slots){
       ge('cdataLoader').style.display = 'none';
       _cdata.slots   = slots;
