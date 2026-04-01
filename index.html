@@ -2765,6 +2765,13 @@ function getDisponibilidade(periodo, categoria) {
     .then(function (r) { return r.data || []; })
     .catch(function () { return []; });
 
+  // Bloqueios recorrentes cadastrados no ADM (por categoria/pacote/dia da semana)
+  var fetchBloqRec = _db.from('agenda_bloqueios_recorrentes')
+    .select('dias_semana,horarios_bloqueados,data_inicio,data_fim,categoria,pacote_nome,ativo')
+    .eq('ativo', true)
+    .then(function (r) { return r.data || []; })
+    .catch(function () { return []; });
+
   var fetchAgendados = _db.from('agendamentos_clientes')
     .select('data,horario,status')
     .gte('data', hojeStr)
@@ -2773,15 +2780,15 @@ function getDisponibilidade(periodo, categoria) {
     .then(function (r) { return r.data || []; })
     .catch(function () { return []; });
 
-  return Promise.all([fetchRegras, fetchExcecoes, fetchAgendados])
+  return Promise.all([fetchRegras, fetchExcecoes, fetchAgendados, fetchBloqRec])
     .then(function (results) {
       var regras    = results[0];
       var excecoes  = results[1];
       var agendados = results[2];
+      var bloqRecs  = results[3];
 
       var regrasFilt = _disp_filterRegras(regras, categoria);
 
-      
       var excSet = {};
       excecoes.forEach(function (e) {
         if (!e.bloqueado) return;
@@ -2793,6 +2800,45 @@ function getDisponibilidade(periodo, categoria) {
         var k = a.data + '_' + (a.horario || '').substring(0, 5);
         bookedSet[k] = true;
       });
+
+      // Verifica se um slot está coberto por algum bloqueio recorrente do ADM
+      function _isBloqRec(dataStr, horario) {
+        var parts  = dataStr.split('-').map(Number);
+        var dt     = new Date(parts[0], parts[1] - 1, parts[2]);
+        var diaSem = dt.getDay(); // 0=Dom … 6=Sáb
+
+        for (var bi = 0; bi < bloqRecs.length; bi++) {
+          var b = bloqRecs[bi];
+
+          // Período de vigência do bloqueio
+          if (b.data_inicio && dataStr < b.data_inicio) continue;
+          if (b.data_fim    && dataStr > b.data_fim)    continue;
+
+          // Dia da semana
+          var dias;
+          try { dias = Array.isArray(b.dias_semana) ? b.dias_semana : JSON.parse(b.dias_semana || '[]'); }
+          catch (_) { continue; }
+          if (!dias.map(Number).includes(diaSem)) continue;
+
+          // Horário bloqueado (lista vazia = bloqueia o dia inteiro)
+          var hbs;
+          try { hbs = Array.isArray(b.horarios_bloqueados) ? b.horarios_bloqueados : JSON.parse(b.horarios_bloqueados || '[]'); }
+          catch (_) { hbs = []; }
+          var horMatches = hbs.length === 0 ||
+            hbs.some(function (h) { return String(h).substring(0, 5) === String(horario).substring(0, 5); });
+          if (!horMatches) continue;
+
+          // Filtro de categoria: se o bloqueio não tem categoria, vale para todos
+          if (b.categoria && categoria) {
+            var bcat = _disp_normStr(b.categoria);
+            var ccat = _disp_normStr(categoria);
+            if (bcat && ccat && bcat !== ccat && !ccat.includes(bcat) && !bcat.includes(ccat)) continue;
+          }
+
+          return true; // slot bloqueado por regra recorrente
+        }
+        return false;
+      }
 
       var slots  = [];
       var seen   = {};
@@ -2820,10 +2866,12 @@ function getDisponibilidade(periodo, categoria) {
             var hs  = String(h).substring(0, 5);
             var key = dataStr + '_' + hs;
 
-            
+            // Bloqueio pontual (agenda_excecoes)
             if (excSet[dataStr + '_*'] || excSet[key]) return;
-            // Já reservado
+            // Já reservado por cliente
             if (bookedSet[key]) return;
+            // Bloqueio recorrente cadastrado no ADM
+            if (_isBloqRec(dataStr, hs)) return;
             // Deduplicar (caso múltiplas regras gerem o mesmo slot)
             if (seen[key]) return;
 
@@ -2842,12 +2890,10 @@ function getDisponibilidade(periodo, categoria) {
         cur.setDate(cur.getDate() + 1);
       }
 
-      
       slots.sort(function (a, b) {
         return (a.data + a.horario).localeCompare(b.data + b.horario);
       });
 
-      
       _quizIdbSet(cacheKey, slots, 180000);
       return slots;
     })
