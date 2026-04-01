@@ -54,7 +54,7 @@ body::after{
   pointer-events:none;z-index:0;
 }
 
-/* ── HEADER ── */
+
 .header{
   position:sticky;top:0;z-index:900;
   background:rgba(7,7,12,0.88);
@@ -77,10 +77,10 @@ body::after{
 .header-wa:hover,.header-wa:active{color:var(--wa);border-color:rgba(37,211,102,0.4);}
 .header-wa i{font-size:15px;color:var(--wa);}
 
-/* ── PAGE ── */
+
 .page{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:28px 12px calc(80px + var(--safe-bottom));}
 
-/* ── QUIZ CARD ── */
+
 .quiz-card{
   background:var(--card);border:1px solid rgba(212,168,67,0.13);
   border-radius:22px;width:100%;max-width:560px;
@@ -93,13 +93,13 @@ body::after{
 }
 .quiz-inner{padding:28px 24px 32px;}
 
-/* ── PROGRESS ── */
+
 .progress-wrap{margin-bottom:26px;}
 .progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:8px;font-family:var(--font-ui);letter-spacing:.3px;}
 .progress-bar{height:2px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .45s cubic-bezier(.4,0,.2,1);}
 
-/* ── STEP ── */
+
 .step{display:none;}
 .step.active{display:block;animation:fadeUp .28s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
@@ -112,10 +112,10 @@ body::after{
 .step-eyebrow::before{content:'';width:18px;height:1px;background:var(--gold);opacity:.4;}
 .question{font-family:var(--font-serif);font-size:22px;font-weight:400;color:#fff;margin-bottom:18px;line-height:1.3;}
 
-/* ── OPTIONS ── */
+
 .options{display:grid;gap:8px;}
 
-/* ── OPTION CARD ── */
+
 .option{
   display:flex;flex-direction:column;
   border:1px solid var(--border2);border-radius:16px;cursor:pointer;
@@ -153,7 +153,7 @@ body::after{
 }
 .option.selected .opt-check{background:var(--gold);border-color:var(--gold);color:#07070c;}
 
-/* ── INFO INLINE (aparece após seleção) ── */
+
 .opt-info{
   max-height:0;overflow:hidden;
   transition:max-height .35s cubic-bezier(.4,0,.2,1), padding .3s ease;
@@ -178,7 +178,7 @@ body::after{
 .opt-info-list li i{color:var(--green);font-size:11px;margin-top:2px;flex-shrink:0;}
 .opt-info-list li strong{color:var(--text);font-weight:600;}
 
-/* ── NAV BUTTONS ── */
+
 .nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:20px;gap:10px;}
 .btn-back{
   padding:12px 18px;background:transparent;
@@ -203,7 +203,7 @@ body::after{
   border-color:var(--gold);box-shadow:var(--glow-gold);
 }
 
-/* ── LOADING ── */
+
 .loading-state{text-align:center;padding:48px 20px;}
 .loading-spinner{
   width:44px;height:44px;border-radius:50%;
@@ -213,7 +213,7 @@ body::after{
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-size:13px;color:var(--muted);font-family:var(--font-ui);}
 
-/* ── RESULT ── */
+
 .result-hero{
   position:relative;width:calc(100% + 48px);margin:-28px -24px 0;
   background:var(--bg3);min-height:200px;
@@ -272,7 +272,7 @@ body::after{
 .r-faq-a strong{color:var(--text);}
 .r-divider{height:1px;background:var(--border);margin:20px 0;}
 
-/* ── CTAs ── */
+
 .btn-modal-open{
   width:100%;padding:17px;
   background:linear-gradient(135deg,rgba(212,168,67,0.18),rgba(212,168,67,0.08));
@@ -303,7 +303,7 @@ body::after{
   transition:all .2s;margin-top:4px;
 }
 
-/* outros */
+
 .outros-title{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;font-weight:600;font-family:var(--font-ui);}
 .outro-card{display:flex;align-items:center;gap:11px;padding:13px 13px;border:1px solid var(--border);border-radius:12px;cursor:pointer;margin-bottom:7px;background:rgba(255,255,255,0.015);transition:border-color .2s,background .2s;}
 .outro-card:active{border-color:rgba(212,168,67,0.28);background:rgba(212,168,67,0.035);}
@@ -313,7 +313,7 @@ body::after{
 .outro-price{font-size:12px;color:var(--muted);}
 .outro-arr{color:var(--muted);font-size:12px;}
 
-/* ── MODAL ── */
+
 .modal-overlay{
   position:fixed;inset:0;z-index:1000;
   background:rgba(0,0,0,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -345,7 +345,7 @@ body::after{
 .modal-box::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:3px;}
 .modal-overlay.active .modal-box{transform:translateY(0);}
 
-/* drag handle */
+
 .modal-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);margin:12px auto 0;cursor:pointer;}
 
 .modal-close{
@@ -428,7 +428,7 @@ body::after{
 .pix-status{display:none;text-align:center;padding:10px;border-radius:10px;background:rgba(0,228,154,0.08);border:1px solid rgba(0,228,154,0.2);color:var(--green);font-size:13px;font-family:var(--font-ui);}
 .pix-status.show{display:block;}
 
-/* ── BOOKING MODAL ── */
+
 .book-overlay{
   position:fixed;inset:0;z-index:1100;
   background:rgba(0,0,0,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -481,7 +481,7 @@ body::after{
 .book-eyebrow::before{content:'';width:16px;height:1px;background:var(--gold);opacity:.4;}
 .book-title{font-family:var(--font-serif);font-size:20px;color:#fff;margin-bottom:18px;line-height:1.3;}
 
-/* ── CALENDÁRIO ── */
+
 .book-dates-grid{margin-bottom:4px;}
 .book-cal-nav{
   display:flex;align-items:center;justify-content:space-between;
@@ -536,7 +536,7 @@ body::after{
   color:rgba(255,255,255,.4);
   border:1px solid rgba(255,255,255,.08);
 }
-/* Times panel */
+
 .book-times-panel{
   padding:12px 14px 14px;
   background:rgba(212,168,67,.05);
@@ -573,7 +573,7 @@ body::after{
   font-size:13.5px;line-height:1.6;
 }
 .book-empty-state i{font-size:32px;color:rgba(212,168,67,.3);display:block;margin-bottom:12px;}
-/* Melhoria 1: Estado vazio personalizado */
+
 .book-empty-wa-btn{
   display:inline-flex;align-items:center;gap:7px;margin-top:14px;
   padding:11px 20px;border-radius:11px;
@@ -582,7 +582,7 @@ body::after{
   text-decoration:none;transition:background .2s;
 }
 .book-empty-wa-btn:active{background:rgba(37,211,102,0.2);}
-/* Melhoria 3: Barra de escassez */
+
 .book-scarcity-bar{
   display:flex;align-items:center;gap:7px;
   padding:8px 12px;border-radius:10px;margin-bottom:14px;
@@ -591,7 +591,7 @@ body::after{
 }
 .book-scarcity-bar i{font-size:11px;}
 
-/* ── MODAL CONSULTA DE DATAS ── */
+
 .cdata-overlay{
   position:fixed;inset:0;z-index:1100;
   background:rgba(0,0,0,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -637,7 +637,7 @@ body::after{
 .cdata-eyebrow::before{content:'';width:16px;height:1px;background:var(--gold);opacity:.4;}
 .cdata-title{font-family:var(--font-serif);font-size:19px;color:#fff;margin-bottom:4px;line-height:1.3;}
 .cdata-sub{font-size:12px;color:var(--muted);margin-bottom:18px;line-height:1.5;}
-/* Painel de horários read-only */
+
 .cdata-times-panel{
   padding:13px 15px 15px;
   background:rgba(212,168,67,.05);
@@ -664,7 +664,7 @@ body::after{
 .cdata-loc i{color:var(--gold);font-size:10px;}
 .cdata-obs{padding:10px 13px;background:rgba(212,168,67,0.05);border:1px solid rgba(212,168,67,0.13);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;white-space:pre-wrap;word-break:break-word;margin-bottom:10px;}
 .cdata-obs-title{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--gold);font-weight:600;font-family:var(--font-ui);margin-bottom:5px;display:flex;align-items:center;gap:5px;}
-/* CTAs dentro do painel */
+
 .cdata-cta-row{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
 .cdata-btn-reservar{
   width:100%;padding:14px;
@@ -686,7 +686,7 @@ body::after{
   text-decoration:none;transition:all .2s;
 }
 .cdata-btn-wa:active{background:rgba(37,211,102,.14);}
-/* Botão gatilho na tela de resultado */
+
 .btn-consultar-datas{
   width:100%;padding:13px;min-height:48px;
   background:rgba(212,168,67,.05);
@@ -697,11 +697,10 @@ body::after{
   transition:all .2s;margin-bottom:9px;
 }
 .btn-consultar-datas:active{background:rgba(212,168,67,.12);border-color:rgba(212,168,67,.4);}
-/* Loader consulta */
+
 .cdata-loader{display:flex;align-items:center;justify-content:center;gap:10px;padding:32px 0;color:var(--muted);font-size:13px;font-family:var(--font-ui);}
 .cdata-loader-spin{width:22px;height:22px;border-radius:50%;border:2px solid rgba(212,168,67,.15);border-top-color:var(--gold);animation:spin .8s linear infinite;flex-shrink:0;}
 
-/* Form */
 .book-field{margin-bottom:14px;}
 .book-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;font-family:var(--font-ui);margin-bottom:6px;display:block;}
 .book-input{
@@ -714,7 +713,7 @@ body::after{
 .book-input::placeholder{color:var(--muted);}
 .book-input-hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4;}
 
-/* Pix step */
+
 .book-pix-pkg{
   padding:13px 15px;border-radius:13px;
   background:rgba(255,255,255,.025);border:1px solid var(--border);
@@ -765,7 +764,7 @@ body::after{
 }
 .book-pix-warning strong{color:rgba(255,255,255,.6);}
 
-/* Navigation */
+
 .book-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px;}
 .book-btn-back{
   padding:12px 18px;background:transparent;
@@ -804,7 +803,7 @@ body::after{
   animation:spin .75s linear infinite;
 }
 
-/* ── FIXED BOTTOM BAR ── */
+
 .fixed-bar{
   position:fixed;bottom:0;left:0;right:0;z-index:800;
   background:rgba(7,7,12,0.94);
@@ -822,7 +821,7 @@ body::after{
 .fixed-btn-wa{padding:10px 16px;min-height:44px;border-radius:10px;border:none;background:rgba(37,211,102,0.15);color:var(--wa);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);transition:background .2s;display:flex;align-items:center;gap:6px;}
 .fixed-btn-pix{padding:10px 16px;min-height:44px;border-radius:10px;border:none;background:rgba(0,217,245,0.12);color:var(--cyan);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-ui);transition:background .2s;display:flex;align-items:center;gap:6px;}
 
-/* ── SKELETON ── */
+
 .opt-skeleton{
   height:58px;border-radius:14px;
   background:linear-gradient(90deg,rgba(255,255,255,0.03) 0%,rgba(255,255,255,0.07) 50%,rgba(255,255,255,0.03) 100%);
@@ -831,11 +830,10 @@ body::after{
 }
 @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
-/* ── FOOTER ── */
+
 .footer{text-align:center;padding:18px;font-size:11px;color:var(--muted);position:relative;z-index:1;letter-spacing:.5px;font-family:var(--font-ui);}
 
-/* ── RESPONSIVE ── */
-/* Melhoria 2: Pix como botão principal */
+
 .btn-pix-primary{
   width:100%;padding:18px 16px;min-height:60px;
   background:linear-gradient(135deg,rgba(0,217,245,0.22),rgba(0,217,245,0.10)) !important;
@@ -855,7 +853,7 @@ body::after{
   color:rgba(37,211,102,0.65) !important;font-size:13px !important;font-weight:600 !important;
   box-shadow:none !important;
 }
-/* Melhoria 5: Trust bar (prova social) */
+
 .trust-bar{
   display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 10px;
   padding:10px 12px;margin-bottom:14px;border-radius:11px;
@@ -864,7 +862,7 @@ body::after{
 }
 .trust-bar i{font-size:10px;color:var(--gold);}
 .trust-sep{color:rgba(255,255,255,0.12);}
-/* Melhoria 4: Bloco de instrução pós-Pix */
+
 .book-pix-next-steps{
   padding:13px 15px;border-radius:12px;
   background:rgba(0,228,154,0.05);border:1px solid rgba(0,228,154,0.18);
@@ -896,7 +894,7 @@ body::after{
   .header{padding:0 16px;}
 }
 
-/* ── SEÇÃO PROMOÇÕES ── */
+
 .promo-section {
   position: relative; z-index: 1;
   max-width: 600px; margin: 0 auto;
@@ -1128,7 +1126,7 @@ body::after{
   50%     { opacity: .15; }
 }
 
-/* ── BOTÃO RESERVAR PROMOÇÃO (WhatsApp) ── */
+
 .promo-quiz-wa-btn {
   display: flex; align-items: center; justify-content: center; gap: 7px;
   margin-top: 8px; padding: 9px 12px; min-height: 38px;
@@ -1155,7 +1153,7 @@ body::after{
   border-color: var(--wa);
   box-shadow: 0 4px 20px rgba(37,211,102,0.18);
 }
-/* ── BOTÃO PDF — destaque ── */
+
 .btn-pdf-modal {
   width:100%;padding:13px 16px;min-height:48px;
   background: linear-gradient(135deg,rgba(212,168,67,0.13),rgba(212,168,67,0.06));
@@ -1173,7 +1171,7 @@ body::after{
 }
 .btn-pdf-modal i{font-size:14px;}
 
-/* ── IMPRESSÃO / SALVAR COMO PDF ── */
+
 @media print {
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
   body > *{ display:none !important; }
@@ -1237,7 +1235,7 @@ body::after{
         <div class="progress-bar"><div class="progress-fill" id="pFill" style="width:0%"></div></div>
       </div>
 
-      <!-- ══ STEP 1 — Tipo ══ -->
+    
       <div class="step active" id="s1">
         <div class="step-eyebrow">Encontre seu pacote</div>
         <div class="question">Que tipo de registro você está buscando?</div>
@@ -1289,7 +1287,7 @@ body::after{
         </div>
       </div>
 
-      <!-- ══ STEP 2 — Subtipo ══ -->
+     
       <div class="step" id="s2">
         <div class="step-eyebrow" id="s2-eyebrow">Detalhe o perfil</div>
         <div class="question" id="q2">Para quem é o ensaio?</div>
@@ -1304,7 +1302,7 @@ body::after{
         </div>
       </div>
 
-      <!-- ══ STEP 3 — Pacote infantil / Duração evento ══ -->
+      
       <div class="step" id="s3">
         <div class="step-eyebrow" id="s3-eyebrow">Escolha o pacote</div>
         <div class="question" id="q3">Qual pacote combina com você?</div>
@@ -1319,7 +1317,7 @@ body::after{
         </div>
       </div>
 
-      <!-- ══ STEP 4 — Seleção de pacote (quando há múltiplos) ══ -->
+   
       <div class="step" id="s4">
         <div class="step-eyebrow" id="s4-eyebrow">Escolha o pacote</div>
         <div class="question" id="q4">Qual pacote você prefere?</div>
@@ -1334,7 +1332,7 @@ body::after{
         </div>
       </div>
 
-      <!-- ══ RESULT ══ -->
+      
       <div class="step" id="sResult">
         <div id="resultLoading" class="loading-state">
           <div class="loading-spinner"></div>
@@ -1380,7 +1378,7 @@ body::after{
     </div>
   </div>
 
-<!-- ── PROMOÇÕES EM DESTAQUE ── -->
+
 <section class="promo-section" id="promoSection" style="padding:16px 0 0;max-width:560px;width:100%;margin:0;">
   <div class="promo-section-label">
     <i class="fas fa-bolt"></i> Promoções em destaque
@@ -1410,7 +1408,7 @@ body::after{
 
 <div class="footer">© 2026 Rodrigo Costa Fotografia · @rodrigocostafotografia</div>
 
-<!-- MODAL -->
+
 <div class="modal-overlay" id="prodModal" onclick="modalClickOut(event)">
   <div class="modal-box" id="prodModalBox">
     <div class="modal-handle" onclick="closeModal()"></div>
@@ -1439,7 +1437,7 @@ body::after{
         <div><div class="total-label">Total do pedido</div></div>
         <div class="total-val" id="modalTotal">R$ 0,00</div>
       </div>
-      <!-- Prova social — melhoria 5 -->
+      
       <div class="trust-bar">
         <span><i class="fas fa-camera-retro"></i> Desde 2016</span>
         <span class="trust-sep">·</span>
@@ -1448,7 +1446,7 @@ body::after{
         <span><i class="fas fa-lock"></i> Pagamento 100% seguro</span>
       </div>
       <div class="cta-buttons">
-        <!-- Melhoria 2: Pix como CTA principal -->
+        
         <button class="btn-pix-modal btn-pix-primary" id="modalBtnPix" onclick="openBookModal()" style="display:none;">
           <i class="fas fa-bolt-lightning"></i> Ver Vagas & Garantir Data
           <span class="btn-pix-hint">Reserva Pix confirmada em minutos</span>
@@ -1461,21 +1459,21 @@ body::after{
   </div>
 </div>
 
-<!-- BOOKING MODAL -->
+
 <div class="book-overlay" id="bookModal" onclick="bookClickOut(event)">
   <div class="book-box" id="bookBox">
     <div class="book-handle" onclick="closeBookModal()"></div>
     <button class="book-close" onclick="closeBookModal()"><i class="fas fa-xmark"></i></button>
     <div class="book-box-inner">
 
-      <!-- Steps indicator -->
+     
       <div class="book-steps-indicator">
         <div class="bsi-dot active" id="bsi1"></div>
         <div class="bsi-dot" id="bsi2"></div>
         <div class="bsi-dot" id="bsi3"></div>
       </div>
 
-      <!-- STEP 1: Escolher data -->
+    
       <div class="book-step active" id="bStep1">
         <div class="book-eyebrow"><i class="fas fa-calendar-days"></i> Passo 1 de 3</div>
         <div class="book-title">Escolha sua data</div>
@@ -1503,7 +1501,7 @@ Quer uma data futura? É só chamar no WhatsApp
         </div>
       </div>
 
-      <!-- STEP 2: Dados do cliente -->
+    
       <div class="book-step" id="bStep2">
         <div class="book-eyebrow"><i class="fas fa-user"></i> Passo 2 de 3</div>
         <div class="book-title">Seus dados para o agendamento</div>
@@ -1524,7 +1522,7 @@ Quer uma data futura? É só chamar no WhatsApp
         </div>
       </div>
 
-      <!-- STEP 3: Pix e confirmação -->
+     
       <div class="book-step" id="bStep3">
         <div class="book-eyebrow"><i class="fas fa-bolt-lightning"></i> Passo 3 de 3</div>
         <div class="book-title">Copie o Pix e reserve sua data</div>
@@ -1538,7 +1536,7 @@ Quer uma data futura? É só chamar no WhatsApp
           <div class="book-pix-key-val" id="bookPixKeyVal"></div>
           <button class="book-pix-key-copy" onclick="bookCopyPix()"><i class="fas fa-copy"></i> Copiar</button>
         </div>
-        <!-- Dados do titular — revelados após copiar -->
+        
         <div id="bookPixOwnerInfo" style="display:none;padding:10px 14px;border-radius:11px;background:rgba(0,217,245,0.05);border:1px solid rgba(0,217,245,0.15);margin-bottom:8px;font-size:12px;color:var(--muted);line-height:1.7;">
           <div style="font-size:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px;font-family:var(--font-ui);">Titular da chave</div>
           <div><strong style="color:var(--text);">Nome:</strong> Rodrigo Costa de Moraes</div>
@@ -1547,7 +1545,7 @@ Quer uma data futura? É só chamar no WhatsApp
         <div class="book-pix-copied-badge" id="bookCopiedBadge">
           <i class="fas fa-circle-check"></i> Pix copiado! Agendamento registrado.
         </div>
-        <!-- Melhoria 4: Instrução clara pós-Pix -->
+        
         <div class="book-pix-next-steps" id="bookNextSteps" style="display:none;">
           <div class="book-pix-next-steps-title"><i class="fas fa-list-check"></i> Próximo passo</div>
           <p>Pague o Pix no seu banco e <strong>envie o comprovante pelo botão abaixo</strong>. Sua data fica reservada por 2h — após o envio, confirmo em minutos! 🙏</p>
@@ -1566,7 +1564,7 @@ Quer uma data futura? É só chamar no WhatsApp
   </div>
 </div>
 
-<!-- MODAL CONSULTA DE DATAS -->
+
 <div class="cdata-overlay" id="cdataModal" onclick="cdataClickOut(event)">
   <div class="cdata-box" id="cdataBox">
     <div class="cdata-handle" onclick="fecharConsultaDatas()"></div>
@@ -1576,13 +1574,13 @@ Quer uma data futura? É só chamar no WhatsApp
       <div class="cdata-title">Datas disponíveis</div>
       <div class="cdata-sub" id="cdataSub">Clique em um dia para ver os horários disponíveis.</div>
 
-      <!-- Calendário read-only -->
+      
       <div id="cdataDatesGrid"></div>
       <div id="cdataLoader" class="cdata-loader" style="display:none;">
         <div class="cdata-loader-spin"></div> Carregando agenda…
       </div>
 
-      <!-- Painel de horários -->
+     
       <div class="cdata-times-panel" id="cdataTimesPanel">
         <div class="cdata-times-label" id="cdataTimesLabel"></div>
         <div class="cdata-chips" id="cdataChips"></div>
@@ -1602,7 +1600,7 @@ Quer uma data futura? É só chamar no WhatsApp
   </div>
 </div>
 
-<!-- FIXED BAR -->
+
 <div class="fixed-bar" id="fixedBar">
   <div class="fixed-bar-inner">
     <div>
@@ -1620,120 +1618,13 @@ Quer uma data futura? É só chamar no WhatsApp
 (function(){
 'use strict';
 
-/* ═══ SUPABASE SQL — rodar no ADM antes de usar ═══
-   (Este comentário é só referência — não afeta o front)
 
-   CREATE TABLE datas_disponiveis (
-     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-     categoria text NOT NULL,
-     data date NOT NULL,
-     horario time NOT NULL,
-     vagas integer DEFAULT 1,
-     vagas_ocupadas integer DEFAULT 0,
-     localizacao text,
-     localizacao_link text,
-     observacoes text,
-     ativo boolean DEFAULT true,
-     created_at timestamptz DEFAULT now()
-   );
-
-   CREATE TABLE agendamentos (
-     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-     data_disponivel_id uuid REFERENCES datas_disponiveis(id),
-     produto_id integer,
-     produto_nome text,
-     produto_categoria text,
-     cliente_nome text NOT NULL,
-     cliente_whatsapp text NOT NULL,
-     extras text,
-     valor_total numeric(10,2),
-     status text DEFAULT 'aguardando_comprovante',
-     pix_copiado_em timestamptz,
-     observacoes_adm text,
-     created_at timestamptz DEFAULT now()
-   );
-
-   -- ══════════════════════════════════════════════════════
-   -- NOVAS TABELAS — SISTEMA DINÂMICO DE AGENDA
-   -- Rodar no Supabase SQL Editor antes de usar.
-   -- ══════════════════════════════════════════════════════
-
-   -- 1. Regras de recorrência
-   CREATE TABLE IF NOT EXISTS agenda_regras (
-     id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-     tipo        text NOT NULL,           -- ex: 'Ensaio Infantil', 'ensaio', 'evento'
-     dias_semana jsonb NOT NULL,          -- array de ints 0-6 (0=Dom)  ex: [1,2,3,4,5,6,0]
-     horarios    jsonb NOT NULL,          -- array de strings ex: ["10:00","11:00","14:00"]
-     localizacao text,
-     localizacao_link text,
-     observacoes text,
-     ativo       boolean DEFAULT true,
-     created_at  timestamptz DEFAULT now()
-   );
-
-   -- 2. Exceções / bloqueios pontuais
-   CREATE TABLE IF NOT EXISTS agenda_excecoes (
-     id        uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-     data      date NOT NULL,
-     horario   text,                     -- NULL = bloqueia o dia inteiro
-     bloqueado boolean DEFAULT true,
-     motivo    text,
-     created_at timestamptz DEFAULT now()
-   );
-
-   -- 3. Agendamentos dos clientes (sistema dinâmico)
-   CREATE TABLE IF NOT EXISTS agendamentos_clientes (
-     id               uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-     data             date NOT NULL,
-     horario          text NOT NULL,
-     nome             text NOT NULL,
-     whatsapp         text,
-     produto_nome     text,
-     produto_categoria text,
-     extras           text,
-     valor_total      numeric(10,2),
-     status           text DEFAULT 'aguardando_comprovante',
-     pix_copiado_em   timestamptz,
-     observacoes_adm  text,
-     created_at       timestamptz DEFAULT now()
-   );
-
-   -- Índices para performance
-   CREATE INDEX IF NOT EXISTS idx_agenda_regras_ativo      ON agenda_regras(ativo);
-   CREATE INDEX IF NOT EXISTS idx_agenda_excecoes_data     ON agenda_excecoes(data);
-   CREATE INDEX IF NOT EXISTS idx_agend_clientes_data      ON agendamentos_clientes(data);
-   CREATE INDEX IF NOT EXISTS idx_agend_clientes_status    ON agendamentos_clientes(status);
-
-   -- RLS: habilitar e liberar leitura pública (ajuste conforme sua política)
-   ALTER TABLE agenda_regras         ENABLE ROW LEVEL SECURITY;
-   ALTER TABLE agenda_excecoes       ENABLE ROW LEVEL SECURITY;
-   ALTER TABLE agendamentos_clientes ENABLE ROW LEVEL SECURITY;
-
-   CREATE POLICY "leitura_publica_regras"    ON agenda_regras         FOR SELECT USING (true);
-   CREATE POLICY "leitura_publica_excecoes"  ON agenda_excecoes       FOR SELECT USING (true);
-   CREATE POLICY "leitura_publica_agendados" ON agendamentos_clientes FOR SELECT USING (true);
-   CREATE POLICY "insert_agendados"          ON agendamentos_clientes FOR INSERT WITH CHECK (true);
-
-   -- Exemplo de regra: Ensaios seg-dom 10h-15h
-   -- INSERT INTO agenda_regras (tipo, dias_semana, horarios)
-   -- VALUES ('Ensaio Infantil', '[1,2,3,4,5,6,0]', '["10:00","11:00","14:00","15:00"]');
-   -- Exemplo aniversário: seg-dom 10h-00h
-   -- INSERT INTO agenda_regras (tipo, dias_semana, horarios)
-   -- VALUES ('evento', '[1,2,3,4,5,6,0]',
-   --   '["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","00:00"]');
-   -- Exemplo bloqueio de dia inteiro:
-   -- INSERT INTO agenda_excecoes (data, bloqueado, motivo) VALUES ('2025-12-25', true, 'Natal');
-   -- Exemplo bloqueio de horário específico:
-   -- INSERT INTO agenda_excecoes (data, horario, bloqueado) VALUES ('2025-12-31', '10:00', true);
-═══════════════════════════════════════════════════ */
-
-/* ═══ SUPABASE ═══ */
 var _su = atob('aHR0cHM6Ly9sZWRwcWN5bnZxYmRiY2NlYmhiby5zdXBhYmFzZS5jbw==');
 var _sk = atob('ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW14bFpIQnhZM2x1ZG5GaVpHSmpZMlZpYUdKdklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzTnpBek9EYzNNamdzSW1WNGNDSTZNakE0TlRrMk16Y3lPSDAuczhHT3pwNHdvdWpHdURjNHZLOVFYSWYzY1dMTUVOVW5KZkU0bHRfWWhMZw==');
 var _db = window.supabase.createClient(_su, _sk);
 window._db = _db; /* expõe para o módulo de promoções */
 
-/* ═══ STATE ═══ */
+
 var A = {};
 var _allProds = [];
 var _matched = null;
@@ -1741,7 +1632,7 @@ var _others  = [];
 var _cp = null, _cbp = 0, _mci = 0, _mi = [], _rhi = 0, _rhi_imgs = [];
 var _selectedExtras = {};
 
-/* ═══ HELPERS ═══ */
+
 function ge(id){ return document.getElementById(id); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function fMoney(v){
@@ -1756,7 +1647,7 @@ function bImgs(p){
 }
 function stripHtml(html){
   if(!html) return '';
-  /* Decode common HTML entities first */
+ 
   var decoded = String(html)
     .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
     .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&nbsp;/g,' ');
@@ -1778,7 +1669,7 @@ function pIncluso(raw){
     }
     if(items.length) return items;
   }
-  /* Fallback: separa por newline */
+  
   return clean.split(/\n/).map(function(l){ return stripHtml(l); }).filter(function(l){ return l.length>1; });
 }
 function pExtras(raw){
@@ -1795,9 +1686,7 @@ function pExtras(raw){
 }
 function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
 
-/* ═══ CATEGORY MAPPING ═══ */
-/* Mapeia as respostas do quiz diretamente para categoria + subcategoria do Supabase.
-   A filtragem é feita 100% via query SQL — sem scoring por nome do produto. */
+
 var QUIZ_FILTRO = {
   ensaio_infantil_combolo:  { categoria: 'Ensaio Infantil',     subcategoria: 'smash'        },
   ensaio_infantil_sembolo:  { categoria: 'Ensaio Infantil',     subcategoria: 'infantil_1_3' },
@@ -1816,7 +1705,7 @@ var QUIZ_FILTRO = {
   evento_debutante:         { categoria: 'Debutante',           subcategoria: null           }
 };
 
-/* ═══ FAQ DATA ═══ */
+
 var FAQ = {
   ensaio:{
     result:[
@@ -1835,10 +1724,7 @@ var FAQ = {
   }
 };
 
-/* ═══════════════════════════════════════
-   STEP 2 CONFIG
-   key → { q, eyebrow, opts:[{icon,label,sub,info:[],v}] }
-═══════════════════════════════════════ */
+
 var S2 = {
   ensaio:{
     eyebrow:'Para quem é',
@@ -1961,12 +1847,7 @@ var S2 = {
   }
 };
 
-/* ═══════════════════════════════════════
-   STEP 3 CONFIG — por subtipo
-   Para infantil: pergunta "com bolo ou sem bolo?"
-   Para eventos: duração
-   Para os demais ensaios: vai direto ao resultado (s3 é skipped)
-═══════════════════════════════════════ */
+
 var S3 = {
   ensaio_familia:{
     eyebrow:'Tipo de ensaio família',
@@ -2052,7 +1933,7 @@ var S3 = {
   }
 };
 
-/* ═══ QUIZ FLOW ═══ */
+
 var _totalSteps = 3; // steps dinâmicos conforme tipo
 
 function buildOptHTML(opts, key, stepId){
@@ -2089,7 +1970,7 @@ function buildStep2(){
 }
 
 function buildStep3(){
-  /* Determina qual config de S3 usar */
+  
   var key = '';
   if(A.tipo === 'ensaio'){
     if(A.subtipo === 'infantil') key = 'ensaio_infantil';
@@ -2101,7 +1982,7 @@ function buildStep3(){
   }
 
   if(!key){
-    /* Para teen, adulto, profissional: step3 mostra opção única e avança */
+   
     ge('s3-eyebrow').textContent = 'Confirmação';
     ge('q3').textContent = 'Pronto! Vamos buscar seu pacote.';
     ge('opts3').innerHTML = '<div class="option selected" id="opt3auto">'
@@ -2124,7 +2005,7 @@ function buildStep3(){
   A.duracao = null;
   ge('btn3').classList.remove('ok');
 
-  /* se só tem 1 opção, seleciona automaticamente */
+
   if(cfg.opts.length === 1){
     setTimeout(function(){
       var opt = ge('opts3').querySelector('.option');
@@ -2155,7 +2036,7 @@ window.goStep = function(n){
   window.scrollTo({top:0,behavior:'smooth'});
 };
 
-/* ═══ SHOW RESULT ═══ */
+
 var _scoredPackages = [];
 var _selectedPackageIdx = null;
 
@@ -2180,7 +2061,7 @@ window.showResult = function(){
   query.then(function(r){
     var rows = (!r.error && r.data) ? r.data : [];
 
-    /* Fallback 1: subcategoria não encontrada → busca sem subcategoria na mesma categoria */
+   
     if(!rows.length && filtro.subcategoria){
       _db.from('marketplace_produtos')
         .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras')
@@ -2195,7 +2076,7 @@ window.showResult = function(){
       return;
     }
 
-    /* Fallback 2: categoria principal vazia → tenta fallbackCategoria (ex: Festare no banco como Tradicionais) */
+   
     if(!rows.length && filtro.fallbackCategoria){
       _db.from('marketplace_produtos')
         .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras')
@@ -2230,11 +2111,10 @@ function _finalizarResultado(rows, key){
     return;
   }
 
-  /* Converte para o formato {p, score} esperado pelo restante do código */
+  
   var scored = rows.map(function(p){ return {p:p, score:60}; });
 
-  /* Para tradicionais: remove produtos de Festare/Full House que estejam cadastrados
-     incorretamente na categoria Tradicionais */
+  
   if(A.tipo === 'evento' && A.subtipo === 'tradicional'){
     var _excluir = ['festare','full house','fullhouse'];
     scored = scored.filter(function(x){
@@ -2242,7 +2122,7 @@ function _finalizarResultado(rows, key){
       var subcat = (x.p.subcategoria||'').toLowerCase();
       return !_excluir.some(function(t){ return nome.includes(t) || subcat.includes(t); });
     });
-    /* Filtra/limita por duração se não houver subcategoria no banco */
+    
     var temSubcat = scored.some(function(x){ return x.p.subcategoria && x.p.subcategoria.trim(); });
     if(!temSubcat){
       scored = filterTradicionalByDuracao(scored, A.duracao);
@@ -2250,13 +2130,13 @@ function _finalizarResultado(rows, key){
   }
 
   _scoredPackages = scored;
-  _allProds = rows; /* mantém cache para uso em renderResult/outros */
+  _allProds = rows; 
 
-  /* Se há mais de 1 pacote, mostrar seleção */
+
   if(scored.length > 1){
     buildPackageStep(scored);
   } else {
-    /* Único pacote: vai direto ao resultado */
+   
     document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
     ge('sResult').classList.add('active');
     ge('pFill').style.width = '100%';
@@ -2335,12 +2215,7 @@ window.goStepBack = function(){
   goStep(3);
 };
 
-/* ═══ FILTRO TRADICIONAIS POR DURAÇÃO ═══
-   Pacotes ordenados por preço (crescente) = duração crescente (2h < 3h < 4h).
-   - duracao 2h → só o 1º pacote (mais barato = menor cobertura)
-   - duracao 3h → 1º e 2º pacotes
-   - duracao 4h → 2º e 3º pacotes
-*/
+
 function filterTradicionalByDuracao(scored, duracao){
   if(!duracao || duracao === 'auto') return scored;
   /* ordena por preço crescente */
@@ -2358,14 +2233,14 @@ function filterTradicionalByDuracao(scored, duracao){
   return sorted;
 }
 
-/* Monta a chave de busca a partir das respostas */
+
 function resolveKey(){
   if(A.tipo === 'ensaio'){
     if(A.subtipo === 'infantil'){
       return 'ensaio_infantil_'+(A.duracao||'sembolo');
     }
     if(A.subtipo === 'familia'){
-      /* duracao aqui carrega 'familiar' ou 'gestante' (resposta do step3) */
+      
       var subFam = A.duracao && A.duracao !== 'auto' ? A.duracao : 'familiar';
       return 'ensaio_familia_'+subFam;
     }
@@ -2383,7 +2258,7 @@ function resolveKey(){
 }
 
 function renderResult(scored){
-  /* scored já vem filtrado pela query — apenas garante ordem e fallback visual */
+  
   if(!scored || !scored.length){
     ge('resultLoading').innerHTML='<div class="loading-text">Nenhum pacote encontrado. <a href="https://wa.me/5522992497662" style="color:var(--gold)">Fale pelo WhatsApp</a>.</div>';
     return;
@@ -2396,7 +2271,7 @@ function renderResult(scored){
   var imgs = bImgs(p);
   var preco = parseFloat(String(p.preco||'0').replace(/\./g,'').replace(',','.')) || 0;
 
-  /* hero */
+  
   if(imgs.length){
     ge('rHeroTrack').innerHTML = imgs.map(function(u){
       return '<img src="'+esc(u)+'" style="width:100%;height:100%;object-fit:cover;object-position:top center;flex-shrink:0;" loading="lazy" onerror="this.style.display=\'none\'">';
@@ -2464,11 +2339,11 @@ function renderResult(scored){
   ge('resultLoading').style.display='none';
   ge('resultContent').style.display='block';
 
-  /* Abre o modal do produto automaticamente após renderizar o resultado */
+  
   setTimeout(function(){ if(_matched) openProductModal(_matched); }, 700);
 }
 
-/* ═══ EXTRAS TOGGLE ═══ */
+
 window.toggleExtra = function(idx, price){
   var el = ge('rex-'+idx); if(!el) return;
   if(_selectedExtras[idx]){ delete _selectedExtras[idx]; el.classList.remove('checked'); }
@@ -2477,7 +2352,7 @@ window.toggleExtra = function(idx, price){
   ge('rTotal').textContent = fMoney(base + Object.values(_selectedExtras).reduce(function(a,b){ return a+b; }, 0));
 };
 
-/* ═══ HERO CAROUSEL ═══ */
+
 window.rHeroGo = function(idx){
   if(!_rhi_imgs.length) return;
   _rhi = Math.max(0,Math.min(_rhi_imgs.length-1,idx));
@@ -2485,7 +2360,7 @@ window.rHeroGo = function(idx){
   document.querySelectorAll('#rHeroDots .result-hero-dot').forEach(function(d,i){ d.classList.toggle('active',i===_rhi); });
 };
 
-/* ═══ MODAL ═══ */
+
 window.abrirModalProduto = function(){ if(_matched) openProductModal(_matched); };
 window.abrirOutro = function(id){
   var p = _allProds.find(function(x){ return x.id==id; });
@@ -2564,7 +2439,7 @@ window.modalGoTo = function(idx){
 };
 window.modalMove = function(dir){ modalGoTo(_mci+dir); };
 
-/* touch swipe no modal */
+
 var _mtx=null;
 ge('prodModalBox').addEventListener('touchstart',function(e){
   if(e.target.closest('.modal-carousel')) _mtx=e.touches[0].clientX;
@@ -2575,7 +2450,7 @@ ge('prodModalBox').addEventListener('touchend',function(e){
   _mtx=null;
 },{passive:true});
 
-/* touch drag para fechar modal pelo handle */
+
 var _mty=null;
 ge('prodModalBox').addEventListener('touchstart',function(e){
   _mty=e.touches[0].clientY;
@@ -2599,7 +2474,7 @@ window.modalRecalc = function(){
   ge('modalPriceBase').textContent=fMoney(_cbp)+' · preço base';
 };
 
-/* ═══ WA / PIX ═══ */
+
 window.openWA = function(){
   if(!_cp) return;
   var total=ge('modalTotal').textContent, extras=[];
@@ -2626,22 +2501,22 @@ window.copyPix = function(){
   });
 };
 
-/* ═══ BOOKING SYSTEM ═══ */
+
 var _bk = {
   step: 1,
-  selectedDate: null,   // objeto da data escolhida
+  selectedDate: null,  
   nome: '',
   fone: '',
   agendamentoId: null,
   pixCopiado: false
 };
 
-/* ----- Formatação de data ----- */
+
 var _MESES_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 var _DIAS_PT  = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 
 function bookFmtData(row){
-  /* row.data = 'YYYY-MM-DD', row.horario = 'HH:MM:SS' */
+ 
   var parts = (row.data||'').split('-');
   var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
   var dia   = String(d.getDate()).padStart(2,'0');
@@ -2652,7 +2527,7 @@ function bookFmtData(row){
            full: diaSem+', '+dia+' de '+mes+' às '+hora };
 }
 
-/* ----- Abrir modal ----- */
+
 window.openBookModal = function(){
   if(!_cp){ return; }
   _bk.step=1; _bk.selectedDate=null; _bk.pixCopiado=false;
@@ -2675,7 +2550,7 @@ window.bookClickOut = function(e){
   if(e.target===ge('bookModal')) closeBookModal();
 };
 
-/* ----- Navegação entre steps ----- */
+
 window.bookGoStep = function(n){
   if(n===2 && !_bk.selectedDate) return;
   if(n===3){
@@ -2697,13 +2572,7 @@ function bookSetStep(n){
   });
 }
 
-/* ══════════════════════════════════════════
-   QUIZ — CAMADA DE DADOS COM CACHE IndexedDB
-   Funções: getAgendamentos(), getDatasDisponiveis()
-   (espelha a API do ADM — single source of truth)
-══════════════════════════════════════════ */
 
-/* ── IndexedDB cache (TTL 5 min) ── */
 var _quizIdb = null;
 var _QUIZ_IDB_NAME  = 'lgplat_cache';
 var _QUIZ_IDB_STORE = 'kv';
@@ -2747,10 +2616,7 @@ function _quizIdbSet(key, value, ttlMs) {
   }).catch(function () {});
 }
 
-/* ══════════════════════════════════════════
-   getDatasDisponiveis(opts) — legado, mantido para
-   compatibilidade. Uso interno apenas.
-══════════════════════════════════════════ */
+
 function getDatasDisponiveis(opts) {
   opts = opts || {};
   var hoje    = new Date();
@@ -2793,13 +2659,7 @@ function getDatasDisponiveis(opts) {
   return fromSupabase;
 }
 
-/* ══════════════════════════════════════════
-   getDisponibilidade(periodo, categoria)
-   ─ NOVO SISTEMA DINÂMICO ─
-   Gera slots a partir de agenda_regras,
-   remove agenda_excecoes e agendamentos_clientes.
-   Retorna objetos compatíveis com bookFmtData().
-══════════════════════════════════════════ */
+
 function _disp_dateStr(d) {
   return d.getFullYear() + '-'
     + String(d.getMonth() + 1).padStart(2, '0') + '-'
@@ -2815,12 +2675,11 @@ function _disp_filterRegras(regras, categoria) {
   if (!categoria) return regras;
   var cn = _disp_normStr(categoria);
 
-  // 1. Match exato no tipo
+ 
   var exact = regras.filter(function (r) { return _disp_normStr(r.tipo) === cn; });
   if (exact.length) return exact;
 
-  // 2. Match parcial — tipo contido na categoria ou vice-versa
-  //    MAS garante que ensaio nunca mistura com evento e vice-versa
+ 
   var cnIsEnsaio = cn.includes('ensaio') || cn.includes('familia') || cn.includes('teen') || cn.includes('adulto') || cn.includes('profissional') || cn.includes('infantil');
   var cnIsEvento = cn.includes('evento') || cn.includes('aniversario')
                  || cn.includes('debutante') || cn.includes('tradicional')
@@ -2831,7 +2690,7 @@ function _disp_filterRegras(regras, categoria) {
     var tnIsEnsaio = tn.includes('ensaio');
     var tnIsEvento = tn.includes('evento') || tn.includes('aniversario') || tn.includes('tradicional') || tn.includes('festare') || tn.includes('debutante');
 
-    // Bloqueia cruzamento ensaio ↔ evento
+    
     if (cnIsEnsaio && tnIsEvento) return false;
     if (cnIsEvento && tnIsEnsaio) return false;
 
@@ -2839,7 +2698,7 @@ function _disp_filterRegras(regras, categoria) {
   });
   if (partial.length) return partial;
 
-  // 3. Match por família com separação estrita
+  
   var broad = regras.filter(function (r) {
     var tn = _disp_normStr(r.tipo);
     var tnIsEnsaio = tn.includes('ensaio') || tn === 'ensaio';
@@ -2850,7 +2709,7 @@ function _disp_filterRegras(regras, categoria) {
   });
   if (broad.length) return broad;
 
-  // 4. Fallback: todas as regras ativas (último recurso)
+
   return regras;
 }
 
@@ -2894,7 +2753,7 @@ function getDisponibilidade(periodo, categoria) {
 
       var regrasFilt = _disp_filterRegras(regras, categoria);
 
-      // Conjuntos de bloqueio
+      
       var excSet = {};
       excecoes.forEach(function (e) {
         if (!e.bloqueado) return;
@@ -2933,7 +2792,7 @@ function getDisponibilidade(periodo, categoria) {
             var hs  = String(h).substring(0, 5);
             var key = dataStr + '_' + hs;
 
-            // Bloquear por data inteira ou horário específico
+            
             if (excSet[dataStr + '_*'] || excSet[key]) return;
             // Já reservado
             if (bookedSet[key]) return;
@@ -2955,12 +2814,12 @@ function getDisponibilidade(periodo, categoria) {
         cur.setDate(cur.getDate() + 1);
       }
 
-      // Ordena por data + horário
+      
       slots.sort(function (a, b) {
         return (a.data + a.horario).localeCompare(b.data + b.horario);
       });
 
-      // Cache local (TTL 3 min) para fallback
+      
       _quizIdbSet(cacheKey, slots, 180000);
       return slots;
     })
@@ -2972,10 +2831,7 @@ function getDisponibilidade(periodo, categoria) {
     });
 }
 
-/* ══════════════════════════════════════════
-   getAgendamentos() — reutilizável no quiz
-   (uso: verificar conflito antes de reservar)
-══════════════════════════════════════════ */
+
 function getAgendamentos(opts) {
   opts = opts || {};
   var q = _db
@@ -2993,9 +2849,7 @@ function getAgendamentos(opts) {
   });
 }
 
-/* ══════════════════════════════════════════
-   CALENDÁRIO — bookLoadDates + renderização
-══════════════════════════════════════════ */
+
 var _calYear, _calMonth, _calSlotMap = {};
 
 var MESES_CAL = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
@@ -3029,14 +2883,14 @@ function bookLoadDates() {
         return;
       }
 
-      /* Montar mapa data → [slots] */
+     
       slots.forEach(function(s, i){
         var d = s.data; // YYYY-MM-DD
         if(!_calSlotMap[d]) _calSlotMap[d] = [];
         _calSlotMap[d].push({ slot: s, idx: i });
       });
 
-      /* Iniciar no mês do 1º slot disponível */
+     
       var firstParts = slots[0].data.split('-').map(Number);
       _calYear  = firstParts[0];
       _calMonth = firstParts[1] - 1; // 0-indexed
@@ -3059,7 +2913,7 @@ function _renderCal() {
   var today = new Date();
   today.setHours(0,0,0,0);
 
-  /* Encontra primeiro e último mês com slots */
+  
   var months = Object.keys(_calSlotMap).map(function(d){ var p=d.split('-'); return {y:+p[0],m:+p[1]-1}; });
   var minM = months.reduce(function(a,b){ return (a.y*12+a.m)<=(b.y*12+b.m)?a:b; });
   var maxM = months.reduce(function(a,b){ return (a.y*12+a.m)>=(b.y*12+b.m)?a:b; });
@@ -3070,7 +2924,7 @@ function _renderCal() {
   var firstDay = new Date(_calYear, _calMonth, 1).getDay(); // 0=dom
   var daysInMonth = new Date(_calYear, _calMonth+1, 0).getDate();
 
-  /* Header do calendário */
+  
   var html = '<div class="book-cal-nav">'
     + '<button class="book-cal-arrow" onclick="bookCalPrev()" id="bookCalPrev"'+(isPrevDisabled?' disabled':'')+'>&#8249;</button>'
     + '<span class="book-cal-month">'+MESES_CAL[_calMonth]+' '+_calYear+'</span>'
@@ -3078,13 +2932,13 @@ function _renderCal() {
     + '</div>'
     + '<div class="book-cal-grid">';
 
-  /* Cabeçalho dias semana */
+  
   DIAS_CAL.forEach(function(d){ html += '<div class="book-cal-wd">'+d+'</div>'; });
 
-  /* Células vazias antes do dia 1 */
+  
   for(var e=0;e<firstDay;e++) html += '<div class="book-cal-day"></div>';
 
-  /* Dias do mês */
+  
   for(var day=1; day<=daysInMonth; day++){
     var mm = String(_calMonth+1).padStart(2,'0');
     var dd = String(day).padStart(2,'0');
@@ -3125,12 +2979,12 @@ window.bookCalNext = function(){
 };
 
 window.bookCalSelectDay = function(dateStr) {
-  /* Desmarca dia anterior */
+  
   document.querySelectorAll('.book-cal-day.selected').forEach(function(d){ d.classList.remove('selected'); });
   var el = ge('bcd-'+dateStr);
   if(el) el.classList.add('selected');
 
-  /* Monta painel de horários */
+  
   var slotsForDay = _calSlotMap[dateStr] || [];
   var panel = ge('bookTimesPanel');
   var parts = dateStr.split('-').map(Number);
@@ -3146,7 +3000,7 @@ window.bookCalSelectDay = function(dateStr) {
   }).join('');
   ge('bookTimesChips').innerHTML = chips;
 
-  /* Localização (pega do 1º slot do dia) */
+  
   var locEl = ge('bookTimesLoc');
   var loc = slotsForDay[0] && slotsForDay[0].slot.localizacao;
   if(loc){
@@ -3156,7 +3010,7 @@ window.bookCalSelectDay = function(dateStr) {
     locEl.style.display='none';
   }
 
-  /* Observações / orientações da regra */
+  
   var obsEl = ge('bookTimesObs');
   var obs = slotsForDay[0] && slotsForDay[0].slot.observacoes;
   if(obs && obs.trim()){
@@ -3169,7 +3023,7 @@ window.bookCalSelectDay = function(dateStr) {
 
   panel.classList.add('show');
 
-  /* Desmarcar seleção de horário ao trocar de dia */
+  
   _bk.selectedDate = null;
   ge('bookBtn1').classList.remove('ok');
 };
@@ -3182,17 +3036,17 @@ window.bookSelectTime = function(idx, el){
   ge('bookBtn1').classList.add('ok');
 };
 
-/* compat */
+
 window.bookSelectDate = window.bookSelectTime;
 
-/* ----- Validar formulário step 2 ----- */
+
 window.bookValidateForm = function(){
   var nome=ge('bookNome').value.trim();
   var fone=ge('bookFone').value.replace(/\D/g,'');
   ge('bookBtn2').classList.toggle('ok', nome.length>1 && fone.length>=10);
 };
 
-/* ----- Máscara de telefone ----- */
+
 window.bookMaskPhone = function(inp){
   var v=inp.value.replace(/\D/g,'').substring(0,11);
   if(v.length>6) v='('+v.substring(0,2)+') '+v.substring(2,7)+'-'+v.substring(7);
@@ -3201,26 +3055,26 @@ window.bookMaskPhone = function(inp){
   inp.value=v;
 };
 
-/* ----- Construir step 3 (Pix) ----- */
+
 function bookBuildPixStep(){
   if(!_cp||!_bk.selectedDate) return;
   var f = bookFmtData(_bk.selectedDate);
 
-  /* Info do pacote */
+  
   var total = ge('modalTotal') ? ge('modalTotal').textContent : fMoney(_cbp);
   ge('bookPkgInfo').innerHTML =
     '<div class="book-pix-pkg-label">Pacote selecionado</div>'
     +'<div class="book-pix-pkg-name">'+esc(_cp.nome||'')+'</div>'
     +'<div class="book-pix-pkg-price">'+total+'</div>';
 
-  /* Data escolhida */
+ 
   ge('bookDateInfo').innerHTML =
     '<i class="fas fa-calendar-check"></i>'
     +'<span><strong>'+f.diaSem+', '+f.dia+' de '+f.mes+'</strong> às '+f.hora
     +(_bk.selectedDate.localizacao?'<br><i class="fas fa-location-dot" style="font-size:10px;margin-right:3px;color:var(--gold)"></i>'+esc(_bk.selectedDate.localizacao):'')
     +'</span>';
 
-  /* Instruções do pacote — usa o campo incluso (sem HTML) */
+ 
   var instrLines = pIncluso(_cp.incluso).slice(0, 8);
   if(instrLines.length){
     ge('bookPixInstructions').innerHTML =
@@ -3246,16 +3100,16 @@ function bookBuildPixStep(){
     ge('bookPixInstructions').style.display='none';
   }
 
-  /* Chave pix — fallback para 22992497662 se vazio ou contiver "telefone" */
+  
   var _pixKey = (_cp.pix_key && _cp.pix_key.trim() && _cp.pix_key.trim().toLowerCase() !== 'telefone')
     ? _cp.pix_key.trim() : '22992497662';
   ge('bookPixKeyVal').textContent = _pixKey;
 
-  /* Dados do titular (ocultos — revelados ao copiar) */
+  
   var _pixOwnerBox = ge('bookPixOwnerInfo');
   if(_pixOwnerBox) _pixOwnerBox.style.display='none';
 
-  /* Link WhatsApp com comprovante */
+  
   var foneNum = (_cp.whatsapp||'5522992497662').replace(/\D/g,'');
   var extras = [];
   document.querySelectorAll('#modalExtrasList input[type=checkbox]').forEach(function(cb){
@@ -3278,13 +3132,13 @@ function bookBuildPixStep(){
   ge('bookBtnWA').href = 'https://wa.me/'+foneNum+'?text='+encodeURIComponent(msg.join('\n'));
 }
 
-/* ----- Copiar Pix e registrar agendamento ----- */
+
 window.bookCopyPix = function(){
   var key = (_cp && _cp.pix_key && _cp.pix_key.trim() && _cp.pix_key.trim().toLowerCase() !== 'telefone')
     ? _cp.pix_key.trim() : '22992497662';
   if(!key) return;
 
-  /* Copia para clipboard */
+  
   var doCopy = function(){
     navigator.clipboard.writeText(key).catch(function(){
       var ta=document.createElement('textarea');ta.value=key;
@@ -3294,7 +3148,7 @@ window.bookCopyPix = function(){
   };
   doCopy();
 
-  /* Mostra badge e dados do titular */
+  
   ge('bookCopiedBadge').classList.add('show');
   var ownerBox = ge('bookPixOwnerInfo');
   if(ownerBox) ownerBox.style.display='block';
@@ -3303,10 +3157,10 @@ window.bookCopyPix = function(){
   var ew = ge('bookExpireWarn'); if(ew) ew.style.display='flex';
   _bk.pixCopiado = true;
 
-  /* Salva agendamento no Supabase (status: aguardando_comprovante) */
+ 
   if(!_bk.agendamentoId && _cp && _bk.selectedDate){
     var total = ge('modalTotal') ? ge('modalTotal').textContent : fMoney(_cbp);
-    /* Extrai extras selecionados */
+   
     var extrasArr=[];
     document.querySelectorAll('#modalExtrasList input[type=checkbox]').forEach(function(cb){
       if(cb.checked){
@@ -3316,11 +3170,11 @@ window.bookCopyPix = function(){
         if(nome) extrasArr.push(nome+(preco?' ('+preco+')':''));
       }
     });
-    /* Parse do valor total */
+    
     var valorStr = total.replace('R$','').replace(/\./g,'').replace(',','.').trim();
     var valor = parseFloat(valorStr)||0;
 
-    /* ─── agendamentos_clientes (novo sistema dinâmico) ─── */
+    
     var payloadNovo = {
       data             : _bk.selectedDate.data,
       horario          : _bk.selectedDate.horario,
@@ -3340,7 +3194,7 @@ window.bookCopyPix = function(){
   }
 };
 
-/* ═══ MODAL CONSULTA DE DATAS ═══ */
+
 
 var _cdata = {
   slots    : [],
@@ -3350,7 +3204,7 @@ var _cdata = {
   selDay   : null  /* dateStr do dia clicado */
 };
 
-/* Abre o modal — carrega apenas o mês vigente */
+
 window.abrirConsultaDatas = function(){
   ge('cdataModal').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -3359,7 +3213,7 @@ window.abrirConsultaDatas = function(){
 
   var cat = (_cp && _cp.categoria) ? _cp.categoria : '';
 
-  /* Atualiza subtítulo com nome do pacote */
+ 
   ge('cdataSub').textContent = _cp && _cp.nome
     ? 'Pacote: ' + _cp.nome + ' · Clique num dia para ver os horários.'
     : 'Clique em um dia para ver os horários disponíveis.';
@@ -3367,7 +3221,7 @@ window.abrirConsultaDatas = function(){
   ge('cdataLoader').style.display = 'flex';
   ge('cdataDatesGrid').innerHTML  = '';
 
-  /* Usa o mesmo getDisponibilidade já existente — 90 dias de janela */
+  
   getDisponibilidade(90, cat)
     .then(function(slots){
       ge('cdataLoader').style.display = 'none';
@@ -3380,7 +3234,7 @@ window.abrirConsultaDatas = function(){
         _cdata.slotMap[d].push({ slot: s, idx: i });
       });
 
-      /* Começa sempre no mês atual */
+      
       var now = new Date();
       _cdata.calYear  = now.getFullYear();
       _cdata.calMonth = now.getMonth();
@@ -3406,13 +3260,13 @@ window.cdataClickOut = function(e){
   if(e.target === ge('cdataModal')) fecharConsultaDatas();
 };
 
-/* Renderiza o calendário read-only dentro do modal de consulta */
+
 function _cdataRenderCal(){
   var grid  = ge('cdataDatesGrid');
   var today = new Date(); today.setHours(0,0,0,0);
   var y = _cdata.calYear, m = _cdata.calMonth;
 
-  /* Navegar apenas entre meses que têm slots, dentro da janela de 90 dias */
+  
   var months = Object.keys(_cdata.slotMap).map(function(d){
     var p = d.split('-'); return { y: +p[0], m: +p[1]-1 };
   });
@@ -3421,7 +3275,7 @@ function _cdataRenderCal(){
   var maxM = months.length ? months.reduce(function(a,b){ return (a.y*12+a.m)>=(b.y*12+b.m)?a:b; })
                            : { y: y, m: m };
 
-  /* Garante que mês atual está dentro dos limites */
+  
   if((y*12+m) < (minM.y*12+minM.m)){ y=minM.y; m=minM.m; _cdata.calYear=y; _cdata.calMonth=m; }
   if((y*12+m) > (maxM.y*12+maxM.m)){ y=maxM.y; m=maxM.m; _cdata.calYear=y; _cdata.calMonth=m; }
 
@@ -3455,7 +3309,7 @@ function _cdataRenderCal(){
   }
   html += '</div>';
 
-  /* Contador de dias com vaga no mês */
+ 
   var diasComVaga = Object.keys(_cdata.slotMap).filter(function(d){
     return d.startsWith(y+'-'+String(m+1).padStart(2,'0'));
   }).length;
@@ -3492,7 +3346,7 @@ window.cdataCalNext = function(){
 window.cdataSelectDay = function(dateStr){
   _cdata.selDay = dateStr;
 
-  /* Remarca visual */
+  
   ge('cdataDatesGrid').querySelectorAll('.book-cal-day.selected')
     .forEach(function(d){ d.classList.remove('selected'); });
   var el = ge('cdc-'+dateStr);
@@ -3506,19 +3360,19 @@ window.cdataSelectDay = function(dateStr){
   ge('cdataTimesLabel').textContent =
     DSEM[dt.getDay()]+', '+parts[2]+' de '+MESES_CAL[parts[1]-1];
 
-  /* Horários — apenas exibição, sem seleção */
+
   ge('cdataChips').innerHTML = slotsForDay.map(function(item){
     return '<div class="cdata-chip"><i class="fas fa-clock"></i>'
       + esc(item.slot.horario.substring(0,5))+'</div>';
   }).join('');
 
-  /* Localização */
+ 
   var loc = slotsForDay[0] && slotsForDay[0].slot.localizacao;
   var locEl = ge('cdataLoc');
   if(loc){ locEl.innerHTML='<i class="fas fa-location-dot"></i>'+esc(loc); locEl.style.display='flex'; }
   else   { locEl.style.display='none'; }
 
-  /* Observações */
+  
   var obs   = slotsForDay[0] && slotsForDay[0].slot.observacoes;
   var obsEl = ge('cdataObs');
   if(obs && obs.trim()){
@@ -3528,7 +3382,7 @@ window.cdataSelectDay = function(dateStr){
     obsEl.style.display = 'none';
   }
 
-  /* Link WhatsApp com contexto (pacote + data de interesse) */
+  
   var pkgNome = (_cp && _cp.nome) ? _cp.nome : 'pacote selecionado';
   var foneNum = (_cp && _cp.whatsapp) ? _cp.whatsapp.replace(/\D/g,'') : '5522992497662';
   var MNOM    = ['janeiro','fevereiro','março','abril','maio','junho',
@@ -3544,28 +3398,28 @@ window.cdataSelectDay = function(dateStr){
 
   ge('cdataTimesPanel').classList.add('show');
 
-  /* Scroll suave até o painel dentro do modal */
+  
   setTimeout(function(){
     var panel = ge('cdataTimesPanel');
     if(panel) panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }, 100);
 };
 
-/* Botão "Reservar esta data" — fecha consulta, abre booking com data pré-selecionada */
+
 window.cdataReservarData = function(){
   fecharConsultaDatas();
-  /* Abre o modal do produto (que tem o botão de reservar via Pix) */
+  
   if(_matched) openProductModal(_matched);
-  /* Aguarda o modal abrir e dispara o booking */
+  
   setTimeout(function(){
     openBookModal();
-    /* Se há um dia selecionado com slot, navega para o mês e destaca o dia */
+    
     if(_cdata.selDay && _bk._slots){
       var parts = _cdata.selDay.split('-').map(Number);
       _calYear  = parts[0];
       _calMonth = parts[1]-1;
       _renderCal();
-      /* Simula clique no dia para abrir os horários */
+      
       setTimeout(function(){
         bookCalSelectDay(_cdata.selDay);
       }, 150);
@@ -3573,11 +3427,7 @@ window.cdataReservarData = function(){
   }, 320);
 };
 
-/* ═══ /MODAL CONSULTA DE DATAS ═══ */
 
-/* ═══ /BOOKING SYSTEM ═══ */
-
-/* ═══ RESTART ═══ */
 window.restart = function(){
   A={}; _matched=null; _others=[]; _selectedExtras={}; _scoredPackages=[]; _selectedPackageIdx=null;
   document.querySelectorAll('.option').forEach(function(o){ o.classList.remove('selected'); });
@@ -3591,9 +3441,7 @@ window.restart = function(){
   window.scrollTo({top:0,behavior:'smooth'});
 };
 
-/* ═══ PREFETCH ═══
-   Com a migração para subcategoria, cada resultado faz sua própria query filtrada.
-   O prefetch mantém apenas o warm-up da conexão Supabase. */
+
 function prefetchProducts(){
   _db.from('marketplace_produtos')
     .select('id,categoria,subcategoria,status')
@@ -3602,7 +3450,7 @@ function prefetchProducts(){
     .then(function(){ /* conexão aquecida */ });
 }
 
-/* ═══ INIT ═══ */
+
 buildStep2();
 buildStep3();
 prefetchProducts();
@@ -3610,7 +3458,7 @@ prefetchProducts();
 })();
 </script>
 
-<!-- ── MÓDULO: CARDS PROMOCIONAIS ── -->
+
 <script>
 (function () {
   'use strict';
@@ -3975,12 +3823,12 @@ prefetchProducts();
 })();
 </script>
 
-<!-- ── BAIXAR PDF ── -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 function baixarPDF() {
-  /* ── Coleta dados do modal ── */
+  
   var titulo    = (document.getElementById('modalTitle')    || {}).textContent || 'pacote';
   var cat       = (document.getElementById('modalCat')      || {}).textContent || '';
   var preco     = (document.getElementById('modalTotalVal') || {}).textContent || '';
@@ -4005,10 +3853,10 @@ function baixarPDF() {
     });
   });
 
-  /* ── Nome do arquivo ── */
+  
   var nomePacote = titulo.replace(/[^a-zA-Z0-9À-ú\s]/g, '').trim().replace(/\s+/g, '_').toLowerCase() || 'pacote';
 
-  /* ── Overlay de loading ── */
+  
   var overlay = document.createElement('div');
   overlay.id = '__pdfOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(7,7,12,0.96);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;';
@@ -4025,7 +3873,7 @@ function baixarPDF() {
     if (btnPdf) btnPdf.classList.remove('loading');
   }
 
-  /* ── Monta HTML do PDF num iframe invisível ── */
+ 
   var W = 800;
 
   var inclusoBullets = inclusoItems.map(function(t) {
@@ -4082,7 +3930,7 @@ function baixarPDF() {
     + '</div>'
     + '</body></html>';
 
-  /* ── Cria iframe fora da tela ── */
+  
   var iframe = document.createElement('iframe');
   iframe.style.cssText = 'position:fixed;left:0;top:0;width:' + W + 'px;height:1px;border:none;opacity:0;pointer-events:none;z-index:-1;';
   document.body.appendChild(iframe);
@@ -4091,7 +3939,7 @@ function baixarPDF() {
   iframe.contentDocument.write(bodyHTML);
   iframe.contentDocument.close();
 
-  /* Aguarda fontes e imagens carregarem antes de capturar */
+  
   setTimeout(function() {
     var docEl = iframe.contentDocument.body;
     var fullH = iframe.contentDocument.documentElement.scrollHeight;
@@ -4124,7 +3972,7 @@ function baixarPDF() {
       if (imgH <= pageH - margin * 2) {
         pdf.addImage(imgData, 'JPEG', margin, y, imgW, imgH);
       } else {
-        /* Pagina o conteúdo longo */
+        
         var pageImgH = pageH - margin * 2;
         var srcH     = (pageImgH / imgW) * canvas.width;
         var srcY     = 0;
@@ -4153,20 +4001,20 @@ function baixarPDF() {
 </body>
 </html>
 
-<!-- ══ MONITORAMENTO — espelhado do Portal do Cliente ══ -->
+
 <script>
 (function() {
   var SUPA_URL = atob('aHR0cHM6Ly9sZWRwcWN5bnZxYmRiY2NlYmhiby5zdXBhYmFzZS5jbw==');
   var SUPA_KEY = atob('ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW14bFpIQnhZM2x1ZG5GaVpHSmpZMlZpYUdKdklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzTnpBek9EYzNNamdzSW1WNGNDSTZNakE0TlRrMk16Y3lPSDAuczhHT3pwNHdvdWpHdURjNHZLOVFYSWYzY1dMTUVOVW5KZkU0bHRfWWhMZw==');
 
-  /* ── Sessão única por aba ── */
+ 
   var sessaoId = sessionStorage.getItem('_qlid');
   if (!sessaoId) {
     sessaoId = Math.random().toString(36).slice(2) + Date.now().toString(36);
     sessionStorage.setItem('_qlid', sessaoId);
   }
 
-  /* ── Envia evento para Supabase (tabela eventos_lead) ── */
+  
   function _ev(evento, detalhe) {
     try {
       fetch(SUPA_URL + '/rest/v1/eventos_lead', {
@@ -4186,7 +4034,7 @@ function baixarPDF() {
     } catch(e) {}
   }
 
-  /* ── Contador de acessos diários (mesma tabela do portal) ── */
+  
   function _pad(n) { return n < 10 ? '0' + n : '' + n; }
   function _hoje() {
     var d = new Date();
@@ -4207,52 +4055,52 @@ function baixarPDF() {
     } catch(e) {}
   }
 
-  /* ── 1. Sessão iniciada ── */
+ 
   if (!sessionStorage.getItem('_qlid_init')) {
     sessionStorage.setItem('_qlid_init', '1');
     _ev('sessao_inicio');
-    /* registra acesso diário usando o _db já inicializado pelo quiz */
+    
     var _waitDb = setInterval(function() {
       if (window._db) { clearInterval(_waitDb); _registrarAcesso(window._db); }
     }, 300);
   }
 
-  /* ── 2. Intercepta pick() — rastreia cada resposta do quiz ── */
+ 
   var _origPick = window.pick;
   window.pick = function(el, key, val, stepId) {
     _ev('quiz_resposta', key + '=' + val);
     if (_origPick) _origPick(el, key, val, stepId);
   };
 
-  /* ── 3. Intercepta goStep() — rastreia navegação entre passos ── */
+  
   var _origGoStep = window.goStep;
   window.goStep = function(n) {
     _ev('quiz_step', 'passo_' + n);
     if (_origGoStep) _origGoStep(n);
   };
 
-  /* ── 4. Intercepta showResult() — rastreia chegada ao resultado ── */
+  
   var _origShowResult = window.showResult;
   window.showResult = function() {
     _ev('resultado_exibido');
     if (_origShowResult) _origShowResult();
   };
 
-  /* ── 5. Intercepta confirmPackageSelection() — rastreia confirmação de pacote ── */
+  
   var _origConfirm = window.confirmPackageSelection;
   window.confirmPackageSelection = function() {
     _ev('pacote_confirmado');
     if (_origConfirm) _origConfirm();
   };
 
-  /* ── 6. Intercepta openProductModal() — rastreia abertura de modal de pacote ── */
+  
   var _origOpenModal = window.openProductModal;
   window.openProductModal = function(p) {
     if (p && p.nome) _ev('pacote_aberto', (p.nome).slice(0, 80));
     if (_origOpenModal) _origOpenModal(p);
   };
 
-  /* ── 7. Intercepta openWA() — rastreia clique no WhatsApp ── */
+  
   var _origOpenWA = window.openWA;
   window.openWA = function() {
     var nome = window._cp && window._cp.nome ? window._cp.nome.slice(0, 80) : 'pacote';
@@ -4260,7 +4108,7 @@ function baixarPDF() {
     if (_origOpenWA) _origOpenWA();
   };
 
-  /* ── 8. Intercepta copyPix() — rastreia cópia da chave Pix ── */
+ 
   var _origCopyPix = window.copyPix;
   window.copyPix = function() {
     var nome = window._cp && window._cp.nome ? window._cp.nome.slice(0, 80) : 'pacote';
@@ -4268,7 +4116,7 @@ function baixarPDF() {
     if (_origCopyPix) _origCopyPix();
   };
 
-  /* ── 9. Intercepta bookSetStep() — rastreia passos do agendamento ── */
+ 
   var _labels = { 1: 'escolha_data', 2: 'dados_pessoais', 3: 'pagamento_pix' };
   var _origBookSetStep = window.bookSetStep;
   window.bookSetStep = function(n) {
@@ -4276,7 +4124,7 @@ function baixarPDF() {
     if (_origBookSetStep) _origBookSetStep(n);
   };
 
-  /* ── Aguarda funções do quiz estarem prontas antes de interceptar ── */
+  
   var _MAX = 8000, _INT = 150, _el = 0;
   function _hookAll() {
     var ready = window.pick && window.goStep && window.showResult
