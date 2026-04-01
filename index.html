@@ -1240,25 +1240,6 @@ body::after{
         <div class="step-eyebrow">Encontre seu pacote</div>
         <div class="question">O que você está buscando?</div>
         <div class="options">
-          <div class="option" onclick="pick(this,'tipo','ensaio','s1')">
-            <div class="opt-main">
-              <div class="opt-icon"><i class="fas fa-camera"></i></div>
-              <div class="opt-label-wrap">
-                <div class="opt-label">Ensaio Fotográfico</div>
-                <div class="opt-sub">Sessão em estúdio · fundo temático ou clean · entrega em 5 dias</div>
-              </div>
-              <div class="opt-check"><i class="fas fa-check"></i></div>
-            </div>
-            <div class="opt-info">
-              <div class="opt-info-title"><i class="fas fa-circle-info"></i> O que você precisa saber</div>
-              <ul class="opt-info-list">
-                <li><i class="fas fa-circle-check"></i><span>Sessão em estúdio com <strong>atendendo 1 ano até casuais adultos</strong></span></li>
-                <li><i class="fas fa-circle-check"></i><span>Seleção online das fotos favoritas</span></li>
-                <li><i class="fas fa-circle-check"></i><span>Entrega em <strong>5 dias úteis</strong> via Google Drive</span></li>
-                <li><i class="fas fa-circle-check"></i><span>Reserva com <strong>Pix ou cartão</strong></span></li>
-              </ul>
-            </div>
-          </div>
           <div class="option" onclick="pick(this,'tipo','evento','s1')">
             <div class="opt-main">
               <div class="opt-icon"><i class="fas fa-gift"></i></div>
@@ -1275,6 +1256,25 @@ body::after{
                 <li><i class="fas fa-circle-check"></i><span>Entrega em <strong>7 dias</strong> via Portal do Cliente</span></li>
                 <li><i class="fas fa-circle-check"></i><span><strong>Sem limite</strong> de fotos entregues</span></li>
                 <li><i class="fas fa-circle-check"></i><span>Todos os detalhes registrados</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="option" onclick="pick(this,'tipo','ensaio','s1')">
+            <div class="opt-main">
+              <div class="opt-icon"><i class="fas fa-camera"></i></div>
+              <div class="opt-label-wrap">
+                <div class="opt-label">Ensaio Fotográfico</div>
+                <div class="opt-sub">Sessão em estúdio · fundo temático ou clean · entrega em 5 dias</div>
+              </div>
+              <div class="opt-check"><i class="fas fa-check"></i></div>
+            </div>
+            <div class="opt-info">
+              <div class="opt-info-title"><i class="fas fa-circle-info"></i> O que você precisa saber</div>
+              <ul class="opt-info-list">
+                <li><i class="fas fa-circle-check"></i><span>Sessão em estúdio com <strong>atendendo 1 ano até casuais adultos</strong></span></li>
+                <li><i class="fas fa-circle-check"></i><span>Seleção online das fotos favoritas</span></li>
+                <li><i class="fas fa-circle-check"></i><span>Entrega em <strong>5 dias úteis</strong> via Google Drive</span></li>
+                <li><i class="fas fa-circle-check"></i><span>Reserva com <strong>Pix ou cartão</strong></span></li>
               </ul>
             </div>
           </div>
@@ -1822,7 +1822,7 @@ var S2 = {
       {
         i:'fas fa-champagne-glasses',
         l:'Festare & Full House',
-        sub:'Exclusivo para festa em Rodizio de comidas de Festa',
+        sub:'Casas de festa com pacote fixo de 2 horas',
         v:'festare',
         info:[
           'Cobertura de <strong>2 horas</strong> válido apenas na Festare ou Full house (Araruama-Rj)',
@@ -4158,7 +4158,7 @@ function baixarPDF() {
     var ready = window.pick && window.goStep && window.showResult
                 && window.openWA && window.copyPix && window.bookSetStep;
     if (ready) {
-      
+      /* já interceptado acima — nada mais a fazer */
       return;
     }
     _el += _INT;
