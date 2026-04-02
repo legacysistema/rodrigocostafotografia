@@ -1447,7 +1447,7 @@ body::after{
       </div>
       <div class="cta-buttons">
         
-        <button class="btn-pix-modal btn-pix-primary" id="modalBtnPix" onclick="openBookModal()" style="display:none;">
+        <button class="btn-pix-modal btn-pix-primary" id="modalBtnPix" onclick="openBookModal()" style="display:none!important;">
           <i class="fas fa-bolt-lightning"></i> Ver Vagas & Garantir Data
           <span class="btn-pix-hint">Reserva Pix confirmada em minutos</span>
         </button>
@@ -1609,7 +1609,7 @@ Quer uma data futura? É só chamar no WhatsApp
     </div>
     <div class="fixed-actions">
       <button class="fixed-btn-wa" onclick="openWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-      <button class="fixed-btn-pix" onclick="openBookModal()" id="fixedBtnPix" style="display:none;"><i class="fas fa-bolt-lightning"></i> Pix</button>
+      <button class="fixed-btn-pix" onclick="openBookModal()" id="fixedBtnPix" style="display:none!important;"><i class="fas fa-bolt-lightning"></i> Pix</button>
     </div>
   </div>
 </div>
@@ -2431,8 +2431,7 @@ function openProductModal(p){
   } else { es.style.display='none'; }
   ge('pixStatus').classList.remove('show');
   ge('modalBtnWA').style.display='flex';
-  if(p.pix_key){ ge('modalBtnPix').style.display='flex'; ge('fixedBtnPix').style.display='flex'; }
-  else { ge('modalBtnPix').style.display='none'; ge('fixedBtnPix').style.display='none'; }
+  /* modalBtnPix e fixedBtnPix permanecem sempre ocultos */
   modalRecalc();
   ge('prodModal').classList.add('active');
   document.body.style.overflow='hidden';
