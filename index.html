@@ -1207,6 +1207,33 @@ body::after{
   #__printArea .pa-cover{width:100%;max-height:260px;overflow:hidden;background:#000;page-break-inside:avoid;}
   #__printArea .pa-cover img{width:100%;height:260px;object-fit:cover;object-position:top center;display:block;}
 }
+
+/* ── MOBILE: comportamento adaptativo de imagem no banner promo-quiz ── */
+@media (max-width: 600px) {
+
+  /* Container mais alto = menos corte vertical */
+  .promo-quiz-banner {
+    padding-top: 70%; /* era 52% — ganho de ~35% de altura */
+  }
+
+  /* Quando JS detectar imagem retrato, container vira quadrado */
+  .promo-quiz-banner.has-portrait {
+    padding-top: 100%; /* 1:1 — mostra portrait sem corte brutal */
+  }
+
+  /* Imagem retrato: prioriza topo (rostos) e usa contain para não cortar */
+  .promo-quiz-banner-track img.is-portrait {
+    object-fit: contain;
+    object-position: top center;
+    background: rgba(7, 7, 12, 0.85); /* fundo escuro p/ letterbox */
+  }
+
+  /* Imagem paisagem: mantém cover mas centraliza melhor */
+  .promo-quiz-banner-track img.is-landscape {
+    object-fit: cover;
+    object-position: center 20%; /* sobe levemente o foco */
+  }
+}
 </style>
 </head>
 <body>
@@ -4232,6 +4259,84 @@ function baixarPDF() {
     if (_el < _MAX) setTimeout(_hookAll, _INT);
   }
   setTimeout(_hookAll, 500);
+
+})();
+
+/**
+ * classifyBannerImages()
+ * Detecta proporção de cada imagem nos banners promo-quiz
+ * e aplica .is-portrait / .is-landscape no <img>
+ * e .has-portrait / .has-landscape no .promo-quiz-banner pai.
+ *
+ * Seguro para imagens já carregadas e para carregamento futuro (lazy).
+ */
+(function() {
+  'use strict';
+
+  function classifyImage(img) {
+    var w = img.naturalWidth;
+    var h = img.naturalHeight;
+    if (!w || !h) return; // ainda não carregou
+
+    var isPortrait = h > w * 1.05; // 5% de tolerância para evitar "quadrados"
+    var banner     = img.closest('.promo-quiz-banner');
+
+    img.classList.remove('is-portrait', 'is-landscape');
+    img.classList.add(isPortrait ? 'is-portrait' : 'is-landscape');
+
+    if (banner) {
+      // Só muda o banner se ALGUMA imagem do carrossel for retrato
+      if (isPortrait) {
+        banner.classList.add('has-portrait');
+        banner.classList.remove('has-landscape');
+      } else if (!banner.querySelector('img.is-portrait')) {
+        banner.classList.add('has-landscape');
+        banner.classList.remove('has-portrait');
+      }
+    }
+  }
+
+  function processAll() {
+    document.querySelectorAll('.promo-quiz-banner-track img').forEach(function(img) {
+      if (img.complete && img.naturalWidth) {
+        classifyImage(img);
+      } else {
+        img.addEventListener('load', function() { classifyImage(img); }, { once: true });
+        // fallback: se a imagem falhar, não quebra
+        img.addEventListener('error', function() {
+          img.classList.add('is-landscape');
+        }, { once: true });
+      }
+    });
+  }
+
+  // Roda agora para imagens já no DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', processAll);
+  } else {
+    processAll();
+  }
+
+  // MutationObserver: captura cards gerados dinamicamente pelo JS
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      m.addedNodes.forEach(function(node) {
+        if (node.nodeType !== 1) return;
+        var imgs = node.querySelectorAll
+          ? node.querySelectorAll('.promo-quiz-banner-track img')
+          : [];
+        imgs.forEach(function(img) {
+          if (img.complete && img.naturalWidth) {
+            classifyImage(img);
+          } else {
+            img.addEventListener('load', function() { classifyImage(img); }, { once: true });
+          }
+        });
+      });
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 
 })();
 </script>
