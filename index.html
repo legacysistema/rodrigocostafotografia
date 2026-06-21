@@ -427,6 +427,25 @@ body::after{
 .btn-pdf-modal.loading{opacity:.6;pointer-events:none;}
 .pix-status{display:none;text-align:center;padding:10px;border-radius:10px;background:rgba(0,228,154,0.08);border:1px solid rgba(0,228,154,0.2);color:var(--green);font-size:13px;font-family:var(--font-ui);}
 .pix-status.show{display:block;}
+/* ── Vídeo YouTube no modal ── */
+.modal-video-section{
+  margin-bottom:20px;
+}
+.modal-video-label{
+  font-size:10px;text-transform:uppercase;letter-spacing:1.2px;
+  color:var(--muted);font-weight:600;font-family:var(--font-ui);
+  margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.modal-video-label i{color:#FF0000;font-size:12px;}
+.modal-video-wrap{
+  position:relative;width:100%;padding-top:56.25%;
+  border-radius:14px;overflow:hidden;
+  background:#000;border:1px solid var(--border);
+}
+.modal-video-wrap iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:none;
+}
+
 
 
 .book-overlay{
@@ -1460,6 +1479,14 @@ body::after{
         <div class="extras-title">Adicione ao pacote (opcional)</div>
         <div class="extras-list" id="modalExtrasList"></div>
       </div>
+      <div class="modal-video-section" id="modalVideoSection" style="display:none;">
+        <div class="modal-video-label"><i class="fab fa-youtube"></i> Conheça nossos Fotolivros</div>
+        <div class="modal-video-wrap">
+          <iframe id="modalVideoFrame" src="" allowfullscreen loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        </div>
+      </div>
       <div class="modal-total-bar">
         <div><div class="total-label">Total do pedido</div></div>
         <div class="total-val" id="modalTotal">R$ 0,00</div>
@@ -2104,7 +2131,7 @@ window.showResult = function(){
   var filtro = QUIZ_FILTRO[key] || { categoria: 'Ensaio Adulto', subcategoria: null };
 
   var query = _db.from('marketplace_produtos')
-    .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras')
+    .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras,video_url')
     .eq('status','ativo')
     .eq('categoria', filtro.categoria)
     .order('preco',{ascending:true}); /* ordena por preço para que filterTradicionalByDuracao funcione */
@@ -2120,7 +2147,7 @@ window.showResult = function(){
    
     if(!rows.length && filtro.subcategoria){
       _db.from('marketplace_produtos')
-        .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras')
+        .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras,video_url')
         .eq('status','ativo')
         .eq('categoria', filtro.categoria)
         .order('preco',{ascending:true})
@@ -2135,7 +2162,7 @@ window.showResult = function(){
    
     if(!rows.length && filtro.fallbackCategoria){
       _db.from('marketplace_produtos')
-        .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras')
+        .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras,video_url')
         .eq('status','ativo')
         .eq('categoria', filtro.fallbackCategoria)
         .order('preco',{ascending:true})
@@ -2458,6 +2485,25 @@ function openProductModal(p){
     });
     es.style.display='block';
   } else { es.style.display='none'; }
+  /* Vídeo YouTube — mostra se o pacote tiver video_url */
+  var videoSection = ge('modalVideoSection');
+  var videoFrame   = ge('modalVideoFrame');
+  if(p.video_url && videoSection && videoFrame){
+    /* Extrai o ID do YouTube de qualquer formato de URL */
+    var ytId = '';
+    var ytMatch = (p.video_url||'').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+    if(ytMatch) ytId = ytMatch[1];
+    if(ytId){
+      videoFrame.src = 'https://www.youtube.com/embed/' + ytId + '?rel=0&modestbranding=1';
+      videoSection.style.display = 'block';
+    } else {
+      videoFrame.src = '';
+      videoSection.style.display = 'none';
+    }
+  } else {
+    if(videoSection) videoSection.style.display = 'none';
+    if(videoFrame)   videoFrame.src = '';
+  }
   ge('pixStatus').classList.remove('show');
   ge('modalBtnWA').style.display='flex';
   /* modalBtnPix e fixedBtnPix permanecem sempre ocultos */
@@ -2483,6 +2529,9 @@ window.closeModal = function(){
   ge('prodModal').classList.remove('active');
   document.body.style.overflow='';
   ge('fixedBar').classList.remove('visible');
+  /* Para o vídeo ao fechar o modal */
+  var vf = ge('modalVideoFrame');
+  if(vf) vf.src = '';
   _cp=null;
 };
 window.modalClickOut = function(e){ if(e.target===ge('prodModal')) closeModal(); };
