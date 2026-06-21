@@ -1725,9 +1725,9 @@ var QUIZ_FILTRO = {
   ensaio_familia_gestante:  { categoria: 'Ensaio Família',      subcategoria: 'gestante'     },
   ensaio_profissional:      { categoria: 'Ensaio Profissional', subcategoria: null           },
   evento_tradicional:       { categoria: 'Tradicionais',        subcategoria: null           },
-  evento_tradicional_2h:    { categoria: 'Tradicionais',        subcategoria: null           },
-  evento_tradicional_3h:    { categoria: 'Tradicionais',        subcategoria: null           },
-  evento_tradicional_4h:    { categoria: 'Tradicionais',        subcategoria: null           },
+  evento_tradicional_2h:    { categoria: 'Tradicionais',        subcategoria: '2h'           },
+  evento_tradicional_3h:    { categoria: 'Tradicionais',        subcategoria: '3h'           },
+  evento_tradicional_4h:    { categoria: 'Tradicionais',        subcategoria: '4h'           },
   evento_festare:           { categoria: 'Festare & Full House',subcategoria: null, fallbackCategoria: 'Tradicionais', fallbackNome: 'festare' },
   evento_debutante:         { categoria: 'Debutante',           subcategoria: null           }
 };
@@ -2116,6 +2116,7 @@ window.showResult = function(){
   query.then(function(r){
     var rows = (!r.error && r.data) ? r.data : [];
 
+    
    
     if(!rows.length && filtro.subcategoria){
       _db.from('marketplace_produtos')
@@ -2177,6 +2178,13 @@ function _finalizarResultado(rows, key){
       var subcat = (x.p.subcategoria||'').toLowerCase();
       return !_excluir.some(function(t){ return nome.includes(t) || subcat.includes(t); });
     });
+    /* Quando não veio filtrado por subcategoria no banco (pacotes antigos sem subcategoria),
+       aplica filtro por posição/preço como fallback */
+    var temSubcat = scored.some(function(x){ return x.p.subcategoria && x.p.subcategoria.trim(); });
+    if(!temSubcat){
+      scored = filterTradicionalByDuracao(scored, A.duracao);
+    }
+  });
 
     /* Se o usuário escolheu uma duração específica, tenta filtrar por subcategoria primeiro */
     if(A.duracao && A.duracao !== 'auto'){
