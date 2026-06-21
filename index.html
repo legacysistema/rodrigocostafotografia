@@ -2178,32 +2178,11 @@ function _finalizarResultado(rows, key){
       var subcat = (x.p.subcategoria||'').toLowerCase();
       return !_excluir.some(function(t){ return nome.includes(t) || subcat.includes(t); });
     });
-    /* Quando não veio filtrado por subcategoria no banco (pacotes antigos sem subcategoria),
-       aplica filtro por posição/preço como fallback */
+    /* Pacotes novos têm subcategoria (2h/3h/4h) — já foram filtrados no banco.
+       Pacotes antigos sem subcategoria usam fallback por posição/preço. */
     var temSubcat = scored.some(function(x){ return x.p.subcategoria && x.p.subcategoria.trim(); });
     if(!temSubcat){
       scored = filterTradicionalByDuracao(scored, A.duracao);
-    }
-  });
-
-    /* Se o usuário escolheu uma duração específica, tenta filtrar por subcategoria primeiro */
-    if(A.duracao && A.duracao !== 'auto'){
-      var porSubcat = scored.filter(function(x){
-        return (x.p.subcategoria||'').trim().toLowerCase() === A.duracao.toLowerCase();
-      });
-      if(porSubcat.length){
-        /* Encontrou pacotes com subcategoria correspondente — usa eles */
-        scored = porSubcat;
-      } else {
-        /* Fallback: nenhum tem subcategoria, usa lógica de posição por preço */
-        scored = filterTradicionalByDuracao(scored, A.duracao);
-      }
-    } else {
-      /* Sem duração específica: exibe todos (sem filtro de posição) */
-      var temSubcat = scored.some(function(x){ return x.p.subcategoria && x.p.subcategoria.trim(); });
-      if(!temSubcat){
-        scored = filterTradicionalByDuracao(scored, A.duracao);
-      }
     }
   }
 
