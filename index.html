@@ -2453,6 +2453,7 @@ window.abrirOutro = function(id){
 
 function openProductModal(p){
   _cp=p;
+  window._cp=_cp; /* expõe para o módulo de rastreamento de leads */
   var ps=String(p.preco||'0').trim();
   if(ps.includes(','))ps=ps.replace(/\./g,'').replace(',','.');
   _cbp=parseFloat(ps)||0;
@@ -2533,6 +2534,7 @@ window.closeModal = function(){
   var vf = ge('modalVideoFrame');
   if(vf) vf.src = '';
   _cp=null;
+  window._cp=null;
 };
 window.modalClickOut = function(e){ if(e.target===ge('prodModal')) closeModal(); };
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
