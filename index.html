@@ -1324,6 +1324,24 @@ body::after{
               </ul>
             </div>
           </div>
+          <div class="option" onclick="showLoja()">
+            <div class="opt-main">
+              <div class="opt-icon"><i class="fas fa-image"></i></div>
+              <div class="opt-label-wrap">
+                <div class="opt-label">Revelações, Álbuns e Presentes</div>
+                <div class="opt-sub">Fotolivros · revelação de fotos · presentes personalizados · decoração</div>
+              </div>
+              <div class="opt-check"><i class="fas fa-check"></i></div>
+            </div>
+            <div class="opt-info">
+              <div class="opt-info-title"><i class="fas fa-circle-info"></i> O que você precisa saber</div>
+              <ul class="opt-info-list">
+                <li><i class="fas fa-circle-check"></i><span>Produtos impressos de <strong>alta qualidade</strong></span></li>
+                <li><i class="fas fa-circle-check"></i><span>Fotolivros, revelações e presentes personalizados</span></li>
+                <li><i class="fas fa-circle-check"></i><span>Compre direto e finalize pelo <strong>WhatsApp</strong></span></li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="nav-row">
           <div></div>
@@ -1360,6 +1378,22 @@ body::after{
           <button class="btn-next" id="btn3" onclick="showResult()">
             Ver meu pacote <i class="fas fa-wand-magic-sparkles" style="font-size:11px"></i>
           </button>
+        </div>
+      </div>
+
+   
+      <div class="step" id="sLoja">
+        <div class="step-eyebrow">Revelações, Álbuns e Presentes</div>
+        <div class="question">Escolha o que você procura</div>
+        <div id="lojaSubcats" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+        <div id="lojaGrid" style="display:flex;flex-direction:column;">
+          <div class="loading-text" style="color:var(--muted);font-size:13px;">Carregando produtos…</div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-back" onclick="document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});ge('s1').classList.add('active');">
+            <i class="fas fa-arrow-left" style="font-size:11px"></i> Voltar
+          </button>
+          <div></div>
         </div>
       </div>
 
@@ -1689,6 +1723,76 @@ var _selectedExtras = {};
 
 function ge(id){ return document.getElementById(id); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+var _lojaProdutos = [];
+var _lojaSubFiltro = '';
+var LOJA_SUBCAT_LABELS = {
+  '': 'Todos',
+  'revelacao_fotos': 'Revelação de Fotos',
+  'fotolivros': 'Fotolivros / Álbuns',
+  'presentes': 'Presentes',
+  'decoracao': 'Decoração',
+  'lancamentos': 'Lançamentos'
+};
+
+window.showLoja = function(){
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  ge('sLoja').classList.add('active');
+  if(_lojaProdutos.length){ renderLojaGrid(); return; }
+  ge('lojaGrid').innerHTML = '<div class="loading-text" style="color:var(--muted);font-size:13px;">Carregando produtos…</div>';
+  _db.from('marketplace_produtos')
+    .select('id,nome,descricao,preco,imagem_url,imagem2_url,imagem3_url,imagem4_url,imagem5_url,categoria,subcategoria,vendedor_nome,status,whatsapp,pix_key,incluso,extras,video_url')
+    .eq('categoria','Revelações, Álbuns e Presentes')
+    .eq('status','ativo')
+    .then(function(res){
+      _lojaProdutos = (res && res.data) || [];
+      renderLojaSubcats();
+      renderLojaGrid();
+    })
+    .catch(function(){
+      ge('lojaGrid').innerHTML = '<div class="loading-text" style="color:var(--muted);font-size:13px;">Não foi possível carregar os produtos. <a href="https://wa.me/5522992497662" style="color:var(--gold)">Fale pelo WhatsApp</a>.</div>';
+    });
+};
+
+function renderLojaSubcats(){
+  var presentes = {};
+  _lojaProdutos.forEach(function(p){ if(p.subcategoria) presentes[p.subcategoria]=true; });
+  var keys = ['' ].concat(Object.keys(LOJA_SUBCAT_LABELS).filter(function(k){ return k && presentes[k]; }));
+  ge('lojaSubcats').innerHTML = keys.map(function(k){
+    return '<button type="button" class="opt-info-title" style="cursor:pointer;border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;background:'
+      +(k===_lojaSubFiltro?'rgba(212,168,67,0.12)':'transparent')+';color:'+(k===_lojaSubFiltro?'var(--gold)':'var(--muted)')+';" onclick="filterLoja(\''+k+'\')">'
+      + esc(LOJA_SUBCAT_LABELS[k]||k) + '</button>';
+  }).join('');
+}
+
+window.filterLoja = function(sub){
+  _lojaSubFiltro = sub;
+  renderLojaSubcats();
+  renderLojaGrid();
+};
+
+function renderLojaGrid(){
+  var lista = _lojaSubFiltro ? _lojaProdutos.filter(function(p){ return p.subcategoria===_lojaSubFiltro; }) : _lojaProdutos;
+  if(!lista.length){
+    ge('lojaGrid').innerHTML = '<div class="loading-text" style="color:var(--muted);font-size:13px;">Nenhum produto encontrado nessa categoria ainda.</div>';
+    return;
+  }
+  ge('lojaGrid').innerHTML = lista.map(function(p){
+    var img = p.imagem_url || '';
+    return '<div class="outro-card" onclick="openLojaProduto(\''+esc(p.id)+'\')">'
+      + (img ? '<img src="'+esc(img)+'" loading="lazy" style="width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;" onerror="this.style.display=\'none\'">'
+             : '<div class="outro-icon"><i class="fas fa-image"></i></div>')
+      + '<div class="outro-info"><div class="outro-name">'+esc(p.nome)+'</div>'
+      + '<div class="outro-price">'+fMoney(p.preco)+(p.subcategoria?' · '+esc(LOJA_SUBCAT_LABELS[p.subcategoria]||p.subcategoria):'')+'</div></div>'
+      + '<div class="outro-arr"><i class="fas fa-chevron-right"></i></div></div>';
+  }).join('');
+}
+
+window.openLojaProduto = function(id){
+  var p = _lojaProdutos.find(function(x){ return String(x.id)===String(id); });
+  if(p) openProductModal(p);
+};
+
 function fMoney(v){
   var n=v;
   if(typeof n==='string'){var s=n.trim();if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');n=parseFloat(s);}
