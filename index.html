@@ -1253,6 +1253,79 @@ body::after{
     object-position: center 20%; /* sobe levemente o foco */
   }
 }
+
+/* ===================================================================
+   AUTO-CADASTRO DE LEAD — banner CTA + modal de cadastro
+   =================================================================== */
+
+.lead-cta-bar{
+  position:sticky; top:calc(60px + var(--safe-top)); z-index:850;
+  display:flex; align-items:center; gap:12px;
+  width:100%; max-width:560px; margin:0 auto;
+  padding:12px 14px; border-radius:0 0 16px 16px;
+  background:linear-gradient(120deg, rgba(212,168,67,0.16), rgba(212,168,67,0.05) 60%, rgba(0,217,245,0.07));
+  border:1px solid rgba(212,168,67,0.22); border-top:none;
+  box-shadow:0 14px 38px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px) saturate(160%); -webkit-backdrop-filter:blur(20px) saturate(160%);
+  cursor:pointer;
+}
+.lead-cta-icon{
+  width:42px;height:42px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1a1305;
+  box-shadow:var(--glow-gold);
+  animation:leadCtaPulse 2.4s ease-in-out infinite;
+}
+@keyframes leadCtaPulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(212,168,67,0.35), var(--glow-gold); }
+  50%{ box-shadow:0 0 0 7px rgba(212,168,67,0.0), var(--glow-gold); }
+}
+.lead-cta-text{flex:1;min-width:0;}
+.lead-cta-title{font-family:var(--font-ui);font-size:13px;font-weight:700;color:#fff;line-height:1.3;}
+.lead-cta-sub{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.lead-cta-btn{
+  flex-shrink:0; padding:10px 16px; border:none; border-radius:11px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2)); color:#1a1305;
+  font-family:var(--font-ui); font-weight:700; font-size:12.5px; cursor:pointer;
+  display:flex; align-items:center; gap:6px; white-space:nowrap;
+  box-shadow:0 4px 16px rgba(212,168,67,0.35);
+  transition:transform .15s;
+}
+.lead-cta-btn:active{transform:scale(.96);}
+@media(max-width:380px){
+  .lead-cta-sub{display:none;}
+  .lead-cta-title{font-size:12px;}
+}
+
+.lead-reg-inner{padding:22px 22px 30px;position:relative;}
+.lead-reg-eyebrow{
+  font-family:var(--font-ui);font-size:10px;font-weight:600;color:var(--gold);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;
+  display:flex;align-items:center;gap:6px;
+}
+.lead-reg-eyebrow::before{content:'';width:18px;height:1px;background:var(--gold);opacity:.4;}
+.lead-reg-title{font-family:var(--font-serif);font-size:23px;color:#fff;margin-bottom:6px;line-height:1.3;}
+.lead-reg-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.5;}
+
+.lead-benefits{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
+.lead-benefits li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text);line-height:1.4;}
+.lead-benefits li i{color:var(--green);font-size:13px;margin-top:2px;flex-shrink:0;width:16px;text-align:center;}
+
+.lead-reg-msg{margin-top:14px;padding:11px 14px;border-radius:11px;font-size:12.5px;display:none;font-family:var(--font-body);}
+.lead-reg-msg.error{display:block;background:rgba(255,72,92,0.1);border:1px solid rgba(255,72,92,.25);color:#ff8a96;}
+.lead-reg-msg.success{display:block;background:rgba(0,228,154,0.08);border:1px solid rgba(0,228,154,.25);color:var(--green);}
+
+.lead-reg-success{text-align:center;padding:8px 0 4px;}
+.lead-reg-success-icon{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 18px;
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  background:rgba(0,228,154,0.1);border:1px solid rgba(0,228,154,.3);color:var(--green);
+  box-shadow:var(--glow-green);
+}
+.lead-reg-success-title{font-family:var(--font-serif);font-size:21px;color:#fff;margin-bottom:8px;}
+.lead-reg-success-text{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px;}
+.lead-reg-success-note{font-size:11.5px;color:var(--muted);margin-top:14px;line-height:1.5;}
+.lead-reg-success-note strong{color:var(--gold2);}
 </style>
 </head>
 <body>
@@ -1266,6 +1339,17 @@ body::after{
     <i class="fab fa-whatsapp"></i> WhatsApp
   </a>
 </header>
+
+<div class="lead-cta-bar" id="leadCtaBar" onclick="openLeadRegister()">
+  <div class="lead-cta-icon"><i class="fas fa-gift"></i></div>
+  <div class="lead-cta-text">
+    <div class="lead-cta-title">Cadastre-se grátis e desbloqueie vantagens</div>
+    <div class="lead-cta-sub">Descontos exclusivos · bônus · acesso ao seu Portal</div>
+  </div>
+  <button class="lead-cta-btn" type="button" onclick="openLeadRegister(event)">
+    Cadastrar <i class="fas fa-arrow-right" style="font-size:11px"></i>
+  </button>
+</div>
 
 <div class="page" style="flex-direction:column;align-items:center;">
 
@@ -1487,6 +1571,69 @@ body::after{
 </div>
 
 <div class="footer">© 2026 Rodrigo Costa Fotografia · @rodrigocostafotografia</div>
+
+<div class="modal-overlay" id="leadRegModal" onclick="leadRegClickOut(event)">
+  <div class="modal-box" id="leadRegBox" style="max-width:480px;">
+    <div class="modal-handle" onclick="closeLeadRegister()"></div>
+    <button class="modal-close" onclick="closeLeadRegister()"><i class="fas fa-xmark"></i></button>
+
+    <div class="lead-reg-inner">
+
+      <!-- VIEW: FORMULÁRIO -->
+      <div id="leadRegFormView">
+        <div class="lead-reg-eyebrow"><i class="fas fa-star"></i> Acesso exclusivo</div>
+        <div class="lead-reg-title">Garanta seus benefícios</div>
+        <div class="lead-reg-sub">Cadastre-se gratuitamente e tenha acesso ao seu Portal do Cliente.</div>
+
+        <ul class="lead-benefits">
+          <li><i class="fas fa-circle-check"></i><span><strong>Descontos exclusivos</strong> em pacotes e produtos</span></li>
+          <li><i class="fas fa-circle-check"></i><span><strong>Bônus surpresa</strong> só para cadastrados</span></li>
+          <li><i class="fas fa-circle-check"></i><span>Promoções <strong>em destaque</strong> em primeira mão</span></li>
+          <li><i class="fas fa-circle-check"></i><span>Os <strong>links dos seus ensaios</strong> direto no Portal</span></li>
+        </ul>
+
+        <form id="leadRegForm">
+          <div class="book-field">
+            <label class="book-label" for="leadRegNome">Nome completo</label>
+            <input class="book-input" id="leadRegNome" type="text" placeholder="Nome e sobrenome" autocomplete="name" required>
+          </div>
+          <div class="book-field">
+            <label class="book-label" for="leadRegCpf">CPF</label>
+            <input class="book-input" id="leadRegCpf" type="text" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" autocomplete="off" required>
+            <div class="book-input-hint"><i class="fas fa-circle-info" style="font-size:10px"></i> Esse CPF será seu acesso ao Portal</div>
+          </div>
+          <div class="book-field">
+            <label class="book-label" for="leadRegWhats">WhatsApp</label>
+            <input class="book-input" id="leadRegWhats" type="tel" placeholder="(00) 00000-0000" maxlength="15" inputmode="numeric" autocomplete="tel" required>
+          </div>
+          <button type="submit" class="book-btn-next ok" id="leadRegBtn" style="width:100%;">
+            <i class="fas fa-gift"></i> Quero meus benefícios
+          </button>
+        </form>
+        <div class="lead-reg-msg" id="leadRegMsg"></div>
+      </div>
+
+      <!-- VIEW: SUCESSO -->
+      <div id="leadRegSuccessView" style="display:none;">
+        <div class="lead-reg-success">
+          <div class="lead-reg-success-icon"><i class="fas fa-check"></i></div>
+          <div class="lead-reg-success-title">Cadastro realizado!</div>
+          <div class="lead-reg-success-text">
+            Agora você já pode acompanhar as promoções em destaque, receber bônus exclusivos
+            e os links dos seus ensaios direto no seu Portal.
+          </div>
+          <a class="book-btn-next ok" id="leadRegPortalLink" href="#" target="_blank" rel="noopener" style="width:100%;text-decoration:none;">
+            Acessar meu Portal <i class="fas fa-arrow-right" style="font-size:11px"></i>
+          </a>
+          <div class="lead-reg-success-note">
+            <i class="fas fa-circle-info"></i> Seu <strong>CPF</strong> é o seu login no Portal do Cliente.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 <div class="modal-overlay" id="prodModal" onclick="modalClickOut(event)">
@@ -1724,6 +1871,147 @@ var _selectedExtras = {};
 function ge(id){ return document.getElementById(id); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+/* ===================================================================
+   AUTO-CADASTRO DE LEAD — lógica de cadastro (grava direto na tabela
+   "clientes" do Supabase, a mesma usada pelo sistema ADM — assim o
+   lead já aparece automaticamente no painel administrativo).
+   =================================================================== */
+
+// Ajuste aqui a URL real do Portal do Cliente, se for diferente:
+var PORTAL_URL = 'https://legacysistema.github.io/legacy-user/';
+
+function fmtCPF(v) {
+  v = (v||'').replace(/\D/g,'');
+  if (v.length <= 11) return v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
+  return v;
+}
+function fmtWhats(v) {
+  v = (v||'').replace(/\D/g,'').slice(0,11);
+  if (v.length > 6) return '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  if (v.length > 2) return '(' + v.slice(0,2) + ') ' + v.slice(2);
+  if (v.length > 0) return '(' + v;
+  return v;
+}
+// Validação oficial de CPF (dígitos verificadores) — evita cadastro com CPF digitado errado
+function isValidCPF(cpf) {
+  cpf = (cpf || '').replace(/\D/g,'');
+  if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  var soma = 0, i;
+  for (i = 0; i < 9; i++) soma += parseInt(cpf[i],10) * (10 - i);
+  var resto = (soma * 10) % 11; if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf[9],10)) return false;
+  soma = 0;
+  for (i = 0; i < 10; i++) soma += parseInt(cpf[i],10) * (11 - i);
+  resto = (soma * 10) % 11; if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf[10],10)) return false;
+  return true;
+}
+
+function showLeadRegMsg(msg, type) {
+  var el = ge('leadRegMsg');
+  el.textContent = msg;
+  el.className = 'lead-reg-msg ' + type;
+  el.style.display = 'block';
+}
+
+function leadRegShowSuccess() {
+  ge('leadRegFormView').style.display = 'none';
+  ge('leadRegSuccessView').style.display = 'block';
+  ge('leadRegPortalLink').href = PORTAL_URL;
+  // Já cadastrou — não precisa mais insistir com o banner nesta sessão
+  var bar = ge('leadCtaBar');
+  if (bar) bar.style.display = 'none';
+}
+
+window.openLeadRegister = function(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  ge('leadRegForm').reset();
+  ge('leadRegFormView').style.display = 'block';
+  ge('leadRegSuccessView').style.display = 'none';
+  var msgEl = ge('leadRegMsg');
+  msgEl.style.display = 'none';
+  msgEl.className = 'lead-reg-msg';
+  ge('leadRegModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+};
+window.closeLeadRegister = function() {
+  ge('leadRegModal').classList.remove('active');
+  document.body.style.overflow = '';
+};
+window.leadRegClickOut = function(e) {
+  if (e.target === ge('leadRegModal')) closeLeadRegister();
+};
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && ge('leadRegModal').classList.contains('active')) closeLeadRegister();
+});
+
+ge('leadRegCpf').addEventListener('input', function() { this.value = fmtCPF(this.value); });
+ge('leadRegWhats').addEventListener('input', function() { this.value = fmtWhats(this.value); });
+
+ge('leadRegForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var nome  = ge('leadRegNome').value.trim().replace(/\s+/g,' ');
+  var cpf   = ge('leadRegCpf').value.replace(/\D/g,'');
+  var whats = ge('leadRegWhats').value;
+  var whatsDigits = whats.replace(/\D/g,'');
+
+  if (nome.split(' ').filter(Boolean).length < 2) { showLeadRegMsg('Informe nome e sobrenome.','error'); return; }
+  if (!isValidCPF(cpf)) { showLeadRegMsg('CPF inválido. Verifique os números digitados.','error'); return; }
+  if (whatsDigits.length < 10) { showLeadRegMsg('WhatsApp inválido. Informe DDD + número.','error'); return; }
+
+  var btn = ge('leadRegBtn');
+  var btnDefaultHtml = btn.innerHTML;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+  btn.disabled = true;
+
+  // Verifica se este CPF já possui cadastro (evita duplicidade)
+  _db.from('clientes').select('id').eq('cpf', cpf).maybeSingle().then(function(res) {
+    if (res.error) {
+      showLeadRegMsg('Erro ao verificar CPF: ' + res.error.message, 'error');
+      btn.innerHTML = btnDefaultHtml; btn.disabled = false;
+      return;
+    }
+    if (res.data) {
+      showLeadRegMsg('Este CPF já possui cadastro. Acesse seu Portal com ele.', 'error');
+      btn.innerHTML = btnDefaultHtml; btn.disabled = false;
+      return;
+    }
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
+
+    // Cadastra direto na tabela "clientes" — mesma tabela usada pelo
+    // sistema ADM, então o lead já aparece automaticamente lá também.
+    _db.from('clientes').insert([{
+      nome: nome,
+      cpf: cpf,
+      whatsapp: whats,
+      senha: cpf,
+      status: 'active'
+    }]).select('*').single().then(function(r2) {
+      btn.innerHTML = btnDefaultHtml;
+      btn.disabled = false;
+
+      if (r2.error) {
+        if (r2.error.code === '23505' || /duplicate/i.test(r2.error.message||'')) {
+          showLeadRegMsg('Este CPF já possui cadastro.', 'error');
+        } else {
+          showLeadRegMsg('Erro ao cadastrar: ' + r2.error.message, 'error');
+        }
+        return;
+      }
+      leadRegShowSuccess();
+    }).catch(function(err) {
+      btn.innerHTML = btnDefaultHtml; btn.disabled = false;
+      showLeadRegMsg('Erro ao cadastrar: ' + ((err && err.message) || 'tente novamente.'), 'error');
+    });
+  }).catch(function(err) {
+    btn.innerHTML = btnDefaultHtml; btn.disabled = false;
+    showLeadRegMsg('Erro ao verificar CPF: ' + ((err && err.message) || 'tente novamente.'), 'error');
+  });
+});
+
+
 var _lojaProdutos = [];
 var _lojaSubFiltro = '';
 var LOJA_SUBCAT_LABELS = {
@@ -1894,7 +2182,7 @@ var S2 = {
         sub:'1 a 3 anos · temático · pais participam',
         v:'infantil',
         info:[
-          'Sessão temática de até <strong>1 hora</strong>',
+          'Sessão temática de até <strong>40 minutos</strong>',
           'Pais participam e podem entrar na sessão',
           'Looks temáticos de 1 ano disponíveis no estúdio',
           'Seleção online · entrega em <strong>5 dias</strong>'
@@ -1906,7 +2194,7 @@ var S2 = {
         sub:'4 a 10 anos · fundo clean · pais participam',
         v:'kids',
         info:[
-          'Sessão de até <strong>1 hora</strong>',
+          'Sessão de até <strong>40 minutos</strong>',
           'Fundo clean profissional',
           'Pais podem participar da sessão',
           '20 fotos editadas · entrega em <strong>5 dias</strong>'
