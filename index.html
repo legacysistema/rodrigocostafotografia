@@ -4351,8 +4351,12 @@ prefetchProducts();
         .order('criado_em', { ascending: false })
         .limit(MAX_ITEMS);
 
+      // Este é o portal PÚBLICO (sem login). Mostra só promoções gerais
+      // (publico:'todos'). Promoções exclusivas por categoria ou por cliente
+      // pertencem ao Portal do Cliente, não aqui.
       var promos = (result.data || []).filter(function(r) {
-        return !r.validade || r.validade >= hoje;
+        var publico = r.publico || 'todos';
+        return publico === 'todos' && (!r.validade || r.validade >= hoje);
       });
 
       renderPromocoes(promos);
