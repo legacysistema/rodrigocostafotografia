@@ -1270,6 +1270,110 @@ body::after{
 }
 
 /* ===================================================================
+   DEPOIMENTOS — faixa esticada, mesmo estilo do card de acesso do cliente
+   =================================================================== */
+.depo-strip {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 560px; margin: 10px auto 0;
+  display: none;
+}
+.depo-strip.visible { display: block; }
+
+.depo-carousel-outer { position: relative; }
+.depo-carousel-viewport { overflow: hidden; border-radius: 18px; }
+.depo-carousel-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.depo-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px;
+  background: rgba(10,10,18,0.88);
+  border: 1px solid rgba(212,168,67,0.25);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(212,168,67,0.75); font-size: 10px;
+  cursor: pointer; z-index: 4;
+  transition: background .2s, border-color .2s, opacity .2s;
+  backdrop-filter: blur(6px);
+}
+.depo-arrow:hover { background: rgba(212,168,67,0.16); border-color: rgba(212,168,67,0.5); color: var(--gold); }
+.depo-arrow--prev { left: 6px; }
+.depo-arrow--next { right: 6px; }
+.depo-arrow.hidden { opacity: 0; pointer-events: none; }
+
+.depo-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+.depo-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  cursor: pointer;
+  transition: background .25s, transform .25s, width .25s;
+  border: none; padding: 0;
+}
+.depo-dot.active { background: var(--gold); transform: scale(1.25); width: 14px; border-radius: 3px; }
+
+/* Card esticado — mesma linguagem visual do .portal-access-bar */
+.depo-card {
+  display: flex; flex-direction: column; gap: 10px;
+  width: 100%; box-sizing: border-box;
+  padding: 15px 18px; border-radius: 18px;
+  background: linear-gradient(120deg, rgba(212,168,67,0.10), rgba(0,217,245,0.045) 55%, rgba(212,168,67,0.07));
+  border: 1px solid rgba(212,168,67,0.24);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
+  position: relative; overflow: hidden;
+  flex-shrink: 0;
+}
+.depo-card-head { display: flex; align-items: center; gap: 12px; }
+.depo-avatar {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  object-fit: cover; background: rgba(212,168,67,0.12);
+  border: 1px solid rgba(212,168,67,0.3);
+}
+.depo-avatar-fallback {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  font-family: var(--font-ui); font-weight: 700; font-size: 15px; color: #1a1305;
+  box-shadow: var(--glow-gold);
+}
+.depo-who { min-width: 0; flex: 1; }
+.depo-eyebrow {
+  font-family: var(--font-ui); font-size: 9.5px; font-weight: 700; color: var(--gold2);
+  letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 3px;
+  display: flex; align-items: center; gap: 6px;
+}
+.depo-name {
+  font-family: var(--font-serif); font-size: 15px; color: #fff; line-height: 1.25;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.depo-tier {
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+  font-size: 9.5px; font-weight: 700;
+  border-radius: 5px; padding: 3px 8px;
+  letter-spacing: .4px;
+}
+.depo-tier.tier-novo     { background: rgba(120,120,140,0.14); color: var(--muted);  border: 1px solid rgba(120,120,140,0.28); }
+.depo-tier.tier-fiel     { background: rgba(0,228,154,0.12);   color: var(--green);  border: 1px solid rgba(0,228,154,0.28); }
+.depo-tier.tier-especial { background: rgba(212,168,67,0.14);  color: var(--gold2);  border: 1px solid rgba(212,168,67,0.32); }
+.depo-tier.tier-premium  { background: rgba(240,180,41,0.18);  color: #ffaa00;       border: 1px solid rgba(240,180,41,0.38); }
+
+.depo-text {
+  font-size: 12.5px; color: var(--text); opacity: .92;
+  font-family: var(--font-body); line-height: 1.6; font-style: italic;
+  padding-left: 14px; border-left: 2px solid rgba(212,168,67,0.35);
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+@media (max-width: 420px) {
+  .depo-card { padding: 13px 14px; }
+  .depo-avatar, .depo-avatar-fallback { width: 38px; height: 38px; }
+  .depo-name { font-size: 14px; }
+}
+
+/* ===================================================================
    AUTO-CADASTRO DE LEAD — banner CTA + modal de cadastro
    =================================================================== */
 
@@ -1402,10 +1506,31 @@ body::after{
   <div class="portal-access-text">
     <div class="portal-access-eyebrow">Área do Cliente</div>
     <div class="portal-access-title">Acesse seu Portal Exclusivo</div>
-    <div class="portal-access-sub">Seus links, prazos, contratos e promoções em um só lugar</div>
+    <div class="portal-access-sub">Suas fotos, contratos e status do álbum em um só lugar</div>
   </div>
   <div class="portal-access-btn"><span>Acessar</span> <i class="fas fa-arrow-right" style="font-size:11px"></i></div>
 </a>
+
+<div class="depo-strip" id="depoSection">
+  <div class="depo-carousel-outer" id="depoCarouselOuter">
+    <button class="depo-arrow depo-arrow--prev hidden" id="depoArrowPrev"
+            onclick="depoCarousel.prev()" aria-label="Anterior">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="depo-arrow depo-arrow--next hidden" id="depoArrowNext"
+            onclick="depoCarousel.next()" aria-label="Próximo">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="depo-carousel-viewport">
+      <div class="depo-carousel-track" id="depoCarouselTrack">
+        <!-- Cards injetados via JS -->
+      </div>
+    </div>
+  </div>
+
+  <div class="depo-dots" id="depoCarouselDots"></div>
+</div>
 
 <div class="lead-cta-bar" id="leadCtaBar" onclick="openLeadRegister()" style="display:none;">
   <div class="lead-cta-icon"><i class="fas fa-gift"></i></div>
@@ -4463,6 +4588,226 @@ prefetchProducts();
 })();
 </script>
 
+<script>
+/* ===================== DEPOIMENTOS (tabela clientes) ===================== */
+(function () {
+  'use strict';
+
+  var AUTO_MS   = 5000;
+  var MAX_ITEMS = 12;
+  var MAX_WAIT  = 8000;
+  var CHECK_INT = 200;
+
+  var TIER_CFG = {
+    'Novo Cliente':     { cls: 'tier-novo',     icon: 'fa-user-plus' },
+    'Cliente Fiel':     { cls: 'tier-fiel',     icon: 'fa-handshake' },
+    'Cliente Especial': { cls: 'tier-especial', icon: 'fa-star' },
+    'Cliente Premium':  { cls: 'tier-premium',  icon: 'fa-crown' }
+  };
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function ge(id) { return document.getElementById(id); }
+
+  // Mesma lógica de normalização usada no Portal do Cliente (Legacy_User),
+  // para exibir a categoria do cliente de forma consistente.
+  function normalizarCategoria(cat) {
+    if (!cat) return 'Novo Cliente';
+    var c = String(cat).trim();
+    if (c.indexOf('Cliente ') === 0 || c === 'Novo Cliente') return c;
+    if (c === 'Fiel')     return 'Cliente Fiel';
+    if (c === 'Especial') return 'Cliente Especial';
+    if (c === 'Premium')  return 'Cliente Premium';
+    return c;
+  }
+
+  function initials(nome) {
+    var parts = String(nome || '?').trim().split(/\s+/);
+    var a = (parts[0] || '?').charAt(0);
+    var b = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+    return (a + b).toUpperCase();
+  }
+
+  function buildCard(r) {
+    var nome      = r.nome || 'Cliente';
+    var foto      = (r.foto_perfil || '').trim();
+    var categoria = normalizarCategoria(r.categoria_cliente);
+    var tcfg      = TIER_CFG[categoria] || TIER_CFG['Novo Cliente'];
+    var texto     = String(r.depoimentos || '').trim();
+
+    var avatarHtml = foto
+      ? '<img class="depo-avatar" src="' + esc(foto) + '" alt="' + esc(nome) + '" loading="lazy"'
+        + ' onerror="this.outerHTML=\'<div class=&quot;depo-avatar-fallback&quot;>' + esc(initials(nome)) + '</div>\'">'
+      : '<div class="depo-avatar-fallback">' + esc(initials(nome)) + '</div>';
+
+    return '<div class="depo-card">'
+      + '<div class="depo-card-head">'
+      + avatarHtml
+      + '<div class="depo-who">'
+      + '<div class="depo-eyebrow"><i class="fas fa-quote-right"></i> O que nossos clientes dizem</div>'
+      + '<div class="depo-name">' + esc(nome) + '</div>'
+      + '</div>'
+      + '<span class="depo-tier ' + tcfg.cls + '"><i class="fas ' + tcfg.icon + '"></i> ' + esc(categoria) + '</span>'
+      + '</div>'
+      + '<div class="depo-text">' + esc(texto) + '</div>'
+      + '</div>';
+  }
+
+  function perPage() { return 1; }
+
+  var _page  = 0;
+  var _cards = [];
+  var _timer = null;
+  var _built = false;
+
+  function pages() { return Math.max(1, Math.ceil(_cards.length / perPage())); }
+
+  function render() {
+    var track = ge('depoCarouselTrack');
+    var dots  = ge('depoCarouselDots');
+    var prev  = ge('depoArrowPrev');
+    var next  = ge('depoArrowNext');
+    if (!track) return;
+
+    var vpW = track.parentElement ? track.parentElement.offsetWidth : 0;
+    track.style.transform = 'translateX(-' + (_page * vpW) + 'px)';
+
+    if (dots) {
+      dots.innerHTML = '';
+      for (var i = 0; i < pages(); i++) {
+        var btn = document.createElement('button');
+        btn.className = 'depo-dot' + (i === _page ? ' active' : '');
+        btn.setAttribute('aria-label', 'Página ' + (i + 1));
+        (function(idx) { btn.onclick = function() { depoCarousel.go(idx); }; })(i);
+        dots.appendChild(btn);
+      }
+    }
+
+    if (prev) prev.classList.toggle('hidden', _page === 0);
+    if (next) next.classList.toggle('hidden', _page >= pages() - 1);
+  }
+
+  function build() {
+    var track = ge('depoCarouselTrack');
+    if (!track) return;
+    var vpW = track.parentElement ? track.parentElement.offsetWidth : 0;
+    if (vpW < 10) { setTimeout(build, 200); return; }
+
+    var pp  = perPage();
+    var gap = 10;
+    var cardW = Math.floor((vpW - gap * (pp - 1)) / pp);
+
+    var pageGroups = [];
+    for (var i = 0; i < _cards.length; i += pp) pageGroups.push(_cards.slice(i, i + pp));
+
+    track.innerHTML = pageGroups.map(function(group) {
+      var html = group.join('');
+      var clone = group.slice();
+      while (clone.length < pp) {
+        html += '<div class="depo-card" style="visibility:hidden;flex:0 0 ' + cardW + 'px;min-width:' + cardW + 'px;"></div>';
+        clone.push('');
+      }
+      return '<div style="display:flex;gap:' + gap + 'px;flex:0 0 ' + vpW + 'px;min-width:' + vpW + 'px;box-sizing:border-box;">' + html + '</div>';
+    }).join('');
+
+    track.querySelectorAll('.depo-card:not([style*="visibility"])').forEach(function(node) {
+      node.style.flex     = '0 0 ' + cardW + 'px';
+      node.style.minWidth = cardW + 'px';
+      node.style.maxWidth = cardW + 'px';
+    });
+
+    if (_page >= pages()) _page = pages() - 1;
+    _built = true;
+    render();
+    startAuto();
+  }
+
+  function startAuto() {
+    stopAuto();
+    if (pages() <= 1) return;
+    _timer = setInterval(function() {
+      _page = (_page + 1) % pages();
+      render();
+    }, AUTO_MS);
+  }
+  function stopAuto() { if (_timer) { clearInterval(_timer); _timer = null; } }
+
+  var outer = ge('depoCarouselOuter');
+  if (outer) {
+    outer.addEventListener('mouseenter', stopAuto);
+    outer.addEventListener('mouseleave', function() { if (_built) startAuto(); });
+  }
+
+  var _resizeTimer = null;
+  window.addEventListener('resize', function() {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(function() {
+      if (_built) { _page = 0; build(); }
+    }, 250);
+  });
+
+  window.depoCarousel = {
+    load: function(cardHtmlArray) {
+      _cards = cardHtmlArray;
+      var section = ge('depoSection');
+      if (!_cards.length) return;
+      if (section) section.classList.add('visible');
+      build();
+    },
+    prev: function() { if (_page > 0) { _page--; render(); startAuto(); } },
+    next: function() { if (_page < pages() - 1) { _page++; render(); startAuto(); } },
+    go: function(i) { _page = i; render(); startAuto(); }
+  };
+
+  async function fetchDepoimentos(db) {
+    try {
+      var result = await db
+        .from('clientes')
+        .select('nome, foto_perfil, categoria_cliente, depoimentos')
+        .not('depoimentos', 'is', null)
+        .order('id', { ascending: false })
+        .limit(MAX_ITEMS);
+
+      var rows = (result.data || []).filter(function(r) {
+        return r.depoimentos && String(r.depoimentos).trim().length > 0;
+      });
+
+      renderDepoimentos(rows);
+    } catch (err) {
+      console.warn('[Depoimentos] Erro ao buscar depoimentos:', err);
+    }
+  }
+
+  function renderDepoimentos(rows) {
+    if (!rows || !rows.length) return;
+    var cardHtmlArray = rows.map(buildCard);
+    depoCarousel.load(cardHtmlArray);
+  }
+
+  var _elapsed = 0;
+  function init() {
+    var db = window._db || window._dbPS;
+    if (db) {
+      fetchDepoimentos(db);
+      return;
+    }
+    _elapsed += CHECK_INT;
+    if (_elapsed < MAX_WAIT) {
+      setTimeout(init, CHECK_INT);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(init, 350); });
+  } else {
+    setTimeout(init, 350);
+  }
+
+})();
+</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -4856,185 +5201,5 @@ function baixarPDF() {
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-})();
-</script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap');
-
-  #pais-fx-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 99999;
-  }
-
-  .pais-fx-item {
-    position: absolute;
-    top: 0;
-    will-change: transform, opacity;
-    user-select: none;
-    line-height: 1;
-  }
-
-  .pais-fx-item.fx-mustache svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
-  }
-
-  .pais-fx-item.fx-icon {
-    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
-  }
-
-  @keyframes pais-fx-fall {
-    0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); }
-    25%  { transform: translate3d(var(--fx-sway), 27vh, 0) rotate(calc(var(--fx-rotate) * 0.25)); }
-    50%  { transform: translate3d(0, 54vh, 0) rotate(calc(var(--fx-rotate) * 0.5)); }
-    75%  { transform: translate3d(var(--fx-sway), 81vh, 0) rotate(calc(var(--fx-rotate) * 0.75)); }
-    100% { transform: translate3d(0, 112vh, 0) rotate(var(--fx-rotate)); }
-  }
-
-  #pais-fx-banner {
-    position: fixed;
-    top: 7%;
-    left: 50%;
-    z-index: 100000;
-    pointer-events: none;
-    opacity: 0;
-    transform: translate(-50%, -14px);
-    animation: pais-fx-banner-inout 9s ease-in-out forwards;
-  }
-
-  #pais-fx-banner span {
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: clamp(22px, 4.2vw, 42px);
-    letter-spacing: 0.5px;
-    color: #ffcf6b;
-    -webkit-text-stroke: 2px #16233a;
-    text-stroke: 2px #16233a;
-    text-shadow:
-      -2px -2px 0 #16233a,
-       2px -2px 0 #16233a,
-      -2px  2px 0 #16233a,
-       2px  2px 0 #16233a,
-       0 6px 14px rgba(0, 0, 0, 0.35);
-    white-space: nowrap;
-  }
-
-  @keyframes pais-fx-banner-inout {
-    0%   { opacity: 0; transform: translate(-50%, -14px); }
-    10%  { opacity: 1; transform: translate(-50%, 0); }
-    85%  { opacity: 1; transform: translate(-50%, 0); }
-    100% { opacity: 0; transform: translate(-50%, -14px); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    #pais-fx-container { display: none; }
-    #pais-fx-banner { animation: none; opacity: 1; transform: translate(-50%, 0); }
-  }
-</style>
-<script>
-(function () {
-  'use strict';
-
-  // Evita duplicar o efeito se o script acabar entrando 2x na página
-  if (document.getElementById('pais-fx-container') || document.getElementById('pais-fx-banner')) return;
-
-  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ============ CONFIGURAÇÕES (ajuste à vontade) ============
-  const CONFIG = {
-    maxItems: 35,             // qtde máxima de itens simultâneos na tela
-    spawnEveryMs: 400,        // intervalo entre a criação de novos itens
-    minSize: 13,              // tamanho mínimo em px
-    maxSize: 28,              // tamanho máximo em px
-    minFallSeconds: 5,        // tempo mínimo de queda (topo até o fim)
-    maxFallSeconds: 15,       // tempo máximo de queda
-    mustacheChance: 0.25,     // probabilidade de virar um bigode
-    icons: ['👔', '🍺', '⚽', '🔧', '🕶️', '🏆', '🎮', '🍕'], // demais itens do dia dos pais
-    zIndex: 99999,
-    bannerText: 'Agenda Aberta Dia dos Pais!'
-  };
-
-  const MUSTACHE_SVG =
-    '<svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">' +
-      '<path d="M50 28 Q35 10 15 18 Q5 22 10 32 Q20 40 50 32 Z" fill="#20201d"/>' +
-      '<path d="M50 28 Q65 10 85 18 Q95 22 90 32 Q80 40 50 32 Z" fill="#20201d"/>' +
-    '</svg>';
-
-  // Banner "Feliz Dia dos Pais" — aparece, fica visível um tempo e some sozinho
-  const banner = document.createElement('div');
-  banner.id = 'pais-fx-banner';
-  banner.setAttribute('aria-hidden', 'true');
-  banner.innerHTML = '<span>' + CONFIG.bannerText + '</span>';
-  document.body.appendChild(banner);
-
-  if (reduceMotion) return; // sem chuva de itens para quem prefere menos movimento
-
-  const container = document.createElement('div');
-  container.id = 'pais-fx-container';
-  container.setAttribute('aria-hidden', 'true');
-  container.style.zIndex = String(CONFIG.zIndex);
-  document.body.appendChild(container);
-
-  let activeCount = 0;
-
-  function rand(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  function spawnItem() {
-    if (activeCount >= CONFIG.maxItems) return;
-
-    const el = document.createElement('div');
-    el.className = 'pais-fx-item';
-
-    const size = rand(CONFIG.minSize, CONFIG.maxSize);
-    const roll = Math.random();
-
-    if (roll < CONFIG.mustacheChance) {
-      el.classList.add('fx-mustache');
-      el.style.width = (size * 1.8) + 'px';
-      el.style.height = size + 'px';
-      el.innerHTML = MUSTACHE_SVG;
-    } else {
-      el.classList.add('fx-icon');
-      el.style.fontSize = size + 'px';
-      el.textContent = CONFIG.icons[Math.floor(Math.random() * CONFIG.icons.length)];
-    }
-
-    const fallSeconds = rand(CONFIG.minFallSeconds, CONFIG.maxFallSeconds);
-    const sway = rand(20, 70) * (Math.random() < 0.5 ? -1 : 1);
-    const rotateDeg = rand(120, 380) * (Math.random() < 0.5 ? -1 : 1);
-    const delay = rand(0, 0.5);
-
-    el.style.left = rand(0, 100) + 'vw';
-    el.style.opacity = String(rand(0.6, 1));
-    el.style.setProperty('--fx-sway', sway + 'px');
-    el.style.setProperty('--fx-rotate', rotateDeg + 'deg');
-    el.style.animation = 'pais-fx-fall ' + fallSeconds + 's linear ' + delay + 's forwards';
-
-    el.addEventListener('animationend', () => {
-      el.remove();
-      activeCount--;
-    });
-
-    container.appendChild(el);
-    activeCount++;
-  }
-
-  let spawnTimer = setInterval(spawnItem, CONFIG.spawnEveryMs);
-
-  
-  document.addEventListener('visibilitychange', () => {
-    clearInterval(spawnTimer);
-    if (!document.hidden) {
-      spawnTimer = setInterval(spawnItem, CONFIG.spawnEveryMs);
-    }
-  });
 })();
 </script>
