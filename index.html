@@ -5203,3 +5203,177 @@ function baixarPDF() {
 
 })();
 </script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap');
+
+  #pais-fx-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 99999;
+  }
+
+  .pais-fx-item {
+    position: absolute;
+    top: 0;
+    will-change: transform, opacity;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .pais-fx-item.fx-mustache svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+  }
+
+  .pais-fx-item.fx-icon {
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+  }
+
+  @keyframes pais-fx-fall {
+    0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+    25%  { transform: translate3d(var(--fx-sway), 27vh, 0) rotate(calc(var(--fx-rotate) * 0.25)); }
+    50%  { transform: translate3d(0, 54vh, 0) rotate(calc(var(--fx-rotate) * 0.5)); }
+    75%  { transform: translate3d(var(--fx-sway), 81vh, 0) rotate(calc(var(--fx-rotate) * 0.75)); }
+    100% { transform: translate3d(0, 112vh, 0) rotate(var(--fx-rotate)); }
+  }
+
+  #pais-fx-banner {
+    position: fixed;
+    top: 7%;
+    left: 50%;
+    z-index: 100000;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -14px);
+    animation: pais-fx-banner-inout 9s ease-in-out forwards;
+  }
+
+  #pais-fx-banner span {
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 4.2vw, 42px);
+    letter-spacing: 0.5px;
+    color: #ffcf6b;
+    -webkit-text-stroke: 2px #16233a;
+    text-stroke: 2px #16233a;
+    text-shadow:
+      -2px -2px 0 #16233a,
+       2px -2px 0 #16233a,
+      -2px  2px 0 #16233a,
+       2px  2px 0 #16233a,
+       0 6px 14px rgba(0, 0, 0, 0.35);
+    white-space: nowrap;
+  }
+
+  @keyframes pais-fx-banner-inout {
+    0%   { opacity: 0; transform: translate(-50%, -14px); }
+    10%  { opacity: 1; transform: translate(-50%, 0); }
+    85%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -14px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pais-fx-container { display: none; }
+    #pais-fx-banner { animation: none; opacity: 1; transform: translate(-50%, 0); }
+  }
+</style>
+<script>
+(function () {
+  'use strict';
+
+  // Evita duplicar o efeito se o script acabar entrando 2x na página
+  if (document.getElementById('pais-fx-container') || document.getElementById('pais-fx-banner')) return;
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ============ CONFIGURAÇÕES (ajuste à vontade) ============
+  const CONFIG = {
+    totalItems: 35,          // quantidade total de itens da animação
+    minSize: 13,              // tamanho mínimo em px
+    maxSize: 28,              // tamanho máximo em px
+    minFallSeconds: 5,        // tempo mínimo de queda (topo até o fim)
+    maxFallSeconds: 15,       // tempo máximo de queda
+    mustacheChance: 0.25,     // probabilidade de virar um bigode
+    icons: ['👔', '🍺', '⚽', '🔧', '🕶️', '🏆', '🎮', '🍕'], // demais itens do dia dos pais
+    zIndex: 99999,
+    bannerText: 'Agenda Aberta Dia dos Pais!'
+  };
+
+  const MUSTACHE_SVG =
+    '<svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M50 28 Q35 10 15 18 Q5 22 10 32 Q20 40 50 32 Z" fill="#20201d"/>' +
+      '<path d="M50 28 Q65 10 85 18 Q95 22 90 32 Q80 40 50 32 Z" fill="#20201d"/>' +
+    '</svg>';
+
+  // Banner "Feliz Dia dos Pais" — aparece, fica visível um tempo e some sozinho
+  const banner = document.createElement('div');
+  banner.id = 'pais-fx-banner';
+  banner.setAttribute('aria-hidden', 'true');
+  banner.innerHTML = '<span>' + CONFIG.bannerText + '</span>';
+  document.body.appendChild(banner);
+
+  if (reduceMotion) return; // sem chuva de itens para quem prefere menos movimento
+
+  const container = document.createElement('div');
+  container.id = 'pais-fx-container';
+  container.setAttribute('aria-hidden', 'true');
+  container.style.zIndex = String(CONFIG.zIndex);
+  document.body.appendChild(container);
+
+  let activeCount = 0;
+
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function spawnItem() {
+    const el = document.createElement('div');
+    el.className = 'pais-fx-item';
+
+    const size = rand(CONFIG.minSize, CONFIG.maxSize);
+    const roll = Math.random();
+
+    if (roll < CONFIG.mustacheChance) {
+      el.classList.add('fx-mustache');
+      el.style.width = (size * 1.8) + 'px';
+      el.style.height = size + 'px';
+      el.innerHTML = MUSTACHE_SVG;
+    } else {
+      el.classList.add('fx-icon');
+      el.style.fontSize = size + 'px';
+      el.textContent = CONFIG.icons[Math.floor(Math.random() * CONFIG.icons.length)];
+    }
+
+    const fallSeconds = rand(CONFIG.minFallSeconds, CONFIG.maxFallSeconds);
+    const sway = rand(20, 70) * (Math.random() < 0.5 ? -1 : 1);
+    const rotateDeg = rand(120, 380) * (Math.random() < 0.5 ? -1 : 1);
+    const delay = rand(0, 0.5);
+
+    el.style.left = rand(0, 100) + 'vw';
+    el.style.opacity = String(rand(0.6, 1));
+    el.style.setProperty('--fx-sway', sway + 'px');
+    el.style.setProperty('--fx-rotate', rotateDeg + 'deg');
+    el.style.animation = 'pais-fx-fall ' + fallSeconds + 's linear ' + delay + 's forwards';
+
+    el.addEventListener('animationend', () => {
+      el.remove();
+      activeCount--;
+      if (activeCount === 0) {
+        setTimeout(() => container.remove(), 300);
+      }
+    });
+
+    container.appendChild(el);
+    activeCount++;
+  }
+
+  for (let i = 0; i < CONFIG.totalItems; i++) {
+    setTimeout(spawnItem, Math.random() * 2000);
+  }
+})();
+</script>
